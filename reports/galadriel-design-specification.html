@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galadriel Design Specification — Iteration 11 | Mithril Consulting</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a14; color: #e8ecf4; line-height: 1.8; padding: 2rem; }
+.container { max-width: 900px; margin: 0 auto; }
+.back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: #4a8eff; text-decoration: none; font-size: 0.85rem; font-weight: 500; margin-bottom: 2rem; padding: 0.5rem 1rem; border: 1px solid #1e2038; border-radius: 6px; transition: all 0.3s; }
+.back-link:hover { border-color: #4a8eff; background: rgba(74,142,255,0.06); }
+h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; margin-bottom: 0.5rem; }
+h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 1rem; color: #e8ecf4; border-bottom: 1px solid #1e2038; padding-bottom: 0.5rem; }
+h3 { font-size: 1.15rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #b8c4d8; }
+h4 { font-size: 1rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; }
+p { color: #8892a8; margin-bottom: 1rem; }
+strong { color: #e8ecf4; }
+em { color: #b8c4d8; }
+blockquote { border-left: 3px solid #4a8eff; padding: 0.75rem 1.25rem; margin: 1rem 0; background: rgba(74,142,255,0.05); border-radius: 0 8px 8px 0; color: #8892a8; font-size: 0.92rem; }
+ul, ol { margin: 0.75rem 0 1rem 1.5rem; color: #8892a8; }
+li { margin-bottom: 0.4rem; }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.88rem; }
+th { background: #161628; color: #4a8eff; text-align: left; padding: 0.75rem 1rem; border: 1px solid #1e2038; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; }
+td { padding: 0.65rem 1rem; border: 1px solid #1e2038; color: #8892a8; }
+tr:hover td { background: rgba(74,142,255,0.03); }
+hr { border: none; border-top: 1px solid #1e2038; margin: 2rem 0; }
+.meta { color: #585f72; font-size: 0.88rem; margin-bottom: 2rem; line-height: 1.6; }
+.divider { width: 60px; height: 3px; background: linear-gradient(90deg, #4a8eff, #7c5cff); border-radius: 2px; margin: 1.5rem 0; }
+a { color: #4a8eff; }
+code { background: #161628; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.88em; color: #b8c4d8; }
+</style>
+</head>
+<body>
+<div class="container">
+<a href="../index.html" class="back-link">&larr; Back to Portfolio</a>
+<div class="divider"></div>
+<h1>Galadriel's Design Specification — Iteration 11</h1>
+<blockquote>
+Mithril Consulting | Client: Ticketmaster<br>
+Agent: Galadriel (Lead Designer)<br>
+Slogan: <em>"See what could be."</em><br>
+Date: 14 March 2026<br>
+Note: Builds on Iteration 10 design — retains all core features, adds social layer, post-event engagement, Fair Price tooltip, confirmation screen, and enhanced search.<br>
+</blockquote>
+<hr>
+<h2>1. HANDOFF ACKNOWLEDGMENT</h2>
+<p>I have received Saruman's enhanced Research Brief, approved by Aragorn with the instruction to retain all Iteration 10 features and add: (1) a social layer, (2) post-event engagement with "Your Year in Live," (3) social privacy controls, and (4) the Fair Price Indicator tappable tooltip.</p>
+<p>Three new findings shaped my design additions:</p>
+<ol>
+<li><strong>No ticketing platform has a "Year in Live" feature</strong> — this is a first-mover opportunity with Spotify Wrapped as the proven engagement model (200M users, 500M shares, 64% retention improvement).</li>
+<li><strong>Live events are inherently social but the app is entirely solitary</strong> — every competitor has some social features; Ticketmaster has none.</li>
+<li><strong>Privacy controls must be as prominent as social features</strong> — Saruman's GDPR guidance requires granular opt-in, not default-on social sharing.</li>
+</ol>
+<hr>
+<h2>2. DESIGN VISION</h2>
+<p><strong>Retained from Iteration 10:</strong> "When a customer opens the Ticketmaster app, they should feel the same trust they feel when a knowledgeable friend recommends a show."</p>
+<p><strong>Extended for Iteration 11:</strong> "...and after the show, they should feel like part of a community that celebrates live music together."</p>
+<p>The app transforms from a transactional search tool (Iteration 1–9) through a trusted companion (Iteration 10) into a <strong>social platform for live entertainment</strong> (Iteration 11) — one that connects fans before, during, and after events.</p>
+<hr>
+<h2>3. DESIGN PRINCIPLES</h2>
+<ol>
+<li><strong>Transparency over surprise</strong> — Retained. All-in pricing from first display. (Saruman: #1 complaint, FTC imperative)</li>
+<li><strong>Calm over urgency</strong> — Retained. Reduce anxiety at every step. (Saruman: queue crashes, dynamic pricing)</li>
+<li><strong>Evidence over opinion</strong> — Retained. Every decision traces to research. (Saruman: customers distrust claims)</li>
+<li><strong>Human backup always available</strong> — Retained. ARIA always offers human escalation. (GDPR Article 22)</li>
+<li><strong>Personalisation with permission</strong> — Retained. AI transparency, user control. (EU AI Act Article 50)</li>
+<li><strong>Social by invitation, not by default</strong> — NEW. Social features are opt-in. Friend activity, attendance sharing, and group features require explicit consent. Privacy controls are as easy to find as social features. (Saruman: GDPR granular consent, data minimisation)</li>
+</ol>
+<hr>
+<h2>4. SOLUTION CONCEPTS</h2>
+<h3>Solution Concept 1: Transparent All-In Pricing (RETAINED + ENHANCED)</h3>
+<p>Unchanged from Iteration 10. All prices include all fees. Price Breakdown modal available everywhere.</p>
+<p><strong>Iteration 11 enhancement — Fair Price Indicator Tooltip:</strong></p>
+<p>When a user taps the Fair Price Indicator badge ("Great Value" / "Fair Price" / "Premium"), a tooltip overlay appears:</p>
+<ul>
+<li>"Great Value" → "This is below average for similar events. Similar seated events at this venue average €65–€85."</li>
+<li>"Fair Price" → "This is a typical price for this type of event. Similar events range €80–€120."</li>
+<li>"Premium" → "This is above average — high demand and premium seating. Standard tickets for this event start at €X."</li>
+</ul>
+<p>The tooltip closes on tap-away or a "Got it" button. It is not a modal — it is a lightweight overlay anchored to the badge.</p>
+<hr>
+<h3>Solution Concept 2: Personalised Discovery with Social Layer (ENHANCED)</h3>
+<p>Retained from Iteration 10 + new social features.</p>
+<p><strong>New social features:</strong></p>
+<ul>
+<li><strong>Friend Activity Feed:</strong> A section on the Home screen: "Friends going to events." Shows which friends (from connected contacts, with consent) are attending or interested in upcoming events. Format: "[Friend name] is going to [Event]" with event card.</li>
+<li><strong>Group Booking:</strong> From any event detail, a "Go Together" button. Opens a shareable link. Friends tap the link, select their tickets, and pay individually — but the group is linked for coordination. Group chat via ARIA for logistics.</li>
+<li><strong>Social Discovery:</strong> "Popular with your friends" recommendation section powered by social filtering — events that multiple friends are interested in surface higher.</li>
+<li><strong>Post-Purchase Sharing:</strong> After buying tickets, a prompt: "Invite friends to [Event]?" with a share link to messaging apps.</li>
+</ul>
+<p><strong>Privacy controls:</strong></p>
+<ul>
+<li>Social features require opt-in during onboarding (new onboarding screen) or in Settings → Privacy.</li>
+<li>Toggles: "Share my attendance with friends" (ON/OFF), "Show me friends' events" (ON/OFF), "Allow group invitations" (ON/OFF).</li>
+<li>Default state: OFF. Social features are invitation-based, not default-on.</li>
+<li>AI disclosure: "Friend recommendations powered by AI based on your connections and attendance. [Manage privacy]"</li>
+</ul>
+<hr>
+<h3>Solution Concept 3: ARIA — AI Assistant (RETAINED + ENHANCED)</h3>
+<p>Retained from Iteration 10: Support Mode + Queue Companion Mode + human escalation.</p>
+<p><strong>Iteration 11 enhancements:</strong></p>
+<ul>
+<li><strong>Expanded query types:</strong> Refund assistance ("I need a refund for [Event]" → ARIA checks refund policy and walks through process), event rescheduling help, accessibility queries ("Is [Venue] wheelchair accessible?"), and proactive context-based suggestions.</li>
+<li><strong>Group coordination mode:</strong> During group bookings, ARIA assists with logistics: "Your group for Oasis has 4 of 6 tickets confirmed. Want me to send a reminder to the remaining friends?"</li>
+<li><strong>Post-event mode:</strong> After an event, ARIA proactively offers: "How was Hozier last night? Rate your experience, or see similar events coming up."</li>
+</ul>
+<hr>
+<h3>Solution Concept 4: Post-Event Engagement — "Your Year in Live" (NEW)</h3>
+<p><strong>Problem (from Saruman):</strong> Zero post-event engagement. The relationship ends at the venue door. No loyalty loop.</p>
+<p><strong>Solution — three tiers of post-event engagement:</strong></p>
+<p><strong>Tier 1 — Post-Event Recap (within 24 hours of event):</strong></p>
+<p>A card appears in My Tickets → Past Events:</p>
+<ul>
+<li>Event name, date, venue</li>
+<li>"Rate your experience" (1–5 stars + optional comment)</li>
+<li>"Events like this coming up" — 2–3 AI recommendations based on the attended event</li>
+<li>"Share your experience" — shareable card for social media with event details</li>
+</ul>
+<p><strong>Tier 2 — Monthly Summary:</strong></p>
+<p>A notification/card: "Your month in live." Shows events attended that month, genres explored, and upcoming recommendations. Lightweight — not intrusive.</p>
+<p><strong>Tier 3 — "Your Year in Live" (Annual Retrospective):</strong></p>
+<p>A full-screen, swipeable experience (inspired by Spotify Wrapped) that shows:</p>
+<ul>
+<li>Total events attended</li>
+<li>Top genres and artists</li>
+<li>Favourite venue (most visited)</li>
+<li>Total hours of live entertainment</li>
+<li>"Concert companion" — friend you attended the most events with (if social features are enabled)</li>
+<li>Shareable card optimised for Instagram Stories / TikTok (vertical format, branded, visually striking)</li>
+</ul>
+<p><strong>Why this works:</strong> Spotify Wrapped 2025 reached 200M+ users in 24 hours and was shared 500M+ times. It drives both engagement and organic marketing. Ticketmaster has the richest dataset in live entertainment — who went where, when. "Your Year in Live" transforms that data from internal analytics into customer-facing engagement.</p>
+<p><strong>AI enhancement:</strong> Recommender System generates the recap and recommendations. AI disclosure: "Your recap is generated from your attendance history. [Manage your data]"</p>
+<hr>
+<h2>5. KEY SCREENS &amp; INTERACTIONS</h2>
+<h3>Retained from Iteration 10 (with enhancements noted)</h3>
+<p><strong>Screen 1: Home — Personalised Discovery Feed</strong> (ENHANCED)</p>
+<ul>
+<li>All Iteration 10 elements retained (greeting, search, AI disclosure, recommendation sections, bottom nav)</li>
+<li>NEW: "Friends going to events" section (if social features enabled) — shows 2–3 friend activity cards below recommendations</li>
+<li>NEW: "Popular with your friends" recommendation section</li>
+<li>Social section has its own AI disclosure: "Friend activity shown with their consent. [Manage privacy]"</li>
+</ul>
+<p><strong>Screen 2: Event Detail</strong> (ENHANCED)</p>
+<ul>
+<li>All Iteration 10 elements retained (hero image, all-in price, Price Breakdown, Fair Price Indicator, description, similar events)</li>
+<li>ENHANCED: Fair Price Indicator badge is now tappable → shows tooltip overlay with contextual explanation</li>
+<li>NEW: "Go Together" button alongside "Find Tickets" — opens group booking flow</li>
+<li>NEW: Social proof line: "Sarah and 12 others are going" (if friends attending, with consent)</li>
+</ul>
+<p><strong>Screen 3: Seat Selection</strong> — Retained unchanged from Iteration 10.</p>
+<p><strong>Screen 4: Queue Experience</strong> — Retained unchanged from Iteration 10.</p>
+<p><strong>Screen 5: ARIA Assistant</strong> (ENHANCED)</p>
+<ul>
+<li>Retained from Iteration 10 (chat interface, quick-action chips, AI disclosure, human escalation)</li>
+<li>NEW chips: "Refund help", "Accessibility info"</li>
+<li>Enhanced conversational depth for additional query types</li>
+</ul>
+<p><strong>Screen 6: My Tickets</strong> (ENHANCED)</p>
+<ul>
+<li>Retained: Upcoming and Past tabs, ticket QR codes, event details, countdown</li>
+<li>ENHANCED Past Events: Each past event card now shows: "Rate your experience" prompt, "Events like this" recommendations, "Share" button</li>
+<li>NEW: "Your Year in Live" card (appears in December or on-demand) — tapping opens the full retrospective experience</li>
+</ul>
+<h3>New Screens</h3>
+<p><strong>Screen 7: Confirmation / Success</strong> (NEW — addressing Iteration 10 gap)</p>
+<p><strong>Layout:</strong> Full celebration screen. Checkmark icon with confetti-style accent. Event name, date, venue, section, and all-in price confirmed. QR code preview. Three action buttons: "My Tickets" (view ticket), "Add to Calendar," "Invite Friends" (share link).</p>
+<p><strong>Interaction:</strong></p>
+<ul>
+<li>Tap "My Tickets" → navigates to My Tickets screen</li>
+<li>Tap "Add to Calendar" → shows confirmation toast</li>
+<li>Tap "Invite Friends" → opens share sheet with pre-written message: "I'm going to [Event]! Join me — [link]"</li>
+</ul>
+<p><strong>States:</strong></p>
+<ul>
+<li><strong>Default:</strong> Confirmation with all ticket details</li>
+<li><strong>Group booking:</strong> Shows group status: "3 of 5 friends have booked. [Send reminder]"</li>
+</ul>
+<p><strong>Accessibility:</strong> All confirmation details readable by screen reader. QR code has text alternative.</p>
+<hr>
+<p><strong>Screen 8: Group Booking Flow</strong> (NEW)</p>
+<p><strong>Layout:</strong> Initiated from Event Detail → "Go Together." Shows: event name, a shareable link, list of invited friends with booking status (Invited / Booked / Declined), and a group chat link via ARIA.</p>
+<p><strong>Interaction:</strong></p>
+<ul>
+<li>Tap "Share Link" → copies link or opens share sheet</li>
+<li>Tap "Chat with Group" → opens ARIA in group coordination mode</li>
+<li>See friend status update in real time (simulated in prototype)</li>
+</ul>
+<p><strong>States:</strong></p>
+<ul>
+<li><strong>Default:</strong> Link generated, no friends yet</li>
+<li><strong>In progress:</strong> 2 of 4 friends booked, others pending</li>
+<li><strong>Complete:</strong> All friends booked — "Your group is set! See you at [Event]."</li>
+</ul>
+<p><strong>Accessibility:</strong> Status updates announced to screen readers. All interactive elements meet 44×44px minimum.</p>
+<hr>
+<p><strong>Screen 9: "Your Year in Live" Retrospective</strong> (NEW)</p>
+<p><strong>Layout:</strong> Full-screen, swipeable cards (5 cards in sequence):</p>
+<ol>
+<li>"Your Year in Live 2026" — title card with user name and year</li>
+<li>"[X] events attended" — number with genre breakdown visual</li>
+<li>"Your top artist: [Name]" — with total times seen</li>
+<li>"Your favourite venue: [Name]" — with total visits</li>
+<li>"Share your year" — shareable card with summary stats + "Share to Stories" button</li>
+</ol>
+<p><strong>Interaction:</strong></p>
+<ul>
+<li>Swipe left/right between cards</li>
+<li>Tap "Share to Stories" → generates a branded vertical image optimised for Instagram Stories / TikTok</li>
+<li>Tap "Done" → returns to My Tickets</li>
+</ul>
+<p><strong>States:</strong></p>
+<ul>
+<li><strong>Default:</strong> Full retrospective loaded</li>
+<li><strong>Insufficient data:</strong> "You attended [X] events this year. Come back next year for your full Year in Live!" (if fewer than 3 events)</li>
+</ul>
+<p><strong>AI disclosure:</strong> "Your Year in Live is generated from your attendance history. [Manage your data]"</p>
+<p><strong>Accessibility:</strong> Swipeable cards have alternative navigation (next/previous buttons). All statistics available as text.</p>
+<hr>
+<p><strong>Screen 10: Onboarding</strong> (ENHANCED — 4 screens, was 3)</p>
+<ul>
+<li><strong>Screen 10a — Welcome:</strong> Retained from Iteration 10</li>
+<li><strong>Screen 10b — Personalisation Setup:</strong> Retained (genre selection)</li>
+<li><strong>Screen 10c — Social Features:</strong> NEW. "Connect with friends. See events friends are going to, coordinate group bookings, and share your experiences. All social features are opt-in — you control what's shared."</li>
+</ul>
+<p>Toggles: Share my attendance / Show friends' events / Allow group invitations. Default: OFF.</p>
+<p>AI disclosure: "Social features use AI to match events with friend activity. [Learn more]"</p>
+<ul>
+<li><strong>Screen 10d — Trust Promise:</strong> Retained from Iteration 10 (all-in pricing, ARIA, data control)</li>
+</ul>
+<hr>
+<h2>6. AI FEATURE SPECIFICATIONS</h2>
+<h3>Retained from Iteration 10</h3>
+<ol>
+<li><strong>Personalised Recommendation Engine</strong> (Recommender System) — unchanged</li>
+<li><strong>Fair Price Indicator</strong> (Intelligent Agent) — enhanced with tappable tooltip</li>
+<li><strong>ARIA</strong> (Chatbot/Intelligent Agent hybrid) — enhanced with expanded query types and group coordination</li>
+</ol>
+<h3>New AI Feature</h3>
+<p><strong>4. Social Discovery &amp; "Your Year in Live" Engine</strong></p>
+<p><strong>What it does for the user:</strong> Surfaces events friends are attending, generates "Popular with your friends" recommendations, creates post-event recaps, and produces the annual "Your Year in Live" retrospective.</p>
+<p><strong>AI system type:</strong> Recommender System — uses social filtering (friend connections + attendance data) alongside the existing collaborative and content-based filtering.</p>
+<p><strong>Data needed:</strong> User attendance history, friend connections (opted-in only), friend attendance (opted-in only), event metadata (genre, artist, venue).</p>
+<p><strong>What it shows the user:</strong> Friend activity cards, social recommendations with explanations ("Popular with your friends"), post-event recaps, and annual retrospective. All with AI disclosure.</p>
+<p><strong>When it fails or is unavailable:</strong> Social sections hidden if user hasn't opted in or has no connected friends. Retrospective shows minimum viable version if insufficient data.</p>
+<p><strong>Privacy:</strong> All social data processing requires explicit opt-in. Friend data is never used without both parties' consent. Users can delete all social data at any time.</p>
+<hr>
+<h2>7. ACCESSIBILITY REQUIREMENTS</h2>
+<p>Retained from Iteration 10 (all requirements still apply) plus:</p>
+<ul>
+<li><strong>Swipeable "Year in Live" cards</strong> have next/previous button alternatives for users who cannot swipe</li>
+<li><strong>Social activity updates</strong> use ARIA live regions so screen readers announce friend booking confirmations</li>
+<li><strong>Group booking status</strong> is available as structured text, not just visual indicators</li>
+<li><strong>Social toggle controls</strong> in onboarding and Settings are clearly labelled and keyboard-accessible</li>
+</ul>
+<hr>
+<h2>8. NOTES FOR GIMLI</h2>
+<h3>Non-Negotiable (do not change):</h3>
+<ul>
+<li>All Iteration 10 non-negotiables remain: all-in pricing, AI disclosures, ARIA human escalation, queue price guarantee, phone frame spec</li>
+<li><strong>Fair Price Indicator tooltip</strong> — must be tappable with contextual explanation text</li>
+<li><strong>Confirmation screen</strong> — must exist as a proper screen (not a toast/alert)</li>
+<li><strong>Social features default to OFF</strong> — opt-in only, never default-on</li>
+<li><strong>AI disclosure on all social/friend features</strong> — users must know when AI is using social data</li>
+</ul>
+<h3>Flexible Areas:</h3>
+<ul>
+<li><strong>"Your Year in Live" depth</strong> — can be simplified to 3 cards instead of 5 if build time is constrained. The shareable card is the priority.</li>
+<li><strong>Group booking real-time updates</strong> — can be simulated with pre-set states rather than live WebSocket updates</li>
+<li><strong>Monthly summary</strong> — can be deferred if post-event recap + annual retrospective are built. The immediate post-event recap is the priority.</li>
+<li><strong>ARIA group coordination</strong> — can be simplified to pre-scripted responses for group scenarios</li>
+<li><strong>Social proof ("Sarah and 12 others are going")</strong> — can use pre-set data rather than live friend matching</li>
+</ul>
+<h3>Presentation Notes (from client feedback):</h3>
+<ul>
+<li><strong>Use real images</strong> (Unsplash) for event cards — no emoji placeholders</li>
+<li><strong>Include an info panel</strong> beside the phone frame with journey guides and feature descriptions (see example prototype for reference)</li>
+<li><strong>Make customer journeys clearly accessible</strong> — the demo must have clear entry points for each journey</li>
+</ul>
+<hr>
+<p>Agent: Galadriel (Designer)</p>
+<p>Passing to: Aragorn (Managing Consultant) for quality review</p>
+<p>Summary: I have designed an enhanced specification building on Iteration 10's core (all-in pricing, ARIA, queue transparency) with four major additions: a social layer (friend activity, group booking, social discovery), post-event engagement ("Your Year in Live" retrospective, post-event recaps), the Fair Price Indicator tappable tooltip, and a proper confirmation screen. The design now covers 10 screens with 4 AI features. Social features default to OFF with granular privacy controls.</p>
+<p>Design priorities for Gimli:</p>
+<ol>
+<li>All-in pricing with Fair Price Indicator tooltip (non-negotiable)</li>
+<li>Confirmation screen (was missing in Iteration 10)</li>
+<li>Post-event recap cards in My Tickets</li>
+<li>"Your Year in Live" retrospective (shareable card is priority)</li>
+<li>Friend activity + group booking flow</li>
+<li>ARIA expanded query types</li>
+<li>Enhanced onboarding (4 screens with social opt-in)</li>
+</ol>
+<p>Non-negotiable decisions: All-in pricing, AI disclosures, ARIA human escalation, queue price guarantee, social features default OFF, Fair Price tooltip, confirmation screen exists, real images not emojis, info panel beside phone frame</p>
+<p>Flexible areas: Year in Live card count, group booking real-time updates, monthly summary, ARIA group depth, social proof data</p>
+</div>
+</body>
+</html>

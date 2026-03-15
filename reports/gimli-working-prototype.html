@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gimli Working Prototype — Iteration 11 | Mithril Consulting</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a14; color: #e8ecf4; line-height: 1.8; padding: 2rem; }
+.container { max-width: 900px; margin: 0 auto; }
+.back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: #4a8eff; text-decoration: none; font-size: 0.85rem; font-weight: 500; margin-bottom: 2rem; padding: 0.5rem 1rem; border: 1px solid #1e2038; border-radius: 6px; transition: all 0.3s; }
+.back-link:hover { border-color: #4a8eff; background: rgba(74,142,255,0.06); }
+h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; margin-bottom: 0.5rem; }
+h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 1rem; color: #e8ecf4; border-bottom: 1px solid #1e2038; padding-bottom: 0.5rem; }
+h3 { font-size: 1.15rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #b8c4d8; }
+h4 { font-size: 1rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; }
+p { color: #8892a8; margin-bottom: 1rem; }
+strong { color: #e8ecf4; }
+em { color: #b8c4d8; }
+blockquote { border-left: 3px solid #4a8eff; padding: 0.75rem 1.25rem; margin: 1rem 0; background: rgba(74,142,255,0.05); border-radius: 0 8px 8px 0; color: #8892a8; font-size: 0.92rem; }
+ul, ol { margin: 0.75rem 0 1rem 1.5rem; color: #8892a8; }
+li { margin-bottom: 0.4rem; }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.88rem; }
+th { background: #161628; color: #4a8eff; text-align: left; padding: 0.75rem 1rem; border: 1px solid #1e2038; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; }
+td { padding: 0.65rem 1rem; border: 1px solid #1e2038; color: #8892a8; }
+tr:hover td { background: rgba(74,142,255,0.03); }
+hr { border: none; border-top: 1px solid #1e2038; margin: 2rem 0; }
+.meta { color: #585f72; font-size: 0.88rem; margin-bottom: 2rem; line-height: 1.6; }
+.divider { width: 60px; height: 3px; background: linear-gradient(90deg, #4a8eff, #7c5cff); border-radius: 2px; margin: 1.5rem 0; }
+a { color: #4a8eff; }
+code { background: #161628; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.88em; color: #b8c4d8; }
+</style>
+</head>
+<body>
+<div class="container">
+<a href="../index.html" class="back-link">&larr; Back to Portfolio</a>
+<div class="divider"></div>
+<h1>Gimli's Working Prototype — Iteration 11</h1>
+<blockquote>
+Mithril Consulting | Client: Ticketmaster<br>
+Agent: Gimli (Lead Builder)<br>
+Slogan: <em>"If it doesn't work, it isn't finished."</em><br>
+Date: 14 March 2026<br>
+Note: Builds on Iteration 10 prototype — adds social layer, post-event engagement, Fair Price tooltip, confirmation screen, info panel, real images, and clear journey navigation.<br>
+</blockquote>
+<hr>
+<h2>1. HANDOFF ACKNOWLEDGMENT</h2>
+<p>I received Galadriel's enhanced Design Specification, approved by Aragorn with the instruction: <em>"Build the core purchase journey first, then layer social and post-event features."</em></p>
+<p>Galadriel gave me 10 screen designs, 4 AI features, and presentation requirements from client feedback. What shaped my build most:</p>
+<ol>
+<li><strong>Presentation overhaul</strong> — info panel beside the phone frame (like the example prototype), Unsplash images for events (no emoji placeholders), and clear journey entry points. This changes the entire demo experience.</li>
+<li><strong>Fair Price Indicator tooltip</strong> — the tappable explanation that was missing in Iteration 10. Now implemented as a lightweight overlay anchored to the badge.</li>
+<li><strong>Confirmation screen</strong> — a proper celebration screen with ticket details, QR code, and "Invite Friends" action. Fills the Iteration 10 gap.</li>
+<li><strong>Post-event engagement</strong> — post-event recap cards in My Tickets and "Your Year in Live" retrospective with shareable cards.</li>
+<li><strong>Social features</strong> — friend activity, group booking, social discovery — all defaulting to OFF with privacy controls.</li>
+</ol>
+<p><strong>Design gaps I resolved:</strong></p>
+<ul>
+<li>Galadriel specified 5 swipeable cards for "Your Year in Live." I built 4 cards (combining some stats) to keep the prototype focused — within her flexible area.</li>
+<li>Monthly summary was marked as deferrable. I deferred it to focus on post-event recap + annual retrospective.</li>
+<li>Group booking real-time updates are simulated with pre-set states (per Galadriel's flexible area).</li>
+</ul>
+<hr>
+<h2>2. WHAT WAS BUILT</h2>
+<h3>Key Screens and Flows</h3>
+<p>The prototype contains <strong>10 fully interactive screens</strong> across <strong>3 complete customer journeys</strong> + bonus demo features:</p>
+<ol>
+<li><strong>Home Screen</strong> — Personalised discovery feed with AI recommendations, friend activity section ("Friends going to events"), social discovery ("Popular with friends"), Unsplash event images, and AI disclosures.</li>
+<li><strong>Event Detail</strong> — Hero image (Unsplash), all-in pricing, tappable Fair Price Indicator with tooltip overlay, Price Breakdown modal, "Find Tickets" and "Go Together" buttons, social proof ("Sarah and 3 friends are going").</li>
+<li><strong>Seat Selection</strong> — Section-based selection with all-in prices, list view, checkout button.</li>
+<li><strong>Queue Experience</strong> — Queue position, wait time, progress bar, price guarantee badge, push notification opt-in, ARIA chat access, "Skip Queue for Demo" button.</li>
+<li><strong>Payment</strong> — Payment form with order summary showing all-in total.</li>
+<li><strong>Confirmation</strong> — Celebration screen with ticket details, QR code, "My Tickets," "Add to Calendar," and "Invite Friends" buttons.</li>
+<li><strong>ARIA Assistant</strong> — Chat interface with expanded quick-action chips (Order Status, Transfer Ticket, Account Help, Refund Help, Accessibility Info, Talk to Human), conversational AI responses, human escalation flow.</li>
+<li><strong>My Tickets</strong> — Upcoming and Past tabs. Upcoming: ticket QR codes, countdown, event details. Past: post-event recap cards with "Rate" and "See Similar" actions. "Your Year in Live" entry card.</li>
+<li><strong>"Your Year in Live"</strong> — Full-screen swipeable retrospective: title card → events attended → top artist → favourite venue → shareable summary card.</li>
+<li><strong>Onboarding</strong> — Four-screen flow: Welcome → Genre Selection → Social Features (privacy toggles, default OFF) → Trust Promise.</li>
+</ol>
+<h3>AI Features</h3>
+<ol>
+<li><strong>Personalised Recommendation Engine</strong> (Recommender System) — personalised event cards with explanations and AI disclosure.</li>
+<li><strong>Fair Price Indicator</strong> (Intelligent Agent) — badges with tappable tooltip explanations.</li>
+<li><strong>ARIA</strong> (Chatbot/Intelligent Agent hybrid) — expanded to 6 query types + human escalation + group coordination.</li>
+<li><strong>Social Discovery &amp; "Your Year in Live" Engine</strong> (Recommender System) — friend activity, social recommendations, post-event recaps, annual retrospective.</li>
+</ol>
+<h3>Presentation Improvements (Client Feedback)</h3>
+<ul>
+<li><strong>Info panel</strong> beside the phone frame with: prototype title, feature tags, journey guides, and demo instructions</li>
+<li><strong>Unsplash images</strong> for all event cards and hero images — professional concert/venue photography</li>
+<li><strong>Clear journey navigation</strong> — 3 labelled journey buttons in the info panel: "Discovery to Purchase," "Queue Experience," "ARIA Support"</li>
+<li><strong>Phone frame</strong> properly sized and positioned with the info panel sticky on the left</li>
+</ul>
+<hr>
+<h2>3. HOW TO DEMO IT</h2>
+<p>Open the HTML file in any modern browser. The prototype displays with an <strong>info panel on the left</strong> and a <strong>phone frame on the right</strong>.</p>
+<h3>Demo Journey 1: Discovery to Purchase</h3>
+<ol>
+<li><strong>Start at Home Screen.</strong> Show the personalised greeting, AI-powered recommendations with real concert images, and the AI disclosure banner. Point out the "Friends going to events" section and "Popular with friends."</li>
+<li><strong>Tap "Taylor Swift — The Eras Tour" event card.</strong> Event Detail screen loads with a concert image, all-in pricing (€89.50), and the Fair Price Indicator badge.</li>
+<li><strong>Tap the Fair Price Indicator badge.</strong> A tooltip overlay appears: "Great value — similar events at this venue average €100–€130." This is the trust-building moment.</li>
+<li><strong>Tap "Price Breakdown."</strong> Modal shows transparent fee breakdown.</li>
+<li><strong>Tap "Find Tickets."</strong> Seat Selection screen with sections and all-in prices.</li>
+<li><strong>Select a section, tap "Checkout."</strong> Payment screen with all-in total.</li>
+<li><strong>Tap "Pay."</strong> The <strong>Confirmation screen</strong> celebrates: "You're going!" with ticket details, QR code, and "Invite Friends" button.</li>
+</ol>
+<h3>Demo Journey 2: Queue Experience (High-Demand)</h3>
+<ol>
+<li><strong>From Home, tap "Oasis — Croke Park."</strong> This high-demand event triggers the Queue Experience.</li>
+<li><strong>Queue screen shows:</strong> Position #4,521, estimated wait 12 minutes, price guarantee badge.</li>
+<li><strong>Tap "Notify Me"</strong> — push notification opt-in.</li>
+<li><strong>Tap "Skip Queue for Demo"</strong> — transitions to "It's Your Turn!" screen with direct link to seat selection.</li>
+</ol>
+<h3>Demo Journey 3: ARIA Support</h3>
+<ol>
+<li><strong>Tap the ARIA tab</strong> in bottom navigation.</li>
+<li><strong>Note the AI disclosure.</strong> Tap quick-action chips: "Order Status," "Refund Help," "Accessibility Info," "Talk to a Human."</li>
+<li><strong>Observe human escalation</strong> — ARIA transfers to a named human agent with full conversation context.</li>
+</ol>
+<h3>Bonus: Post-Event Engagement</h3>
+<ol>
+<li><strong>Tap "My Tickets"</strong> → switch to "Past" tab.</li>
+<li><strong>See post-event recap cards</strong> with "Rate" and "See Similar Events" prompts.</li>
+<li><strong>Tap "Your Year in Live"</strong> to open the full retrospective experience.</li>
+<li><strong>Swipe through cards</strong> showing events attended, top artist, favourite venue, and shareable summary.</li>
+</ol>
+<h3>Bonus: Onboarding</h3>
+<ul>
+<li><strong>Tap "Profile" → "Restart Onboarding"</strong> to see the 4-screen flow including the new Social Features opt-in screen.</li>
+</ul>
+<hr>
+<h2>4. BUILD MANIFEST</h2>
+<h3>BUILT TO SPEC ✅</h3>
+<ul>
+<li>All-in pricing on every screen (non-negotiable)</li>
+<li>Fair Price Indicator with tappable tooltip overlay (NEW — Iteration 10 gap fixed)</li>
+<li>Price Breakdown modal with transparent fee display</li>
+<li>EU AI Act Article 50 disclosures on all AI features</li>
+<li>ARIA assistant with 6 query types + human escalation</li>
+<li>Queue experience with price guarantee, position display, push notification opt-in</li>
+<li>Confirmation screen with ticket details, QR code, and "Invite Friends" (NEW — Iteration 10 gap fixed)</li>
+<li>Post-event recap cards in My Tickets → Past tab (NEW)</li>
+<li>"Your Year in Live" retrospective with 4 swipeable cards + shareable summary (NEW)</li>
+<li>Friend activity section on Home screen (NEW)</li>
+<li>Social features default OFF with privacy toggles in onboarding (NEW)</li>
+<li>Onboarding flow expanded to 4 screens with social opt-in (NEW)</li>
+<li>Info panel beside phone frame with journey guides and feature tags (NEW — client feedback)</li>
+<li>Unsplash images for all events (NEW — client feedback)</li>
+<li>3 clearly labelled journey buttons in info panel (NEW — client feedback)</li>
+<li>Bottom navigation with 5 tabs</li>
+<li>Phone frame at 393×852px with 375px inner viewport</li>
+<li>Minimum 44×44px touch targets on all interactive elements</li>
+</ul>
+<h3>SIMPLIFIED ⚠️</h3>
+<ul>
+<li><strong>"Your Year in Live"</strong> — 4 cards instead of Galadriel's specified 5 (combined venue/genre into one card). Shareable card built as specified.</li>
+<li><strong>Seat map</strong> — section-based selection (per Galadriel's flexible area)</li>
+<li><strong>ARIA responses</strong> — pattern-matched for demo scenarios (per Galadriel's flexible area)</li>
+<li><strong>Personalisation engine</strong> — pre-determined recommendations</li>
+<li><strong>Fair Price Indicator</strong> — pre-set values per event</li>
+<li><strong>Group booking</strong> — simulated with pre-set friend states (per Galadriel's flexible area)</li>
+<li><strong>Friend activity</strong> — pre-set data showing simulated friend attendance</li>
+<li><strong>Social proof</strong> — pre-set numbers ("Sarah and 3 friends are going")</li>
+</ul>
+<h3>DEFERRED ❌</h3>
+<ul>
+<li><strong>Monthly summary</strong> — deferred per Galadriel's guidance. Post-event recap + annual retrospective are built.</li>
+<li><strong>Actual payment processing</strong> — simulated flow</li>
+<li><strong>Push notifications</strong> — opt-in UI built, delivery requires native mobile</li>
+<li><strong>Real-time queue</strong> — simulated with demo skip button</li>
+<li><strong>Real social graph</strong> — friend data is simulated; production requires contacts API integration</li>
+<li><strong>Shareable image generation</strong> — "Share to Stories" button is functional UI but actual image export requires canvas/server-side rendering</li>
+<li><strong>Full accessibility testing</strong> — semantic HTML and ARIA labels implemented but not tested on real devices</li>
+</ul>
+<hr>
+<h2>5. KNOWN LIMITATIONS</h2>
+<ol>
+<li><strong>All AI features are simulated.</strong> Recommendations, Fair Price Indicator, ARIA, and social discovery use pre-scripted responses and pre-set data.</li>
+<li><strong>Social features use simulated friend data.</strong> The friend activity, group booking, and "Popular with friends" sections display pre-set data. Production implementation requires contacts API integration and mutual consent verification.</li>
+<li><strong>"Your Year in Live" shareable card is visual only.</strong> The "Share to Stories" button shows the card but does not generate a downloadable image. Production implementation requires HTML canvas or server-side image rendering.</li>
+<li><strong>Queue progression is demo-controlled.</strong> "Skip Queue for Demo" button simulates the transition.</li>
+<li><strong>Single HTML file with no backend.</strong> Data does not persist between sessions.</li>
+<li><strong>Lucide Icons CDN dependency.</strong> Icons load from unpkg.com/lucide@latest with text fallbacks.</li>
+</ol>
+<hr>
+<p>Agent: Gimli (Builder)</p>
+<p>Passing to: Aragorn (Managing Consultant) for quality review</p>
+<p>What was built: A fully interactive HTML prototype with 10 screens across 3 customer journeys plus bonus post-event and onboarding flows. Builds on Iteration 10 with: info panel + real images (client feedback), Fair Price tooltip (Iteration 10 gap fixed), confirmation screen (gap fixed), post-event recap cards, "Your Year in Live" retrospective, friend activity + group booking, expanded ARIA (6 query types), and social privacy controls.</p>
+<p>Key flows a reviewer can test:</p>
+<ol>
+<li>Home → Event Detail (with Fair Price tooltip) → Seat Selection → Payment → Confirmation (with Invite Friends)</li>
+<li>Home → High-Demand Event → Queue → Skip Queue → Seat Selection</li>
+<li>ARIA tab → Order Status / Refund Help / Accessibility Info / Talk to Human</li>
+<li>My Tickets → Past → Post-event recap → Rate → See Similar Events</li>
+<li>My Tickets → Your Year in Live → Swipe through cards → Share</li>
+<li>Onboarding → Social Features opt-in (via Profile → Restart Onboarding)</li>
+</ol>
+<p>Build Manifest summary: 17 built to spec, 8 simplified, 7 deferred</p>
+<p>What Pippin should highlight: Fair Price tooltip (trust through transparency), "Your Year in Live" (engagement innovation), friend activity + group booking (social layer), confirmation screen "Invite Friends" (social + celebration), post-event recaps (loyalty loop)</p>
+<p>What Pippin should avoid or caveat: Social features use simulated friend data, "Share to Stories" is visual-only, monthly summary is deferred, group booking has pre-set states</p>
+</div>
+</body>
+</html>

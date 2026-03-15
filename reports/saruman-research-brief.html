@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saruman Research Brief — Iteration 11 | Mithril Consulting</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a14; color: #e8ecf4; line-height: 1.8; padding: 2rem; }
+.container { max-width: 900px; margin: 0 auto; }
+.back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: #4a8eff; text-decoration: none; font-size: 0.85rem; font-weight: 500; margin-bottom: 2rem; padding: 0.5rem 1rem; border: 1px solid #1e2038; border-radius: 6px; transition: all 0.3s; }
+.back-link:hover { border-color: #4a8eff; background: rgba(74,142,255,0.06); }
+h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; margin-bottom: 0.5rem; }
+h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 1rem; color: #e8ecf4; border-bottom: 1px solid #1e2038; padding-bottom: 0.5rem; }
+h3 { font-size: 1.15rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #b8c4d8; }
+h4 { font-size: 1rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; }
+p { color: #8892a8; margin-bottom: 1rem; }
+strong { color: #e8ecf4; }
+em { color: #b8c4d8; }
+blockquote { border-left: 3px solid #4a8eff; padding: 0.75rem 1.25rem; margin: 1rem 0; background: rgba(74,142,255,0.05); border-radius: 0 8px 8px 0; color: #8892a8; font-size: 0.92rem; }
+ul, ol { margin: 0.75rem 0 1rem 1.5rem; color: #8892a8; }
+li { margin-bottom: 0.4rem; }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.88rem; }
+th { background: #161628; color: #4a8eff; text-align: left; padding: 0.75rem 1rem; border: 1px solid #1e2038; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; }
+td { padding: 0.65rem 1rem; border: 1px solid #1e2038; color: #8892a8; }
+tr:hover td { background: rgba(74,142,255,0.03); }
+hr { border: none; border-top: 1px solid #1e2038; margin: 2rem 0; }
+.meta { color: #585f72; font-size: 0.88rem; margin-bottom: 2rem; line-height: 1.6; }
+.divider { width: 60px; height: 3px; background: linear-gradient(90deg, #4a8eff, #7c5cff); border-radius: 2px; margin: 1.5rem 0; }
+a { color: #4a8eff; }
+code { background: #161628; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.88em; color: #b8c4d8; }
+</style>
+</head>
+<body>
+<div class="container">
+<a href="../index.html" class="back-link">&larr; Back to Portfolio</a>
+<div class="divider"></div>
+<h1>Saruman's Research Brief — Iteration 11</h1>
+<blockquote>
+Mithril Consulting | Client: Ticketmaster<br>
+Agent: Saruman (Lead Researcher)<br>
+Slogan: <em>"Insight before invention."</em><br>
+Date: 14 March 2026<br>
+Note: This brief builds on Iteration 10 findings, deepening analysis in areas Aragorn identified as gaps — social media engagement, post-event loyalty, friend/social features, the App Store rating discrepancy, and data privacy practices.<br>
+</blockquote>
+<hr>
+<h2>1. EXECUTIVE SUMMARY</h2>
+<ul>
+<li><strong>Ticketmaster's trust crisis remains the central problem</strong>, driven by hidden fees (FTC lawsuit, September 2025), queue failures, and inaccessible support. Iteration 10 established this evidence base thoroughly. This brief extends the analysis into three areas Aragorn identified as underdeveloped.</li>
+</ul>
+<ul>
+<li><strong>Social media is Ticketmaster's strongest untapped engagement channel.</strong> The TikTok–Ticketmaster partnership (expanded to 20+ countries) enables in-app ticket purchasing, and 71% of TikTok viewers are motivated to buy when content feels authentic. Yet Ticketmaster's social strategy is purely transactional — it drives sales, not community or trust-rebuilding. The app itself has no social layer.</li>
+</ul>
+<ul>
+<li><strong>Post-event engagement is a massive missed opportunity.</strong> Spotify Wrapped 2025 reached 200M+ engaged users in 24 hours and was shared 500M+ times. Companies using year-end retrospectives report 64% improvement in customer retention. Ticketmaster has zero equivalent — the relationship ends at the venue door.</li>
+</ul>
+<ul>
+<li><strong>The App Store rating discrepancy reveals a dangerous gap.</strong> Ticketmaster holds 4.8 stars on the iOS App Store but 1.6 stars on PissedConsumer (23,900+ reviews) and 1.4 stars on SmartCustomer (458 reviews). This gap — discussed on Hacker News as possible review manipulation — means Ticketmaster's internal perception of customer satisfaction may be dangerously detached from reality.</li>
+</ul>
+<ul>
+<li><strong>Friend and social features are now table stakes in event ticketing.</strong> Eventbrite, Showpass, and DICE all incorporate social discovery, group booking, and friend activity. Platforms treating events as social experiences — not individual transactions — capture loyalty that transcends single events. Ticketmaster's app is entirely solitary.</li>
+</ul>
+<hr>
+<h2>2. PROBLEM ANALYSIS</h2>
+<h3>Retained from Iteration 10 (unchanged — validated by pipeline)</h3>
+<p>The six core pain points identified in Iteration 10 remain validated:</p>
+<table><thead><tr>
+<th>#</th>
+<th>Problem</th>
+<th>Severity</th>
+<th>Status</th>
+</tr></thead><tbody>
+<tr>
+<td>1</td>
+<td>Hidden/excessive fees</td>
+<td>HIGH</td>
+<td>Confirmed — FTC lawsuit active</td>
+</tr>
+<tr>
+<td>2</td>
+<td>System failures during high-demand sales</td>
+<td>HIGH</td>
+<td>Confirmed — queue crashes ongoing</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Inaccessible customer service</td>
+<td>HIGH</td>
+<td>Confirmed — chatbot dead ends</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Broken account/ticket transfer flows</td>
+<td>MEDIUM-HIGH</td>
+<td>Confirmed</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Dynamic pricing eroding trust</td>
+<td>HIGH</td>
+<td>Confirmed — DOJ settlement</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Scalping and resale manipulation</td>
+<td>MEDIUM</td>
+<td>Confirmed — FTC findings</td>
+</tr>
+</tbody></table>
+<h3>NEW — Problem 7: No Social Layer in the App</h3>
+<p><strong>Severity: MEDIUM-HIGH | Frequency: Persistent (affects every user, every session)</strong></p>
+<p><strong>What customers experience:</strong> The Ticketmaster app is entirely solitary. A customer cannot see if friends are attending an event, cannot discover events through social activity, cannot coordinate group bookings, and has no way to share their event experience within the app. Every interaction is individual and transactional.</p>
+<p><strong>Evidence:</strong></p>
+<ul>
+<li>Competitors have moved ahead: Eventbrite offers social sharing, event reminders, and friend invitations. Showpass integrates with Facebook Events. DICE's discovery UX includes trending and friend-recommended events.</li>
+<li>Industry analysis (2025–2026): "Platforms treating events as social experiences rather than individual purchases capture loyalty that transcends single transactions."</li>
+<li>Live events are inherently social — attending a concert alone is the exception, not the rule. Yet the booking process treats every customer as an isolated individual.</li>
+</ul>
+<p><strong>Root cause:</strong> Ticketmaster's app was built as a commerce platform (search → buy → attend), not an engagement platform. Social features were never part of the core product design because the business model depends on transactions, not relationships.</p>
+<hr>
+<h3>NEW — Problem 8: Zero Post-Event Engagement</h3>
+<p><strong>Severity: MEDIUM | Frequency: After every event (100% of attendees affected)</strong></p>
+<p><strong>What customers experience:</strong> After attending an event, the app offers nothing. No recap, no recommendations based on the experience, no way to share memories, no prompt to explore similar events. The customer relationship ends at the venue door and only resumes when the customer actively searches for their next ticket.</p>
+<p><strong>Evidence:</strong></p>
+<ul>
+<li>Spotify Wrapped 2025 reached 200M+ engaged users in 24 hours (19% year-on-year increase) and was shared 500M+ times (41% year-on-year increase). Companies using year-end retrospectives report 64% improvement in customer retention rates (VERIFIED — Hightouch/industry analysis, 2025).</li>
+<li>Apple Music's "Replay" and Tidal's "My Rewind" demonstrate that personalized year-in-review features are now standard in music-adjacent platforms.</li>
+<li>Ticketmaster has no equivalent. No "your year in events." No post-event recommendations. No community features. The richest dataset in live entertainment — who went where, when, with whom — is completely unmonetised for customer engagement.</li>
+</ul>
+<p><strong>Root cause:</strong> Ticketmaster's business model focuses on the purchase moment, not the relationship lifecycle. Post-event engagement was never prioritised because it doesn't directly generate transaction fees.</p>
+<hr>
+<h3>NEW — Problem 9: App Store Rating Discrepancy</h3>
+<p><strong>Severity: MEDIUM | Strategic importance: HIGH</strong></p>
+<p><strong>The discrepancy:</strong></p>
+<table><thead><tr>
+<th>Platform</th>
+<th>Rating</th>
+<th>Reviews</th>
+</tr></thead><tbody>
+<tr>
+<td>iOS App Store</td>
+<td>4.8 / 5</td>
+<td>High volume</td>
+</tr>
+<tr>
+<td>PissedConsumer</td>
+<td>1.6 / 5</td>
+<td>23,900+ reviews</td>
+</tr>
+<tr>
+<td>SmartCustomer</td>
+<td>1.4 / 5</td>
+<td>458 reviews</td>
+</tr>
+<tr>
+<td>ComplaintsBoard</td>
+<td>1.4 / 5</td>
+<td>331 complaints</td>
+</tr>
+</tbody></table>
+<p><strong>Why this matters:</strong> If Ticketmaster's leadership relies on the App Store rating as a measure of customer satisfaction, they are operating on fundamentally misleading data. The gap between 4.8 and 1.4–1.6 is not a normal variance — it suggests a structural difference in who reviews where.</p>
+<p><strong>Possible explanations (INFERENCE — not verified):</strong></p>
+<ol>
+<li><strong>Selection bias:</strong> The App Store prompts for ratings after successful transactions (when customers are happy). Complaint platforms self-select for frustrated customers.</li>
+<li><strong>Rating prompt timing:</strong> Apple's SKStoreReviewController API allows apps to prompt for ratings at strategic moments. If Ticketmaster prompts after successful ticket receipt (not after a queue crash or fee surprise), the rating is biased toward positive experiences.</li>
+<li><strong>Review volume dilution:</strong> Millions of successful transactions dilute negative reviews on the App Store, while complaint platforms concentrate dissatisfaction.</li>
+<li><strong>The Hacker News question:</strong> Users on Hacker News have openly questioned whether Ticketmaster games the App Store rating system. No evidence of manipulation was found, but the discrepancy is notable enough to warrant investigation.</li>
+</ol>
+<p><strong>Implication for Galadriel:</strong> Do not design based on the App Store rating. Design based on the complaint data — that is where the real customer experience is documented.</p>
+<hr>
+<h2>3. CUSTOMER IMPACT</h2>
+<h3>Updated Customer Journey Failure Map</h3>
+<table><thead><tr>
+<th>Journey Stage</th>
+<th>Iteration 10 Finding</th>
+<th>New Iteration 11 Finding</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Discover</strong></td>
+<td>Generic browsing, no personalisation</td>
+<td><strong>No social discovery</strong> — cannot see friend activity, trending among contacts, or group-popular events</td>
+</tr>
+<tr>
+<td><strong>Browse</strong></td>
+<td>Prices shown without fees</td>
+<td>Unchanged — addressed by all-in pricing</td>
+</tr>
+<tr>
+<td><strong>Purchase</strong></td>
+<td>Queue crashes, dynamic pricing, fee reveals</td>
+<td>Unchanged — addressed by queue transparency + pricing</td>
+</tr>
+<tr>
+<td><strong>Pre-event</strong></td>
+<td>Tickets may not appear, transfer issues</td>
+<td><strong>No group coordination</strong> — cannot easily share tickets, plan together, or coordinate attendance</td>
+</tr>
+<tr>
+<td><strong>Attend</strong></td>
+<td>Mobile ticket access issues</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td><strong>Post-event</strong></td>
+<td>No engagement at all</td>
+<td><strong>Complete void</strong> — no recap, no recommendations, no community, no loyalty loop. This is the single largest missed engagement opportunity.</td>
+</tr>
+</tbody></table>
+<h3>The Post-Event Void — What It Costs</h3>
+<p>The post-event moment is when emotional connection to live entertainment is highest. A customer who just experienced an incredible concert is primed to:</p>
+<ul>
+<li>Explore similar events immediately</li>
+<li>Share the experience with friends</li>
+<li>Relive the memory (setlists, photos, venue memories)</li>
+<li>Be receptive to personalised recommendations</li>
+</ul>
+<p>Ticketmaster captures none of this. The customer closes the app and doesn't return until they actively decide to search for another event — which may be weeks or months later. Every day between events is a day of potential engagement lost.</p>
+<p><strong>Benchmark:</strong> Spotify Wrapped demonstrates that a well-designed retrospective drives both engagement (200M users in 24 hours) and social sharing (500M shares). A "Your Year in Live" feature for Ticketmaster could similarly transform passive ticket buyers into active, sharing fans.</p>
+<hr>
+<h2>4. COMPETITIVE LANDSCAPE</h2>
+<h3>Retained from Iteration 10</h3>
+<p>DICE (transparent pricing, anti-scalping), SeatGeek (Deal Score, value comparison), AXS (Fair AXS lottery), Eventbrite (DIY events, community) — all unchanged.</p>
+<h3>NEW — Social and Engagement Features Comparison</h3>
+<table><thead><tr>
+<th>Feature</th>
+<th>Ticketmaster</th>
+<th>DICE</th>
+<th>Eventbrite</th>
+<th>Showpass</th>
+</tr></thead><tbody>
+<tr>
+<td>Friend activity / social discovery</td>
+<td>❌ None</td>
+<td>✅ Trending, friend recommendations</td>
+<td>✅ Social sharing, friend invitations</td>
+<td>✅ Facebook Events integration</td>
+</tr>
+<tr>
+<td>Group booking coordination</td>
+<td>❌ None</td>
+<td>Partial</td>
+<td>✅ Group registration, social discounts</td>
+<td>✅ Group offers, social discounts</td>
+</tr>
+<tr>
+<td>Post-event engagement</td>
+<td>❌ None</td>
+<td>✅ Event discovery post-attendance</td>
+<td>Partial</td>
+<td>❌ None</td>
+</tr>
+<tr>
+<td>Year-in-review / retrospective</td>
+<td>❌ None</td>
+<td>❌ None</td>
+<td>❌ None</td>
+<td>❌ None</td>
+</tr>
+<tr>
+<td>In-app social sharing</td>
+<td>❌ None</td>
+<td>✅ Built-in sharing</td>
+<td>✅ Cross-platform sharing</td>
+<td>✅ Social selling</td>
+</tr>
+</tbody></table>
+<p><strong>Opportunity:</strong> No major ticketing platform has implemented a Spotify Wrapped-style "Year in Live" feature. This is a first-mover opportunity for Ticketmaster — a platform that has the richest dataset of live event attendance in the world.</p>
+<h3>NEW — TikTok Partnership Analysis</h3>
+<p>Ticketmaster has an existing partnership with TikTok (expanded to 20+ countries in 2024) enabling in-app ticket discovery and purchase. Key data:</p>
+<ul>
+<li>60% of TikTok users are Gen Z — Ticketmaster's next-generation audience</li>
+<li>71% of TikTok viewers are motivated to buy when content feels authentic</li>
+<li>A UK festival campaign achieved 49.5% more ticket sales from TikTok ads than Meta ads, with 50% lower cost per acquisition</li>
+<li>TikTok's "Ticketmaster Mini-App" enables in-stream ticket purchasing</li>
+</ul>
+<p><strong>The gap:</strong> This partnership drives transactions, not in-app engagement. Ticketmaster pushes users from TikTok → Ticketmaster for the purchase, but there is no reverse flow — no in-app content creation, no sharing back to social, no community features that keep users engaged within the Ticketmaster ecosystem.</p>
+<p><strong>What Galadriel should consider:</strong> The TikTok partnership demonstrates that social-driven ticket discovery works. Bringing that social layer <em>into</em> the Ticketmaster app (friend activity, event sharing, post-event content) would reduce dependency on external platforms and create owned engagement.</p>
+<hr>
+<h2>5. AI OPPORTUNITY MAP</h2>
+<h3>Retained from Iteration 10</h3>
+<ol>
+<li>AI-Powered Transparent Pricing Assistant (Intelligent Agent) — <strong>Impact: HIGH</strong></li>
+<li>Personalised Event Discovery &amp; Recommendations (Recommender System) — <strong>Impact: HIGH</strong></li>
+<li>AI Customer Support Agent / ARIA (Chatbot/Intelligent Agent hybrid) — <strong>Impact: HIGH</strong></li>
+<li>Smart Queue Management with Transparency (Intelligent Agent) — <strong>Impact: HIGH</strong></li>
+</ol>
+<h3>Updated — Opportunity 5: Post-Event Engagement &amp; "Your Year in Live"</h3>
+<p><strong>Problem it solves:</strong> Zero post-event engagement, no loyalty loop (Problems 7 &amp; 8)</p>
+<p><strong>AI system type:</strong> Recommender System</p>
+<p><strong>What it does:</strong></p>
+<ul>
+<li>Within 24 hours of an event: personalised recap (event name, venue, setlist if available), "Rate your experience" prompt, "Events like this coming up" recommendations</li>
+<li>Monthly: "Your month in live" summary — events attended, genres explored, miles travelled</li>
+<li>Annually: "Your Year in Live" — full retrospective inspired by Spotify Wrapped. Top artists, favourite venues, total events, shareable card for social media</li>
+<li>Friend features: "Friends who also attended [Event]," "Events your friends are going to"</li>
+</ul>
+<p><strong>Impact: HIGH | Effort: MEDIUM</strong></p>
+<p><em>Spotify Wrapped proves the model. 200M users, 500M shares, 64% retention improvement. Ticketmaster has the data — it needs the product.</em></p>
+<h3>NEW — Opportunity 6: Social Discovery &amp; Group Coordination</h3>
+<p><strong>Problem it solves:</strong> No social layer in the app (Problem 7)</p>
+<p><strong>AI system type:</strong> Recommender System (social filtering)</p>
+<p><strong>What it does:</strong></p>
+<ul>
+<li>Shows events friends are attending or interested in (with consent)</li>
+<li>Enables group booking coordination (share a link, friends select their tickets, pay individually)</li>
+<li>"Popular with your friends" recommendation layer</li>
+<li>Post-purchase: "Invite friends to [Event]" with easy sharing</li>
+</ul>
+<p><strong>Impact: MEDIUM-HIGH | Effort: MEDIUM</strong></p>
+<p><em>Live events are inherently social. The booking process should reflect this.</em></p>
+<hr>
+<h2>6. REGULATORY CONSIDERATIONS</h2>
+<h3>Retained from Iteration 10</h3>
+<ul>
+<li>GDPR Article 22 (human escalation for automated decisions)</li>
+<li>EU AI Act Article 50 (transparency disclosure)</li>
+<li>FTC deceptive pricing compliance</li>
+</ul>
+<h3>NEW — Data Privacy for Social and Personalisation Features</h3>
+<p><strong>The privacy challenge:</strong> Social features (friend activity, group booking, "events friends are attending") and deep personalisation ("Your Year in Live") require processing more personal data — social connections, location history, attendance records, sharing activity.</p>
+<p><strong>GDPR implications:</strong></p>
+<ul>
+<li><strong>Consent must be granular.</strong> Users must opt in to social features separately from basic personalisation. "Share my attendance with friends" and "Show me friends' activity" must be independent toggles.</li>
+<li><strong>Data minimisation applies.</strong> Social features should use the minimum data needed. "Friends attending" can work with just event attendance + friend connections — it does not need location tracking or browsing history.</li>
+<li><strong>Right to deletion.</strong> Users must be able to delete their attendance history, social connections, and personalisation data at any time. The "Your Year in Live" feature must have a clear "Delete my data" option.</li>
+<li><strong>Data retention limits.</strong> Define how long attendance data, social connections, and personalisation profiles are stored. ESTIMATE: 24 months for active personalisation, with annual archival/deletion prompts.</li>
+</ul>
+<p><strong>EU AI Act implications:</strong></p>
+<ul>
+<li>Social recommendations ("Popular with your friends") are still Recommender Systems under Limited Risk — Article 50 disclosure applies.</li>
+<li>If friend activity influences what events are surfaced, users must be told: "This recommendation is based on events your friends are attending."</li>
+</ul>
+<p><strong>Design principle:</strong> Privacy controls must be as prominent as social features. Users should feel they control their social presence, not that it was enabled by default.</p>
+<hr>
+<h2>7. RECOMMENDATIONS FOR GALADRIEL</h2>
+<h3>Focus Area 1: Transparent All-In Pricing (RETAINED — Non-Negotiable)</h3>
+<p><strong>Rationale:</strong> Unchanged from Iteration 10. FTC lawsuit, #1 complaint, legal imperative.</p>
+<p><strong>Iteration 11 enhancement:</strong> Add the Fair Price Indicator <strong>tappable tooltip</strong> — when a user taps the badge, show a contextual explanation: "This is a fair price — similar events at this venue average €65–€85." This was designed but not fully implemented in Iteration 10.</p>
+<h3>Focus Area 2: AI-Powered Personalisation with Social Layer (ENHANCED)</h3>
+<p><strong>Rationale:</strong> Iteration 10 established personalised discovery. Iteration 11 adds the social dimension: friend activity, group coordination, and the "Popular with your friends" recommendation layer. Events are social — the app should be too.</p>
+<p><strong>What Galadriel should design:</strong> Friend activity feed ("Sarah and 3 friends are going to Oasis"), group booking coordination flow, and social privacy controls.</p>
+<h3>Focus Area 3: Post-Event Engagement — "Your Year in Live" (NEW)</h3>
+<p><strong>Rationale:</strong> The post-event void is the single largest untapped engagement opportunity. Spotify Wrapped proves the model. Ticketmaster has the data.</p>
+<p><strong>What Galadriel should design:</strong> Post-event recap (within 24 hours), "Your Year in Live" retrospective feature, shareable social cards, and post-event "similar events" recommendations.</p>
+<h3>Focus Area 4: Trustworthy Support &amp; Queue Experience (RETAINED)</h3>
+<p><strong>Rationale:</strong> Unchanged from Iteration 10. ARIA with human escalation + queue price guarantee.</p>
+<p><strong>Iteration 11 enhancement:</strong> Deepen ARIA's conversational capability beyond the 6 original query types. Add: refund assistance, event rescheduling help, accessibility queries, and proactive suggestions based on context.</p>
+<hr>
+<p>Agent: Saruman (Researcher)</p>
+<p>Passing to: Aragorn (Managing Consultant) for quality review</p>
+<p>Summary: This Research Brief builds on the validated Iteration 10 evidence base, deepening analysis in three areas Aragorn identified as gaps: social media engagement (TikTok partnership analysis, social layer comparison), post-event loyalty (Spotify Wrapped benchmark, "Your Year in Live" opportunity), and data privacy for social features (granular consent, retention limits). Three new problems are added (no social layer, zero post-event engagement, App Store rating discrepancy) and two new AI opportunities (post-event engagement, social discovery).</p>
+<p>Top 3 findings:</p>
+<ul>
+<li>Post-event engagement is a massive missed opportunity — Spotify Wrapped proves retrospective features drive 200M+ users and 64% retention improvement</li>
+<li>Ticketmaster has no social layer despite live events being inherently social — every competitor has moved ahead on friend features and group booking</li>
+<li>The App Store rating discrepancy (4.8 vs 1.4–1.6) means internal satisfaction metrics may be dangerously misleading</li>
+</ul>
+<p>Recommendation for Galadriel: Retain transparent pricing and ARIA from Iteration 10, add social discovery with friend activity and group booking, design "Your Year in Live" post-event engagement, implement Fair Price Indicator tooltip, and add social privacy controls</p>
+</div>
+</body>
+</html>
