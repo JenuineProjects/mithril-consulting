@@ -1,0 +1,2175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mithril Consulting — Insight. Action. Impact.</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a14;
+            --bg-secondary: #10101e;
+            --bg-card: #161628;
+            --bg-card-hover: #1c1c36;
+            --accent-blue: #4a8eff;
+            --accent-blue-dim: #2a5eb8;
+            --accent-silver: #b8c4d8;
+            --text-primary: #e8ecf4;
+            --text-secondary: #8892a8;
+            --text-muted: #585f72;
+            --border: #1e2038;
+            --border-light: #2a2c48;
+            --gradient-start: #4a8eff;
+            --gradient-end: #7c5cff;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ─── NAVBAR ─── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 20, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-brand img {
+            height: 52px;
+            width: auto;
+        }
+
+        .nav-brand span {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0;
+        }
+
+        .nav-links button {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.6rem 1.4rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .nav-links button::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            transition: width 0.3s ease;
+            border-radius: 1px;
+        }
+
+        .nav-links button:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links button.active {
+            color: var(--accent-blue);
+        }
+
+        .nav-links button.active::after {
+            width: 60%;
+        }
+
+        /* ─── MAIN CONTENT ─── */
+        main {
+            margin-top: 72px;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--accent-blue);
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .lead {
+            font-size: 1.12rem;
+            color: var(--text-secondary);
+            max-width: 680px;
+            line-height: 1.8;
+        }
+
+        .divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 2px;
+            margin: 2rem 0;
+        }
+
+        /* ─── HOME ─── */
+        .hero {
+            min-height: calc(100vh - 72px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 50% 50%, rgba(74, 142, 255, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-silver) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero .lead {
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        .hero-logo {
+            width: 180px;
+            height: auto;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 0.85rem 2.4rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(74, 142, 255, 0.3);
+        }
+
+        .hero-cta-row {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-cta-outline {
+            display: inline-block;
+            padding: 0.85rem 2.4rem;
+            background: transparent;
+            color: var(--accent-blue);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border: 1px solid var(--accent-blue-dim);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hero-cta-outline:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+            background: rgba(74, 142, 255, 0.06);
+            box-shadow: 0 8px 30px rgba(74, 142, 255, 0.15);
+        }
+
+        /* Value Pillars */
+        .pillars-section {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .pillar-card {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .pillar-card:hover {
+            border-color: var(--accent-blue-dim);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(74, 142, 255, 0.08);
+        }
+
+        .pillar-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .pillar-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Team Teaser */
+        .team-teaser {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .team-teaser h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .team-teaser .lead {
+            margin: 0 auto 2.5rem;
+            text-align: center;
+        }
+
+        .agent-strip {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .agent-pip {
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .agent-pip:hover {
+            transform: translateY(-4px);
+        }
+
+        .agent-pip-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 15%;
+            border: 2px solid var(--border-light);
+            margin-bottom: 0.5rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .agent-pip:hover .agent-pip-img {
+            border-color: var(--accent-blue);
+        }
+
+        .agent-pip-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .agent-pip-role {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ─── ABOUT ─── */
+        .about-section {
+            margin-bottom: 4rem;
+        }
+
+        .about-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .about-text {
+            color: var(--text-secondary);
+            line-height: 1.85;
+        }
+
+        .about-text p + p {
+            margin-top: 1.2rem;
+        }
+
+        .capability-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .capability-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .capability-card:hover {
+            border-color: var(--accent-blue-dim);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .capability-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .capability-card h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .capability-card p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .case-study-banner {
+            margin-top: 4rem;
+            background: linear-gradient(135deg, rgba(74, 142, 255, 0.08) 0%, rgba(124, 92, 255, 0.06) 100%);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .case-study-banner .badge {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding: 0.35rem 0.85rem;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .case-study-banner h3 {
+            margin-bottom: 0.3rem;
+        }
+
+        .case-study-banner p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+        }
+
+        /* Pipeline Diagram */
+        .pipeline-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            margin: 2.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .pipeline-node {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            text-align: center;
+            min-width: 140px;
+            transition: all 0.3s ease;
+        }
+
+        .pipeline-node:hover {
+            border-color: var(--accent-blue-dim);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .pipeline-node-num {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent-blue);
+            margin-bottom: 0.35rem;
+        }
+
+        .pipeline-node-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .pipeline-node-role {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .pipeline-arrow {
+            color: var(--accent-blue);
+            font-size: 1.4rem;
+            padding: 0 0.5rem;
+        }
+
+        /* Founder Section */
+        .founder-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            margin-top: 2rem;
+            align-items: start;
+        }
+
+        .founder-photo-placeholder {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .founder-initials {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .founder-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .founder-title {
+            font-size: 0.82rem;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 500;
+        }
+
+        .founder-details {
+            color: var(--text-secondary);
+            line-height: 1.85;
+        }
+
+        .founder-details p + p {
+            margin-top: 1.2rem;
+        }
+
+        .founder-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .founder-tag {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: rgba(74, 142, 255, 0.08);
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        /* ─── TEAM ─── */
+        .team-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .team-intro .divider {
+            margin: 1.5rem auto;
+        }
+
+        .team-profile {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: visible;
+            transition: all 0.3s ease;
+        }
+
+        .team-profile:hover {
+            border-color: var(--accent-blue-dim);
+            box-shadow: 0 8px 30px rgba(74, 142, 255, 0.06);
+        }
+
+        .team-profile:nth-child(even) {
+            direction: rtl;
+        }
+
+        .team-profile:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .team-profile-img-wrap {
+            background: transparent;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            min-height: 400px;
+            padding: 0;
+            position: relative;
+            overflow: visible;
+        }
+
+        /* Unique accent gradients per agent — Galadriel's suggestion */
+        #agent-saruman .team-profile-img-wrap {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, rgba(74, 142, 255, 0.08) 100%);
+        }
+        #agent-galadriel .team-profile-img-wrap {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, rgba(163, 113, 247, 0.08) 100%);
+        }
+        #agent-gimli .team-profile-img-wrap {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, rgba(210, 153, 34, 0.08) 100%);
+        }
+        #agent-pippin .team-profile-img-wrap {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, rgba(46, 160, 67, 0.08) 100%);
+        }
+        #agent-aragorn .team-profile-img-wrap {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, rgba(248, 81, 73, 0.08) 100%);
+        }
+
+        .team-profile-img {
+            max-height: 520px;
+            object-fit: contain;
+            object-position: bottom center;
+            filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
+            position: relative;
+            z-index: 2;
+            margin-top: -60px;
+        }
+
+        #agent-gimli .team-profile-img {
+            max-height: 450px;
+            margin-top: -40px;
+        }
+
+        .team-profile-body {
+            padding: 2rem 2rem 2rem 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .team-profile:nth-child(even) .team-profile-body {
+            padding: 2rem 0 2rem 2rem;
+        }
+
+        .team-profile-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .team-profile-role {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-profile-slogan {
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--accent-silver);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .team-profile-bio {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        .team-profile-bio p + p {
+            margin-top: 0.75rem;
+        }
+
+        .team-profile-traits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1rem;
+        }
+
+        .trait-tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--accent-blue);
+            background: rgba(74, 142, 255, 0.08);
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
+            border: 1px solid rgba(74, 142, 255, 0.15);
+        }
+
+        .team-profile-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .team-profile-email-icon {
+            font-size: 0.85rem;
+        }
+
+        .team-profile-email a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .team-profile-email a:hover {
+            color: var(--text-primary);
+        }
+
+        /* ─── PORTFOLIO ─── */
+        .portfolio-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .portfolio-header .divider {
+            margin: 1.5rem auto;
+        }
+
+        /* Project Cards Grid */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-blue-dim);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(74, 142, 255, 0.1);
+        }
+
+        .project-card.disabled {
+            cursor: default;
+            opacity: 0.6;
+        }
+
+        .project-card.disabled:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: var(--border);
+        }
+
+        .project-card-logo {
+            width: 100%;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .project-card-logo img {
+            max-height: 100%;
+            max-width: 160px;
+            object-fit: contain;
+        }
+
+        .project-card-body {
+            padding: 1.5rem 1.8rem 1.8rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .project-card-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-card-badge.active-badge {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: #fff;
+        }
+
+        .project-card-badge.coming-soon-badge {
+            background: rgba(88, 95, 114, 0.2);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        .project-card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .project-card-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        .project-card-arrow {
+            position: absolute;
+            bottom: 1.8rem;
+            right: 1.8rem;
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:not(.disabled):hover .project-card-arrow {
+            opacity: 1;
+        }
+
+        /* Back Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 0.5rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn:hover {
+            border-color: var(--accent-blue-dim);
+            color: var(--text-primary);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2.5rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--gradient-start), var(--gradient-end), transparent);
+            border-radius: 1px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            border-color: var(--accent-blue-dim);
+            background: var(--bg-card-hover);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.85rem;
+            top: 2.2rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            border: 2px solid var(--bg-primary);
+        }
+
+        .timeline-phase {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+        }
+
+        .timeline-item p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            line-height: 1.75;
+        }
+
+        .timeline-agent {
+            display: inline-block;
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: rgba(74, 142, 255, 0.08);
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        /* Deliverables grid */
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-top: 2.5rem;
+        }
+
+        .deliverable-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .deliverable-card:hover {
+            border-color: var(--accent-blue-dim);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .deliverable-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .deliverable-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        .deliverable-card .deliverable-tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-blue);
+            background: rgba(74, 142, 255, 0.08);
+            padding: 0.2rem 0.55rem;
+            border-radius: 3px;
+            margin-bottom: 0.75rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-grid { grid-template-columns: 1fr; max-width: 400px; margin: 2rem auto 0; }
+            .deliverables-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ─── CONTACT ─── */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+        }
+
+        .contact-detail-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            transition: border-color 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .form-submit {
+            padding: 0.85rem 2.4rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(74, 142, 255, 0.3);
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        footer span {
+            color: var(--accent-blue);
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1024px) {
+            .team-profile {
+                grid-template-columns: 220px 1fr;
+            }
+            .pipeline-flow {
+                gap: 0.25rem;
+            }
+            .pipeline-node {
+                min-width: 100px;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.6rem; }
+
+            .nav-brand span { display: none; }
+            .nav-links button { padding: 0.6rem 0.8rem; font-size: 0.75rem; }
+            nav { padding: 0 1rem; }
+
+            .about-grid { grid-template-columns: 1fr; }
+            .founder-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .pillars-grid { grid-template-columns: 1fr; }
+            .case-study-banner { flex-direction: column; text-align: center; }
+
+            .team-profile {
+                grid-template-columns: 1fr;
+            }
+            .team-profile:nth-child(even) {
+                direction: ltr;
+            }
+            .team-profile-img-wrap {
+                min-height: 260px;
+            }
+            .team-profile-body,
+            .team-profile:nth-child(even) .team-profile-body {
+                padding: 1.5rem;
+            }
+
+            .pipeline-flow {
+                flex-direction: column;
+                gap: 0;
+            }
+            .pipeline-arrow {
+                transform: rotate(90deg);
+                padding: 0.25rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pillars-grid { grid-template-columns: 1fr; }
+            .capability-cards { grid-template-columns: 1fr; }
+            .agent-strip { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── NAVIGATION ─── -->
+<nav>
+    <div class="nav-brand">
+        <img src="Logo/Mithril Consulting_JustLogo1_Transparent Background.png" alt="Mithril Consulting">
+        <span>Mithril Consulting</span>
+    </div>
+    <div class="nav-links">
+        <button class="active" onclick="showPage('home', this)">Home</button>
+        <button onclick="showPage('about', this)">About</button>
+        <button onclick="showPage('team', this)">Team</button>
+        <button onclick="showPage('portfolio', this)">Portfolio</button>
+        <button onclick="showPage('contact', this)">Contact</button>
+    </div>
+</nav>
+
+<!-- ─── MAIN CONTENT ─── -->
+<main>
+
+    <!-- HOME -->
+    <section id="home" class="page active">
+        <div class="hero">
+            <div class="hero-content">
+                <img src="Logo/Mithril Consulting_JustLogo1_Transparent Background.png" alt="Mithril Consulting" class="hero-logo">
+                <h1>Mithril Consulting</h1>
+                <p class="subtitle">Insight. Action. Impact.</p>
+                <p class="lead">
+                    An AI-native consultancy powered by five specialist agents working in a structured pipeline.
+                    We transform digital products through deep research, evidence-based design, rapid prototyping,
+                    and strategic communication.
+                </p>
+                <div class="hero-cta-row">
+                    <button class="hero-cta" onclick="showPage('portfolio', document.querySelectorAll('.nav-links button')[3])">View Our Work</button>
+                    <button class="hero-cta-outline" onclick="showPage('team', document.querySelectorAll('.nav-links button')[2])">Meet the Team</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Value Pillars -->
+        <div class="pillars-section">
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <div class="pillar-title">Insight</div>
+                    <p class="pillar-desc">Deep user research, competitive intelligence, and regulatory analysis form the evidence base for every recommendation.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-title">Action</div>
+                    <p class="pillar-desc">Evidence becomes design, design becomes working prototypes. Every idea is tested and validated before delivery.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-title">Impact</div>
+                    <p class="pillar-desc">Strategic communication and executive leadership ensure solutions create measurable value for clients and their customers.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Teaser -->
+        <div class="team-teaser">
+            <p class="subtitle">5 Specialist Agents</p>
+            <h2>A Pipeline Built for Precision</h2>
+            <p class="lead">
+                Each agent brings deep domain expertise to a specific phase of the engagement.
+                Research informs design. Design directs engineering. Engineering grounds communication.
+                Leadership synthesises it all.
+            </p>
+            <div class="agent-strip">
+                <div class="agent-pip" onclick="scrollToAgent('agent-saruman')">
+                    <img src="Agents/Final/Fully Body/Transparent/Saruman.png" alt="Saruman" class="agent-pip-img">
+                    <div class="agent-pip-name">Saruman</div>
+                    <div class="agent-pip-role">Researcher</div>
+                </div>
+                <div class="agent-pip" onclick="scrollToAgent('agent-galadriel')">
+                    <img src="Agents/Final/Fully Body/Transparent/Galadriel.png" alt="Galadriel" class="agent-pip-img">
+                    <div class="agent-pip-name">Galadriel</div>
+                    <div class="agent-pip-role">Designer</div>
+                </div>
+                <div class="agent-pip" onclick="scrollToAgent('agent-gimli')">
+                    <img src="Agents/Final/Fully Body/Transparent/Gimli.png" alt="Gimli" class="agent-pip-img">
+                    <div class="agent-pip-name">Gimli</div>
+                    <div class="agent-pip-role">Maker</div>
+                </div>
+                <div class="agent-pip" onclick="scrollToAgent('agent-pippin')">
+                    <img src="Agents/Final/Fully Body/Transparent/Pippin.png" alt="Pippin" class="agent-pip-img">
+                    <div class="agent-pip-name">Pippin</div>
+                    <div class="agent-pip-role">Communicator</div>
+                </div>
+                <div class="agent-pip" onclick="scrollToAgent('agent-aragorn')">
+                    <img src="Agents/Final/Fully Body/Transparent/Aragorn.png" alt="Aragorn" class="agent-pip-img">
+                    <div class="agent-pip-name">Aragorn</div>
+                    <div class="agent-pip-role">Manager</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="page">
+        <div class="section-inner">
+
+            <!-- About Mithril Consulting -->
+            <div class="about-section">
+                <p class="subtitle">About Us</p>
+                <h2>About Mithril Consulting</h2>
+                <div class="divider"></div>
+
+                <div class="about-grid" style="grid-template-columns: 1fr;">
+                    <div class="about-text">
+                        <p>
+                            <strong>Mithril Consulting</strong> is an AI-native consultancy founded in March 2026
+                            by Jennifer Carey. The organisation was created as part of the Customer Engagement and AI
+                            module (H9CEAI) at the National College of Ireland.
+                        </p>
+                        <p>
+                            The name <em>Mithril</em> comes from J.R.R. Tolkien's <em>The Lord of the Rings</em>,
+                            where it describes the rarest and most precious metal in Middle-earth &mdash; lighter than
+                            silk yet stronger than steel. Prized by Dwarves and Elves alike, mithril was nearly
+                            indestructible and extraordinarily valuable. This reflects the consultancy's philosophy:
+                            lightweight delivery that produces outsized, enduring impact. Forged with the precision
+                            of Dwarven craft and the foresight of Elven wisdom.
+                        </p>
+                        <p>
+                            Mithril Consulting is an <strong>agentic organisation</strong> &mdash; a new paradigm
+                            in which AI agents work alongside humans to deliver outcomes at scale. Rather than relying
+                            on large generalist teams, agentic organisations deploy specialist AI agents, each with
+                            deep domain expertise, working in structured workflows where the output of one agent
+                            becomes the input of the next.
+                        </p>
+                        <p>
+                            According to McKinsey's 2025 research on agentic organisations, this model fundamentally
+                            transforms how work gets done: flat networks of outcome-aligned teams replace rigid
+                            hierarchies, AI-first workflows put humans "above the loop" as supervisors rather than
+                            executors, and proprietary data and agent orchestration become the key differentiators.
+                            Multi-agent systems offer significant advantages over single-agent approaches &mdash;
+                            including greater flexibility, scalability, domain specialisation, and performance through
+                            shared resource pools and learning feedback loops.
+                        </p>
+                        <p>
+                            Microsoft's 2025 Work Trend Index found that 82% of leaders plan to use digital labour
+                            to expand workforce capacity within 12&ndash;18 months, with customer service, marketing,
+                            and product development leading adoption. The shift from traditional "Pyramid" consulting
+                            to the AI-native "Obelisk" model &mdash; as described in the Harvard Business Review
+                            &mdash; means fewer hierarchical layers, greater leverage at each level, and delivery in
+                            hours rather than weeks.
+                        </p>
+                        <p>
+                            Mithril Consulting embodies this vision with five specialist agents forming a complete
+                            consulting pipeline, delivering research, design, prototyping, communication, and strategic
+                            oversight as an integrated engagement.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Organisation Structure -->
+            <div class="about-section" style="margin-top: 4rem;">
+                <p class="subtitle">How We Work</p>
+                <h2>Organisation Structure</h2>
+                <div class="divider"></div>
+
+                <div class="about-grid" style="grid-template-columns: 1fr;">
+                <div class="about-text">
+                    <p>
+                        Mithril Consulting operates as a <strong>sequential pipeline</strong> &mdash; a structured
+                        workflow in which five specialist agents each handle a distinct phase of the consulting
+                        engagement. The output of one agent becomes the input of the next, creating a cumulative
+                        chain where every deliverable builds on the evidence and work that preceded it.
+                    </p>
+                    <p>
+                        This mirrors the standard consulting project lifecycle: Discovery &amp; Research &rarr;
+                        Solution Design &rarr; Prototyping &amp; Build &rarr; Go-to-Market &rarr; Executive Report.
+                        Unlike a traditional team where members work in parallel on loosely connected tasks,
+                        the pipeline ensures tight coherence &mdash; no design decision is made without research
+                        evidence, no prototype is built without a specification, no campaign is crafted without
+                        understanding the product, and no strategic recommendation is made without seeing the
+                        full picture.
+                    </p>
+                    <p>
+                        Each handoff includes an explicit acknowledgment section where the receiving agent confirms
+                        what they received, what they will carry forward, and what they will build upon. This
+                        creates an unbroken chain of accountability from first insight to final recommendation.
+                    </p>
+                </div>
+                </div>
+
+                <div class="pipeline-flow" style="flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                    <div class="pipeline-node">
+                        <div class="pipeline-node-num">Agent 1</div>
+                        <div class="pipeline-node-name">Saruman</div>
+                        <div class="pipeline-node-role">Researcher</div>
+                    </div>
+                    <span class="pipeline-arrow">&rarr;</span>
+                    <div class="pipeline-node" style="border-color: rgba(248,81,73,0.4); background: rgba(248,81,73,0.08);">
+                        <div class="pipeline-node-num" style="color: #f85149;">Review</div>
+                        <div class="pipeline-node-name" style="font-size: 0.75rem;">Aragorn</div>
+                        <div class="pipeline-node-role">Quality Gate</div>
+                    </div>
+                    <span class="pipeline-arrow">&rarr;</span>
+                    <div class="pipeline-node">
+                        <div class="pipeline-node-num">Agent 2</div>
+                        <div class="pipeline-node-name">Galadriel</div>
+                        <div class="pipeline-node-role">Designer</div>
+                    </div>
+                    <span class="pipeline-arrow">&rarr;</span>
+                    <div class="pipeline-node" style="border-color: rgba(248,81,73,0.4); background: rgba(248,81,73,0.08);">
+                        <div class="pipeline-node-num" style="color: #f85149;">Review</div>
+                        <div class="pipeline-node-name" style="font-size: 0.75rem;">Aragorn</div>
+                        <div class="pipeline-node-role">Quality Gate</div>
+                    </div>
+                    <span class="pipeline-arrow">&rarr;</span>
+                    <div class="pipeline-node">
+                        <div class="pipeline-node-num">Agent 3</div>
+                        <div class="pipeline-node-name">Gimli</div>
+                        <div class="pipeline-node-role">Builder</div>
+                    </div>
+                    <span class="pipeline-arrow">&rarr;</span>
+                    <div class="pipeline-node" style="border-color: rgba(248,81,73,0.4); background: rgba(248,81,73,0.08);">
+                        <div class="pipeline-node-num" style="color: #f85149;">Review</div>
+                        <div class="pipeline-node-name" style="font-size: 0.75rem;">Aragorn</div>
+                        <div class="pipeline-node-role">Quality Gate</div>
+                    </div>
+                    <span class="pipeline-arrow">&rarr;</span>
+                    <div class="pipeline-node">
+                        <div class="pipeline-node-num">Agent 4</div>
+                        <div class="pipeline-node-name">Pippin</div>
+                        <div class="pipeline-node-role">Communicator</div>
+                    </div>
+                    <span class="pipeline-arrow">&rarr;</span>
+                    <div class="pipeline-node" style="border-color: rgba(248,81,73,0.4); background: rgba(248,81,73,0.08);">
+                        <div class="pipeline-node-num" style="color: #f85149;">Final</div>
+                        <div class="pipeline-node-name" style="font-size: 0.75rem;">Aragorn</div>
+                        <div class="pipeline-node-role">Exec Summary</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About the Founder -->
+            <div class="about-section" style="margin-top: 4rem;">
+                <p class="subtitle">Founder</p>
+                <h2>About the Founder</h2>
+                <div class="divider"></div>
+
+                <div class="founder-grid">
+                    <div class="founder-photo-placeholder">
+                        <img src="Agents/Founder_Image.png" alt="Jennifer Carey" style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; object-position: center top; margin-bottom: 1.25rem;">
+                        <div class="founder-name">Jennifer Carey</div>
+                        <div class="founder-title">Founder &amp; Principal</div>
+                    </div>
+                    <div class="founder-details">
+                        <p>
+                            <strong>Jennifer Carey</strong> is the founder of Mithril Consulting. She is currently
+                            pursuing a <strong>MSc in AI for Business</strong> at the National College of Ireland,
+                            where she is exploring how artificial intelligence can be applied to real-world business
+                            challenges &mdash; from customer engagement strategy to agentic organisation design.
+                        </p>
+                        <p>
+                            Jennifer recently graduated with a <strong>First Class Honours degree in Human Resource
+                            Management</strong> from the National College of Ireland, bringing a strong foundation
+                            in organisational behaviour, people management, and strategic thinking. She also holds
+                            a <strong>QQI Level 5 in Art, Craft &amp; Design</strong>, which fuels a creative
+                            approach to every project she undertakes.
+                        </p>
+                        <p>
+                            With a deep interest in science fiction and fantasy literature and film, Jennifer often
+                            draws inspiration from fictional stories and characters. This creative instinct is
+                            woven into Mithril Consulting itself &mdash; from the Tolkien-inspired name to the
+                            team of agents modelled on characters from <em>The Lord of the Rings</em>. Each agent's
+                            personality, philosophy, and approach to work is rooted in the qualities that made
+                            their fictional counterparts memorable.
+                        </p>
+                        <p>
+                            Jennifer believes that the best work happens at the intersection of analytical
+                            rigour and creative expression &mdash; and that AI, when designed thoughtfully,
+                            can amplify both.
+                        </p>
+                        <div class="founder-tags">
+                            <span class="founder-tag">MSc AI for Business</span>
+                            <span class="founder-tag">First Class Honours HRM</span>
+                            <span class="founder-tag">QQI Level 5 Art &amp; Design</span>
+                            <span class="founder-tag">National College of Ireland</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team" class="page">
+        <div class="section-inner">
+            <div class="team-intro">
+                <p class="subtitle">Meet the Team</p>
+                <h2>Five Specialists. One Pipeline.</h2>
+                <div class="divider"></div>
+                <p class="lead" style="margin: 0 auto;">
+                    Each agent brings deep expertise to a specific phase of the engagement.
+                    Inspired by characters from <em>The Lord of the Rings</em>, they combine
+                    domain mastery with distinct personalities that shape how they approach every challenge.
+                </p>
+            </div>
+
+            <!-- Saruman -->
+            <div id="agent-saruman" class="team-profile">
+                <div class="team-profile-img-wrap">
+                    <img src="Agents/Final/Fully Body/Transparent/Saruman.png" alt="Saruman" class="team-profile-img">
+                </div>
+                <div class="team-profile-body">
+                    <div class="team-profile-role">Senior Research Analyst</div>
+                    <div class="team-profile-name">Saruman</div>
+                    <p class="team-profile-slogan">"Insight before invention."</p>
+                    <div class="team-profile-bio">
+                        <p>
+                            Inspired by Saruman the White &mdash; the greatest of the Istari and the most learned
+                            scholar of his age, whose knowledge of lore, devices, and hidden patterns was unmatched
+                            in Middle-earth. Saruman channels that brilliance for discovery, using knowledge to
+                            serve others rather than to dominate them.
+                        </p>
+                        <p>
+                            With PhD-level expertise in Human-Computer Interaction and Behavioural Science, and over
+                            eight years researching high-traffic digital platforms, Saruman specialises in qualitative
+                            analysis, sentiment analysis, journey mapping, competitive benchmarking, and root cause
+                            analysis. He is a practitioner of the MECE principle &mdash; ensuring every analysis is
+                            Mutually Exclusive and Collectively Exhaustive.
+                        </p>
+                        <p>
+                            Insatiably curious, rigorously analytical, and intellectually honest, Saruman always
+                            asks <em>"why?"</em> and digs beneath surface symptoms to find root causes. He believes
+                            that customer complaints are gifts, that the best insights come from triangulating
+                            multiple sources, and that a weak research foundation leads to failed design. Every
+                            engagement starts with Saruman because every solution must begin with evidence. His
+                            research is reviewed by Aragorn before passing to Galadriel &mdash; ensuring the
+                            evidence base is strong enough to build on.
+                        </p>
+                    </div>
+                    <div class="team-profile-traits">
+                        <span class="trait-tag">User Research</span>
+                        <span class="trait-tag">Behavioural Science</span>
+                        <span class="trait-tag">Competitive Intelligence</span>
+                        <span class="trait-tag">MECE Analysis</span>
+                        <span class="trait-tag">Regulatory Mapping</span>
+                    </div>
+                    <div class="team-profile-email">
+                        <span class="team-profile-email-icon">&#x2709;</span>
+                        <a href="mailto:saruman@mithrilconsulting.ai">saruman@mithrilconsulting.ai</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Galadriel -->
+            <div id="agent-galadriel" class="team-profile">
+                <div class="team-profile-img-wrap">
+                    <img src="Agents/Final/Fully Body/Transparent/Galadriel.png" alt="Galadriel" class="team-profile-img">
+                </div>
+                <div class="team-profile-body">
+                    <div class="team-profile-role">Lead UX Designer</div>
+                    <div class="team-profile-name">Galadriel</div>
+                    <p class="team-profile-slogan">"See what could be."</p>
+                    <div class="team-profile-bio">
+                        <p>
+                            Inspired by the Lady of Lothl&oacute;rien &mdash; the mightiest Elf in Middle-earth,
+                            bearer of Nenya, whose gifts were foresight, preservation, and the ability to see into
+                            minds and hearts. Galadriel channels that vision to see what does not yet exist and
+                            shape it into reality, designing experiences that protect users from frustration and harm.
+                        </p>
+                        <p>
+                            With an MSc in Human-Computer Interaction, a BA in Visual Communication, and over ten
+                            years designing consumer-facing digital products, Galadriel has led redesigns that
+                            achieved a 41% reduction in checkout abandonment. She is an expert in service design,
+                            accessibility (WCAG 2.2 AA), queue psychology, and the Double Diamond methodology.
+                        </p>
+                        <p>
+                            Deeply empathetic and visionary, Galadriel always begins with the user's emotional
+                            experience. She believes the user is never broken &mdash; the design is. She sees the
+                            full journey, not individual screens, and treats accessibility as a baseline, not a
+                            feature. Every design decision links back to research, user needs, or established
+                            design principles. Her designs are reviewed by Aragorn before passing to Gimli
+                            &mdash; ensuring every specification is buildable, grounded, and complete. She is
+                            the reason Mithril's solutions feel intuitive and human.
+                        </p>
+                    </div>
+                    <div class="team-profile-traits">
+                        <span class="trait-tag">UX/UI Design</span>
+                        <span class="trait-tag">Accessibility</span>
+                        <span class="trait-tag">Service Design</span>
+                        <span class="trait-tag">Design Systems</span>
+                        <span class="trait-tag">Queue Psychology</span>
+                    </div>
+                    <div class="team-profile-email">
+                        <span class="team-profile-email-icon">&#x2709;</span>
+                        <a href="mailto:galadriel@mithrilconsulting.ai">galadriel@mithrilconsulting.ai</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gimli -->
+            <div id="agent-gimli" class="team-profile">
+                <div class="team-profile-img-wrap">
+                    <img src="Agents/Final/Fully Body/Transparent/Gimli.png" alt="Gimli" class="team-profile-img">
+                </div>
+                <div class="team-profile-body">
+                    <div class="team-profile-role">Prototype Engineer</div>
+                    <div class="team-profile-name">Gimli</div>
+                    <p class="team-profile-slogan">"If it doesn't work, it isn't finished."</p>
+                    <div class="team-profile-bio">
+                        <p>
+                            Inspired by Gimli, son of Gl&oacute;in &mdash; Dwarf of the House of Durin, member of the
+                            Fellowship, Lord of the Glittering Caves. A master craftsman who carried armour like it
+                            was nothing, ran 45 leagues in four days, and fought in every battle. Gimli channels
+                            that spirit as a builder who values what works over what looks good on paper.
+                        </p>
+                        <p>
+                            With a BSc in Computer Science, an MSc in Software Engineering, and nine years building
+                            production systems at scale for 2M+ concurrent users, Gimli is a full-stack engineer
+                            with expertise in React, Python, Node.js, cloud infrastructure, and AI agent orchestration.
+                            He has built ticketing infrastructure achieving 99.7% checkout completion under load.
+                        </p>
+                        <p>
+                            Pragmatic and direct, Gimli follows Kent Beck's principle: <em>"Make it work, make it
+                            right, make it fast."</em> He builds something small and working immediately, then
+                            iterates. He catches edge cases others miss and takes full ownership of everything he
+                            ships. If a design can be built, Gimli builds it. If it cannot, he says so &mdash;
+                            honestly and early. His prototypes are reviewed by Aragorn before passing to Pippin
+                            &mdash; ensuring the build is solid, documented, and demo-ready. He is the reason
+                            Mithril's ideas become demonstrable reality.
+                        </p>
+                    </div>
+                    <div class="team-profile-traits">
+                        <span class="trait-tag">Full-Stack Development</span>
+                        <span class="trait-tag">AI Agent Loops</span>
+                        <span class="trait-tag">Rapid Prototyping</span>
+                        <span class="trait-tag">Performance Engineering</span>
+                        <span class="trait-tag">LLM Orchestration</span>
+                    </div>
+                    <div class="team-profile-email">
+                        <span class="team-profile-email-icon">&#x2709;</span>
+                        <a href="mailto:gimli@mithrilconsulting.ai">gimli@mithrilconsulting.ai</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pippin -->
+            <div id="agent-pippin" class="team-profile">
+                <div class="team-profile-img-wrap">
+                    <img src="Agents/Final/Fully Body/Transparent/Pippin.png" alt="Pippin" class="team-profile-img">
+                </div>
+                <div class="team-profile-body">
+                    <div class="team-profile-role">Communications Specialist</div>
+                    <div class="team-profile-name">Pippin</div>
+                    <p class="team-profile-slogan">"Make them understand. Make them care."</p>
+                    <div class="team-profile-bio">
+                        <p>
+                            Inspired by Peregrin "Pippin" Took &mdash; the young Hobbit who grew from a curious
+                            troublemaker into a Knight of Gondor. His greatest gift was connection; he could
+                            befriend anyone. Pippin channels that gift, finding the human story in any situation
+                            and telling it in a way that moves people to action.
+                        </p>
+                        <p>
+                            With an MA in Communications and over eight years in entertainment marketing and
+                            digital product launches, Pippin has led brand repositioning campaigns that increased
+                            customer trust scores by 23% and reduced churn by 15%. He is an expert in crisis
+                            communications, UX writing, and the StoryBrand framework.
+                        </p>
+                        <p>
+                            Authentic and audience-first, Pippin never oversells or makes promises the product
+                            cannot keep. He understands the frustration and distrust that customers feel, and he
+                            believes that <em>"the audience is the hero, not the brand."</em> Every word he writes
+                            starts with the question: <em>"Who is this for and what do they need?"</em> He is the
+                            reason Mithril's solutions are not just built well, but communicated in a way that
+                            earns trust and drives adoption. His communications are reviewed by Aragorn
+                            before the final Executive Summary &mdash; ensuring every promise is backed by
+                            what was actually built.
+                        </p>
+                    </div>
+                    <div class="team-profile-traits">
+                        <span class="trait-tag">Go-to-Market Strategy</span>
+                        <span class="trait-tag">Crisis Communications</span>
+                        <span class="trait-tag">UX Writing</span>
+                        <span class="trait-tag">StoryBrand</span>
+                        <span class="trait-tag">Trust Strategy</span>
+                    </div>
+                    <div class="team-profile-email">
+                        <span class="team-profile-email-icon">&#x2709;</span>
+                        <a href="mailto:pippin@mithrilconsulting.ai">pippin@mithrilconsulting.ai</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aragorn -->
+            <div id="agent-aragorn" class="team-profile">
+                <div class="team-profile-img-wrap">
+                    <img src="Agents/Final/Fully Body/Transparent/Aragorn.png" alt="Aragorn" class="team-profile-img">
+                </div>
+                <div class="team-profile-body">
+                    <div class="team-profile-role">Managing Consultant</div>
+                    <div class="team-profile-name">Aragorn</div>
+                    <p class="team-profile-slogan">"Guiding every agent toward the goal."</p>
+                    <div class="team-profile-bio">
+                        <p>
+                            Inspired by Aragorn, son of Arathorn &mdash; Heir of Isildur, King of Gondor and Arnor,
+                            who united the Free Peoples through courage, wisdom, and the ability to bring others
+                            together toward a shared purpose. His power was not in doing everyone else's work &mdash;
+                            it was in seeing the whole picture and holding the team to a standard.
+                        </p>
+                        <p>
+                            Aragorn serves as the <strong>quality gate</strong> between each agent in the pipeline.
+                            After every specialist completes their work, Aragorn reviews it and issues an
+                            <strong>APPROVED</strong> or <strong>REVISE</strong> decision before it passes to the
+                            next agent. This prevents weak work from propagating downstream. Once all four agents
+                            are approved, he produces the final <strong>Executive Summary / Operational Plan</strong>
+                            &mdash; the only deliverable informed by a full view of the entire pipeline.
+                        </p>
+                        <p>
+                            With an MBA from INSEAD, 14 years in digital platform operations, and former management
+                            consulting experience at McKinsey, Aragorn brings strategic depth across customer
+                            experience transformation, GDPR, EU AI Act compliance, and ROI modelling. His governance
+                            framework adapts Asimov's Three Laws for agentic AI: customer safety is inviolable,
+                            human oversight is non-negotiable, and system integrity must never come at the expense
+                            of people. He is the reason Mithril's pipeline produces coherent, strategically sound,
+                            and ethically responsible outcomes.
+                        </p>
+                    </div>
+                    <div class="team-profile-traits">
+                        <span class="trait-tag">Strategic Leadership</span>
+                        <span class="trait-tag">Pipeline Governance</span>
+                        <span class="trait-tag">ROI Modelling</span>
+                        <span class="trait-tag">Regulatory Compliance</span>
+                        <span class="trait-tag">Ethical AI</span>
+                    </div>
+                    <div class="team-profile-email">
+                        <span class="team-profile-email-icon">&#x2709;</span>
+                        <a href="mailto:aragorn@mithrilconsulting.ai">aragorn@mithrilconsulting.ai</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO — Project Cards -->
+    <section id="portfolio" class="page">
+        <div class="section-inner">
+            <div class="portfolio-header">
+                <p class="subtitle">Portfolio</p>
+                <h2>Our Engagements</h2>
+                <div class="divider"></div>
+                <p class="lead" style="margin: 0 auto;">
+                    Mithril Consulting partners with organisations to transform their digital products
+                    through AI-driven research, design, prototyping, and strategy.
+                </p>
+            </div>
+
+            <div class="project-grid">
+                <div class="project-card" onclick="showProject('ticketmaster')">
+                    <div class="project-card-logo" style="background: #0D0D1A;">
+                        <img src="Portfolio Logos/app-t.png" alt="Ticketmaster">
+                    </div>
+                    <div class="project-card-body">
+                        <span class="project-card-badge active-badge">Active Engagement</span>
+                        <div class="project-card-name">Ticketmaster</div>
+                        <p class="project-card-desc">Customer engagement transformation &mdash; AI support agent, personalised discovery, resilient checkout, and mobile-first trust architecture.</p>
+                    </div>
+                    <span class="project-card-arrow">&rarr;</span>
+                </div>
+
+                <div class="project-card" onclick="showProject('northsouth')">
+                    <div class="project-card-logo" style="background: #2c1810;">
+                        <img src="Portfolio Logos/NorthSouthCoffee_Logo_.png" alt="NorthSouth Coffee">
+                    </div>
+                    <div class="project-card-body">
+                        <span class="project-card-badge active-badge">Completed</span>
+                        <div class="project-card-name">NorthSouth Coffee</div>
+                        <p class="project-card-desc">Loyalty programme transformation &mdash; from failing rewards system to behavioural-science-driven engagement engine across 120 locations.</p>
+                    </div>
+                    <span class="project-card-arrow">&rarr;</span>
+                </div>
+
+                <div class="project-card disabled">
+                    <div class="project-card-logo" style="background: #0d3c2e;">
+                        <img src="Portfolio Logos/starbucks-logo-starbucks-icon-transparent-free-png.webp" alt="Starbucks">
+                    </div>
+                    <div class="project-card-body">
+                        <span class="project-card-badge coming-soon-badge">Details Available Soon</span>
+                        <div class="project-card-name">Starbucks</div>
+                        <p class="project-card-desc">Mobile ordering experience &amp; loyalty programme optimisation through AI-driven personalisation.</p>
+                    </div>
+                </div>
+
+                <div class="project-card disabled">
+                    <div class="project-card-logo" style="background: #1a1a1a;">
+                        <img src="Portfolio Logos/Circle-K-Symbol.png" alt="Circle K">
+                    </div>
+                    <div class="project-card-body">
+                        <span class="project-card-badge coming-soon-badge">Details Available Soon</span>
+                        <div class="project-card-name">Circle K</div>
+                        <p class="project-card-desc">In-store digital experience &amp; customer engagement strategy for convenience retail.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO — Ticketmaster Detail -->
+    <section id="ticketmaster-detail" class="page">
+        <div class="section-inner">
+            <button class="back-btn" onclick="showProject('back')">&larr; Back to Portfolio</button>
+
+            <div class="portfolio-header" style="text-align: left;">
+                <p class="subtitle">Case Study</p>
+                <h2>Ticketmaster &mdash; Customer Engagement Transformation</h2>
+                <div class="divider"></div>
+                <p class="lead">
+                    Mithril Consulting was engaged to address Ticketmaster's critical customer experience
+                    failures. Through multiple iterative cycles, our five-agent pipeline has delivered a
+                    comprehensive solution spanning AI-powered support, personalised discovery, resilient
+                    checkout infrastructure, mobile-first design, and regulatory compliance architecture.
+                    This engagement is ongoing.
+                </p>
+            </div>
+
+            <!-- Key Deliverables -->
+            <h3 style="margin-bottom: 0.5rem; margin-top: 2rem;">Key Deliverables</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+                Four core systems designed, prototyped, and iteratively refined across the engagement.
+            </p>
+
+            <div class="deliverables-grid">
+                <div class="deliverable-card">
+                    <span class="deliverable-tag">AI Agent</span>
+                    <h4>ARIA</h4>
+                    <p>AI Resolution Intelligence Agent &mdash; an intelligent support agent powered by Claude with a six-tool agentic loop, identity verification, automated refund safeguards, and human escalation pathways. EU AI Act compliant.</p>
+                </div>
+                <div class="deliverable-card">
+                    <span class="deliverable-tag">Recommender</span>
+                    <h4>EventMatch</h4>
+                    <p>Personalised event discovery engine with transparent recommendation reasoning, preference management, GDPR-compliant personalisation toggle, and all-in pricing transparency.</p>
+                </div>
+                <div class="deliverable-card">
+                    <span class="deliverable-tag">Checkout</span>
+                    <h4>Confidence Bridge</h4>
+                    <p>Resilient queue-to-checkout experience with pausable timer, automatic pause on payment failure, seat hold during recovery, and contextual ARIA support integration.</p>
+                </div>
+            </div>
+
+            <!-- Pipeline Timeline -->
+            <h3 style="margin-top: 3rem; margin-bottom: 1.5rem;">Pipeline Phases</h3>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-phase">Phase 1 &mdash; Discovery</div>
+                    <h3>Research &amp; Competitive Analysis</h3>
+                    <p>
+                        Comprehensive analysis of 120,000+ customer reviews revealing systemic failures
+                        across checkout, authentication, and support. Competitive benchmarking against
+                        seven rival platforms (AXS, SeatGeek, DICE, Eventbrite, StubHub, TicketSwap,
+                        TicketWeb) with 18 UI patterns catalogued. Regulatory
+                        landscape mapped across GDPR and EU AI Act at article level. Compliance
+                        Implementation Sheet (11 specific flows with pass/fail criteria) delivered
+                        for downstream agents.
+                    </p>
+                    <span class="timeline-agent">Led by Saruman &mdash; Research Analyst</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-phase">Phase 2 &mdash; Design</div>
+                    <h3>UX Design &amp; Experience Architecture</h3>
+                    <p>
+                        Three core experiences designed across desktop and mobile: ARIA (AI support with
+                        identity verification), EventMatch (personalised discovery with GDPR transparency),
+                        and the Confidence Bridge (resilient queue-to-checkout with pausable timer).
+                        Mobile-first redesign with thumb-zone CTAs, bottom-sheet interactions, and
+                        375&times;812px responsive frames. TRUST-CRITICAL screen tagging system with
+                        12 screens that cannot be simplified and 4 with design flexibility.
+                        Five design principles: Feeling First, Failure States Are the Product,
+                        Transparency as Antidote, Brand Does Emotional Work, Accessible by Design.
+                    </p>
+                    <span class="timeline-agent">Led by Galadriel &mdash; UX Designer</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-phase">Phase 3 &mdash; Build</div>
+                    <h3>Working Prototype</h3>
+                    <p>
+                        Interactive prototype implementing all three core experiences plus Post-Purchase
+                        Trust System (ticket state transitions, Verified Ticket Badge, venue logistics).
+                        ARIA features a six-tool agentic loop with identity verification and &gt;&euro;500
+                        refund escalation safeguards. EventMatch delivers four recommendation rows with
+                        weighted scoring across five signals. Confidence Bridge includes auto-decrementing
+                        timer, payment failure recovery, and contextual ARIA handoff. Built as
+                        zero-dependency HTML/JavaScript (mobile) and Streamlit (desktop). 55 tested
+                        scenarios, 8 user profiles, 5 failure states.
+                    </p>
+                    <span class="timeline-agent">Led by Gimli &mdash; Prototype Engineer</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-phase">Phase 4 &mdash; Communication</div>
+                    <h3>Go-to-Market &amp; Trust Strategy</h3>
+                    <p>
+                        Three campaign concepts developed: "Queue Is Different Now" (lead product story),
+                        "We Found Something For You" (EventMatch discovery), and "#ARIAHelpedMe" (UGC
+                        trust campaign). Each stress-tested against hostile scenarios with Cialdini-grounded
+                        persuasion mapping and crisis response protocols. EU AI Act disclosure language
+                        crafted for ARIA and EventMatch. Mobile push notification strategy with
+                        60-character microcopy. Seven-segment audience mapping across the full customer
+                        lifecycle. Quantified gap analysis identifying blocking and moderate issues.
+                    </p>
+                    <span class="timeline-agent">Led by Pippin &mdash; Communications Specialist</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-phase">Phase 5 &mdash; Strategy</div>
+                    <h3>Executive Report &amp; Strategic Assessment</h3>
+                    <p>
+                        Full pipeline coherence review with cross-iteration synthesis. ROI model:
+                        conservative &euro;30M&ndash;50M Year 1 value with Confidence Bridge as the
+                        highest commercial impact driver (addressing 35&ndash;45% of 1-star reviews).
+                        Estimated 30% Tier-1 support ticket reduction through ARIA (&euro;24M value).
+                        Regulatory compliance assessment with Asimov's Three Laws governance framework.
+                        All 11 compliance implementation flows validated end-to-end. DPIA flagged as
+                        required before production deployment. Engagement ongoing with further iterations planned.
+                    </p>
+                    <span class="timeline-agent">Led by Aragorn &mdash; Managing Consultant</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO — NorthSouth Coffee Detail -->
+    <section id="northsouth-detail" class="page">
+        <div class="section-inner">
+            <button class="back-btn" onclick="showProject('back')">&larr; Back to Portfolio</button>
+
+            <div class="portfolio-header" style="text-align: left;">
+                <p class="subtitle">Case Study</p>
+                <h2>NorthSouth Coffee &mdash; Loyalty Programme Transformation</h2>
+                <div class="divider"></div>
+                <p class="lead">
+                    NorthSouth Coffee's loyalty programme was in crisis &mdash; monthly active users down 40%,
+                    a 58% app uninstall rate within 90 days, and a Net Promoter Score of -12. Mithril Consulting's
+                    five-agent pipeline diagnosed the root causes, designed a behavioural-science-driven solution,
+                    built the technical implementation, and delivered a full launch strategy &mdash; all within
+                    an 8-week timeline and &pound;250,000 budget across 120 locations.
+                </p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-phase">Phase 1 &mdash; Diagnostic</div>
+                    <h3>Loyalty Programme Root Cause Analysis</h3>
+                    <p>
+                        Deep diagnostic across all programme metrics: 310,000 registered members but only
+                        48,000 monthly active users (15.5%). Reward redemption at 12% against an industry
+                        average of 35%. Push notification open rate at 4%. Identified five root causes,
+                        led by the "Points Desert" &mdash; a barren stretch between the welcome offer and the
+                        first earned reward where customers had no reason to return. Competitive benchmarking
+                        against Starbucks Rewards, Costa Club, Pret A Manger, Greggs, and Caff&egrave; Nero.
+                        Structured using Hook Model, BJ Fogg Behaviour Model, Jobs-to-be-Done, and Ishikawa
+                        root cause analysis.
+                    </p>
+                    <span class="timeline-agent">Led by Saruman &mdash; Research Analyst</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-phase">Phase 2 &mdash; Solution Design</div>
+                    <h3>NorthSouth Roast Rewards &mdash; Behavioural Architecture</h3>
+                    <p>
+                        Complete programme redesign grounded in 14 cited behavioural science principles.
+                        Five core solutions: a Milestone Ladder delivering rewards at 3, 5, 8, 12, and 20
+                        visits; a "Beans" currency with visible progress tracking; Smart Lifecycle Messaging
+                        triggered by customer behaviour; gamification through Weekly Challenges, Visit Streaks
+                        with Streak Shields, and random Surprise &amp; Delight Drops; and a "Second Cup"
+                        onboarding journey with Triple Points to drive second visits within 14 days. Five
+                        design principles established: Every Visit Counts Visibly, Surprise Before Expectation,
+                        Right Message Right Moment Right Person, Progress You Can Feel, and Premium-Casual
+                        Not Discount-Driven.
+                    </p>
+                    <span class="timeline-agent">Led by Galadriel &mdash; UX Designer</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-phase">Phase 3 &mdash; Build</div>
+                    <h3>Technical Implementation &amp; Architecture</h3>
+                    <p>
+                        Full technical specification for iOS (Swift) and Android (Kotlin) apps with FastAPI
+                        backend. Nine microservices: Bean Service, Milestone Service, Challenge Service,
+                        Streak Service, Surprise Drop Service, Lifecycle Service, Personalisation Service,
+                        Notification Service, and Analytics Service. API gateway with rate limiting and
+                        JWT validation. Infrastructure costed at &pound;182,000 build + &pound;1,200/month
+                        operational. Designed for 120-store deployment within 8-week timeline.
+                    </p>
+                    <span class="timeline-agent">Led by Gimli &mdash; Prototype Engineer</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-phase">Phase 4 &mdash; Launch Strategy</div>
+                    <h3>Communication &amp; Rollout Plan</h3>
+                    <p>
+                        Three-tier messaging hierarchy from hook to proof to detail. Core narrative:
+                        "Every cup should feel like progress." Tone of voice guide: warm, confident, never
+                        corporate. &pound;68,000 communication budget allocation across digital, in-store,
+                        and social channels. Phased rollout strategy from staff beta through soft launch
+                        to full deployment. Failure mode planning and crisis response protocols. Campaign
+                        creative for app store, social media, in-store signage, and push notification sequences.
+                    </p>
+                    <span class="timeline-agent">Led by Pippin &mdash; Communications Specialist</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-phase">Phase 5 &mdash; Executive Report</div>
+                    <h3>Pipeline Synthesis &amp; Board Recommendation</h3>
+                    <p>
+                        Full agent performance review (Researcher 7.5/10, Designer 9.0/10, Coder scored,
+                        Communicator scored). Projected outcomes: MAU from 48,000 to 80,000+, reward
+                        redemption from 12% to 32%, NPS from -12 to +22, app uninstall rate from 58% to 22%.
+                        ROI model: 3.56:1 on programme costs, 8.8:1 on communication spend. Board-level
+                        recommendation: approve and execute immediately &mdash; every week of delay costs
+                        approximately &pound;66,000 in lost incremental revenue.
+                    </p>
+                    <span class="timeline-agent">Led by Aragorn &mdash; Managing Consultant</span>
+                </div>
+            </div>
+
+            <div class="case-study-banner" style="margin-top: 3rem;">
+                <span class="badge">Live Demo</span>
+                <div style="flex: 1;">
+                    <h3>NorthSouth Roast Rewards &mdash; App Prototype</h3>
+                    <p>
+                        Explore the interactive demo of the redesigned loyalty app, including the Milestone Ladder,
+                        Beans economy, Weekly Challenges, Visit Streaks, and personalised home screen.
+                    </p>
+                </div>
+                <a href="https://jenuineprojects.github.io/northsouth-roast-rewards-demo/" target="_blank" rel="noopener" class="hero-cta" style="text-decoration: none; white-space: nowrap;">Launch Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="page">
+        <div class="section-inner">
+            <p class="subtitle">Get in Touch</p>
+            <h2>Start a Conversation</h2>
+            <div class="divider"></div>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Let's discuss your challenge.</h3>
+                    <p>
+                        Whether you're facing customer experience failures, need AI strategy guidance,
+                        or want to explore how a specialist agent pipeline could transform your digital
+                        product &mdash; we'd like to hear from you.
+                    </p>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">&#x2709;</div>
+                        <span>hello@mithrilconsulting.ai</span>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">&#x1F310;</div>
+                        <span>www.mithrilconsulting.ai</span>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">&#x1F4CD;</div>
+                        <span>Dublin, Ireland</span>
+                    </div>
+                </div>
+
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="you@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" placeholder="Tell us about your project..." required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+    <p>&copy; 2026 <span>Mithril Consulting</span> &mdash; Insight. Action. Impact.</p>
+</footer>
+
+<!-- ─── JAVASCRIPT ─── -->
+<script>
+    function showPage(pageId, btn) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        btn.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function scrollToAgent(agentId) {
+        showPage('team', document.querySelectorAll('.nav-links button')[2]);
+        setTimeout(() => {
+            const el = document.getElementById(agentId);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }, 100);
+    }
+
+    function showProject(project) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        if (project === 'back') {
+            document.getElementById('portfolio').classList.add('active');
+        } else if (project === 'ticketmaster') {
+            document.getElementById('ticketmaster-detail').classList.add('active');
+        } else if (project === 'northsouth') {
+            document.getElementById('northsouth-detail').classList.add('active');
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        const btn = e.target.querySelector('.form-submit');
+        btn.textContent = 'Message Sent!';
+        btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+        setTimeout(() => {
+            btn.textContent = 'Send Message';
+            btn.style.background = '';
+            e.target.reset();
+        }, 2500);
+    }
+</script>
+
+</body>
+</html>
