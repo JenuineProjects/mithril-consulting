@@ -386,7 +386,7 @@
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            object-position: center 15%;
+            object-position: center top;
             border: 2px solid var(--border-light);
             margin-bottom: 0.5rem;
             transition: border-color 0.3s ease;
@@ -667,7 +667,7 @@
         .team-profile-img-wrap {
             background: transparent;
             display: flex;
-            align-items: flex-end;
+            align-items: flex-start;
             justify-content: center;
             min-height: 400px;
             padding: 0;
@@ -695,16 +695,24 @@
         .team-profile-img {
             max-height: 520px;
             object-fit: contain;
-            object-position: bottom center;
+            object-position: top center;
             filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
             position: relative;
             z-index: 2;
-            margin-top: -60px;
+            margin-top: 2.5rem;
+        }
+
+        #agent-galadriel .team-profile-img {
+            margin-top: 4.5rem;
         }
 
         #agent-gimli .team-profile-img {
             max-height: 450px;
-            margin-top: -40px;
+            margin-top: 7rem;
+        }
+
+        #agent-aragorn .team-profile-img {
+            margin-top: 4.5rem;
         }
 
         .team-profile-body {
@@ -1304,27 +1312,27 @@
             </p>
             <div class="agent-strip">
                 <div class="agent-pip" onclick="scrollToAgent('agent-saruman')">
-                    <img src="Agents/Final/Fully Body/Transparent/Saruman.png" alt="Saruman" class="agent-pip-img">
+                    <img src="Agents/Headshots/Saruman.png" alt="Saruman" class="agent-pip-img">
                     <div class="agent-pip-name">Saruman</div>
                     <div class="agent-pip-role">Researcher</div>
                 </div>
                 <div class="agent-pip" onclick="scrollToAgent('agent-galadriel')">
-                    <img src="Agents/Final/Fully Body/Transparent/Galadriel.png" alt="Galadriel" class="agent-pip-img">
+                    <img src="Agents/Headshots/GaladrielHeadshot.png" alt="Galadriel" class="agent-pip-img">
                     <div class="agent-pip-name">Galadriel</div>
                     <div class="agent-pip-role">Designer</div>
                 </div>
                 <div class="agent-pip" onclick="scrollToAgent('agent-gimli')">
-                    <img src="Agents/Final/Fully Body/Transparent/Gimli.png" alt="Gimli" class="agent-pip-img">
+                    <img src="Agents/Headshots/Gimli.png" alt="Gimli" class="agent-pip-img">
                     <div class="agent-pip-name">Gimli</div>
                     <div class="agent-pip-role">Maker</div>
                 </div>
                 <div class="agent-pip" onclick="scrollToAgent('agent-pippin')">
-                    <img src="Agents/Final/Fully Body/Transparent/Pippin.png" alt="Pippin" class="agent-pip-img">
+                    <img src="Agents/Headshots/Pippin.png" alt="Pippin" class="agent-pip-img">
                     <div class="agent-pip-name">Pippin</div>
                     <div class="agent-pip-role">Communicator</div>
                 </div>
                 <div class="agent-pip" onclick="scrollToAgent('agent-aragorn')">
-                    <img src="Agents/Final/Fully Body/Transparent/Aragorn.png" alt="Aragorn" class="agent-pip-img">
+                    <img src="Agents/Headshots/ArogornHeadshot.png" alt="Aragorn" class="agent-pip-img">
                     <div class="agent-pip-name">Aragorn</div>
                     <div class="agent-pip-role">Manager</div>
                 </div>
@@ -1352,34 +1360,35 @@
                         <p>
                             The name <em>Mithril</em> comes from J.R.R. Tolkien's <em>The Lord of the Rings</em>,
                             where it describes the rarest and most precious metal in Middle-earth &mdash; lighter than
-                            silk yet stronger than steel. Prized by Dwarves and Elves alike, mithril was nearly
-                            indestructible and extraordinarily valuable. This reflects the consultancy's philosophy:
-                            lightweight delivery that produces outsized, enduring impact. Forged with the precision
-                            of Dwarven craft and the foresight of Elven wisdom.
+                            silk yet stronger than steel.
                         </p>
                         <p>
-                            Mithril Consulting is an <strong>agentic organisation</strong> &mdash; a new paradigm
-                            in which AI agents work alongside humans to deliver outcomes at scale. Rather than relying
-                            on large generalist teams, agentic organisations deploy specialist AI agents, each with
-                            deep domain expertise, working in structured workflows where the output of one agent
-                            becomes the input of the next.
+                            Mithril Consulting is an <strong>agentic organisation</strong> &mdash; a new model of
+                            enterprise in which autonomous AI agents collaborate within structured workflows to deliver
+                            end-to-end outcomes. Unlike traditional consultancies that rely on large generalist teams,
+                            agentic organisations deploy specialist AI agents, each with deep domain expertise,
+                            orchestrated in pipelines where the output of one agent becomes the input of the next.
+                            This architecture enables faster delivery, greater consistency, and deeper specialisation
+                            than conventional team structures.
                         </p>
                         <p>
-                            According to McKinsey's 2025 research on agentic organisations, this model fundamentally
-                            transforms how work gets done: flat networks of outcome-aligned teams replace rigid
-                            hierarchies, AI-first workflows put humans "above the loop" as supervisors rather than
-                            executors, and proprietary data and agent orchestration become the key differentiators.
-                            Multi-agent systems offer significant advantages over single-agent approaches &mdash;
-                            including greater flexibility, scalability, domain specialisation, and performance through
-                            shared resource pools and learning feedback loops.
+                            Agentic organisations represent a fundamental shift in how work gets done. According to
+                            McKinsey's 2025 research, they replace rigid hierarchies with flat networks of
+                            outcome-aligned agents, putting humans "above the loop" as supervisors and strategic
+                            decision-makers rather than executors. Multi-agent systems offer significant advantages
+                            over single-agent approaches &mdash; including greater flexibility, scalability, domain
+                            specialisation, and resilience through shared resource pools and continuous learning
+                            feedback loops. Microsoft's 2025 Work Trend Index found that 82% of leaders plan to
+                            deploy digital labour to expand workforce capacity within 12&ndash;18 months, with
+                            customer service, marketing, and product development leading adoption.
                         </p>
                         <p>
-                            Microsoft's 2025 Work Trend Index found that 82% of leaders plan to use digital labour
-                            to expand workforce capacity within 12&ndash;18 months, with customer service, marketing,
-                            and product development leading adoption. The shift from traditional "Pyramid" consulting
-                            to the AI-native "Obelisk" model &mdash; as described in the Harvard Business Review
-                            &mdash; means fewer hierarchical layers, greater leverage at each level, and delivery in
-                            hours rather than weeks.
+                            The Harvard Business Review describes this as the shift from the traditional consulting
+                            "Pyramid" to the AI-native "Obelisk" model &mdash; fewer hierarchical layers, greater
+                            leverage at each level, and delivery in hours rather than weeks. Agentic organisations
+                            can scale expertise without scaling headcount, maintain consistent quality through
+                            automated governance, and iterate rapidly because each agent retains institutional
+                            memory across engagements.
                         </p>
                         <p>
                             Mithril Consulting embodies this vision with five specialist agents forming a complete
@@ -1414,6 +1423,15 @@
                         full picture.
                     </p>
                     <p>
+                        <strong>Aragorn acts as the quality gate</strong> between every stage. After each agent
+                        completes their work, Aragorn reviews the output against five dimensions: craft quality,
+                        strategic coherence, actionability, cross-workstream integration, and client readiness.
+                        He issues an <strong>APPROVED</strong> or <strong>REVISE</strong> decision &mdash; if approved,
+                        the output passes to the next agent; if rejected, it is sent back to the originating agent
+                        with specific feedback for rework. This prevents weak work from propagating downstream
+                        and ensures each deliverable meets the standard before the next agent builds upon it.
+                    </p>
+                    <p>
                         Each handoff includes an explicit acknowledgment section where the receiving agent confirms
                         what they received, what they will carry forward, and what they will build upon. This
                         creates an unbroken chain of accountability from first insight to final recommendation.
@@ -1421,54 +1439,70 @@
                 </div>
                 </div>
 
-                <div class="pipeline-flow" style="flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
-                    <div class="pipeline-node">
-                        <div class="pipeline-node-num">Agent 1</div>
-                        <div class="pipeline-node-name">Saruman</div>
-                        <div class="pipeline-node-role">Researcher</div>
-                    </div>
-                    <span class="pipeline-arrow">&rarr;</span>
-                    <div class="pipeline-node" style="border-color: rgba(248,81,73,0.4); background: rgba(248,81,73,0.08);">
-                        <div class="pipeline-node-num" style="color: #f85149;">Review</div>
-                        <div class="pipeline-node-name" style="font-size: 0.75rem;">Aragorn</div>
-                        <div class="pipeline-node-role">Quality Gate</div>
-                    </div>
-                    <span class="pipeline-arrow">&rarr;</span>
-                    <div class="pipeline-node">
-                        <div class="pipeline-node-num">Agent 2</div>
-                        <div class="pipeline-node-name">Galadriel</div>
-                        <div class="pipeline-node-role">Designer</div>
-                    </div>
-                    <span class="pipeline-arrow">&rarr;</span>
-                    <div class="pipeline-node" style="border-color: rgba(248,81,73,0.4); background: rgba(248,81,73,0.08);">
-                        <div class="pipeline-node-num" style="color: #f85149;">Review</div>
-                        <div class="pipeline-node-name" style="font-size: 0.75rem;">Aragorn</div>
-                        <div class="pipeline-node-role">Quality Gate</div>
-                    </div>
-                    <span class="pipeline-arrow">&rarr;</span>
-                    <div class="pipeline-node">
-                        <div class="pipeline-node-num">Agent 3</div>
-                        <div class="pipeline-node-name">Gimli</div>
-                        <div class="pipeline-node-role">Builder</div>
-                    </div>
-                    <span class="pipeline-arrow">&rarr;</span>
-                    <div class="pipeline-node" style="border-color: rgba(248,81,73,0.4); background: rgba(248,81,73,0.08);">
-                        <div class="pipeline-node-num" style="color: #f85149;">Review</div>
-                        <div class="pipeline-node-name" style="font-size: 0.75rem;">Aragorn</div>
-                        <div class="pipeline-node-role">Quality Gate</div>
-                    </div>
-                    <span class="pipeline-arrow">&rarr;</span>
-                    <div class="pipeline-node">
-                        <div class="pipeline-node-num">Agent 4</div>
-                        <div class="pipeline-node-name">Pippin</div>
-                        <div class="pipeline-node-role">Communicator</div>
-                    </div>
-                    <span class="pipeline-arrow">&rarr;</span>
-                    <div class="pipeline-node" style="border-color: rgba(248,81,73,0.4); background: rgba(248,81,73,0.08);">
-                        <div class="pipeline-node-num" style="color: #f85149;">Final</div>
-                        <div class="pipeline-node-name" style="font-size: 0.75rem;">Aragorn</div>
-                        <div class="pipeline-node-role">Exec Summary</div>
-                    </div>
+                <!-- Pipeline Diagram — Aragorn as Quality Gate above the agent row -->
+                <div style="margin: 2.5rem 0; text-align: center;">
+                    <svg viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg" style="max-width: 900px; width: 100%; height: auto;">
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#4a8eff"/>
+                            </marker>
+                        </defs>
+
+                        <!-- Aragorn Quality Gate (top center) -->
+                        <rect x="325" y="10" width="250" height="80" rx="10" fill="rgba(248,81,73,0.08)" stroke="rgba(248,81,73,0.4)" stroke-width="1.5"/>
+                        <text x="450" y="38" text-anchor="middle" fill="#f85149" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1">AGENT 5</text>
+                        <text x="450" y="58" text-anchor="middle" fill="#e8ecf4" font-family="Playfair Display, serif" font-size="16" font-weight="700">Aragorn</text>
+                        <text x="450" y="78" text-anchor="middle" fill="#585f72" font-family="Inter, sans-serif" font-size="11">Quality Gate</text>
+
+                        <!-- Dotted lines from Aragorn down to agents 1-4 only (not agent 5) -->
+                        <line x1="385" y1="90" x2="90" y2="175" stroke="#585f72" stroke-width="1.5" stroke-dasharray="6,4"/>
+                        <line x1="420" y1="90" x2="270" y2="175" stroke="#585f72" stroke-width="1.5" stroke-dasharray="6,4"/>
+                        <line x1="450" y1="90" x2="450" y2="175" stroke="#585f72" stroke-width="1.5" stroke-dasharray="6,4"/>
+                        <line x1="480" y1="90" x2="630" y2="175" stroke="#585f72" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+                        <!-- Agent Row -->
+                        <!-- Saruman -->
+                        <rect x="15" y="175" width="150" height="80" rx="10" fill="#161628" stroke="#1e2038" stroke-width="1.5"/>
+                        <text x="90" y="200" text-anchor="middle" fill="#4a8eff" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1">AGENT 1</text>
+                        <text x="90" y="220" text-anchor="middle" fill="#e8ecf4" font-family="Playfair Display, serif" font-size="14" font-weight="700">Saruman</text>
+                        <text x="90" y="240" text-anchor="middle" fill="#585f72" font-family="Inter, sans-serif" font-size="11">Researcher</text>
+
+                        <!-- Arrow 1 → 2 -->
+                        <line x1="168" y1="215" x2="192" y2="215" stroke="#4a8eff" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                        <!-- Galadriel -->
+                        <rect x="195" y="175" width="150" height="80" rx="10" fill="#161628" stroke="#1e2038" stroke-width="1.5"/>
+                        <text x="270" y="200" text-anchor="middle" fill="#4a8eff" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1">AGENT 2</text>
+                        <text x="270" y="220" text-anchor="middle" fill="#e8ecf4" font-family="Playfair Display, serif" font-size="14" font-weight="700">Galadriel</text>
+                        <text x="270" y="240" text-anchor="middle" fill="#585f72" font-family="Inter, sans-serif" font-size="11">Designer</text>
+
+                        <!-- Arrow 2 → 3 -->
+                        <line x1="348" y1="215" x2="372" y2="215" stroke="#4a8eff" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                        <!-- Gimli -->
+                        <rect x="375" y="175" width="150" height="80" rx="10" fill="#161628" stroke="#1e2038" stroke-width="1.5"/>
+                        <text x="450" y="200" text-anchor="middle" fill="#4a8eff" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1">AGENT 3</text>
+                        <text x="450" y="220" text-anchor="middle" fill="#e8ecf4" font-family="Playfair Display, serif" font-size="14" font-weight="700">Gimli</text>
+                        <text x="450" y="240" text-anchor="middle" fill="#585f72" font-family="Inter, sans-serif" font-size="11">Builder</text>
+
+                        <!-- Arrow 3 → 4 -->
+                        <line x1="528" y1="215" x2="552" y2="215" stroke="#4a8eff" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                        <!-- Pippin -->
+                        <rect x="555" y="175" width="150" height="80" rx="10" fill="#161628" stroke="#1e2038" stroke-width="1.5"/>
+                        <text x="630" y="200" text-anchor="middle" fill="#4a8eff" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1">AGENT 4</text>
+                        <text x="630" y="220" text-anchor="middle" fill="#e8ecf4" font-family="Playfair Display, serif" font-size="14" font-weight="700">Pippin</text>
+                        <text x="630" y="240" text-anchor="middle" fill="#585f72" font-family="Inter, sans-serif" font-size="11">Communicator</text>
+
+                        <!-- Arrow 4 → 5 -->
+                        <line x1="708" y1="215" x2="732" y2="215" stroke="#4a8eff" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                        <!-- Aragorn (final) -->
+                        <rect x="735" y="175" width="150" height="80" rx="10" fill="#161628" stroke="#1e2038" stroke-width="1.5"/>
+                        <text x="810" y="200" text-anchor="middle" fill="#4a8eff" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1">AGENT 5</text>
+                        <text x="810" y="220" text-anchor="middle" fill="#e8ecf4" font-family="Playfair Display, serif" font-size="14" font-weight="700">Aragorn</text>
+                        <text x="810" y="240" text-anchor="middle" fill="#585f72" font-family="Inter, sans-serif" font-size="11">Manager</text>
+                    </svg>
                 </div>
             </div>
 
@@ -1482,7 +1516,7 @@
                     <div class="founder-photo-placeholder">
                         <img src="Agents/Founder_Image.png" alt="Jennifer Carey" style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; object-position: center top; margin-bottom: 1.25rem;">
                         <div class="founder-name">Jennifer Carey</div>
-                        <div class="founder-title">Founder &amp; Principal</div>
+                        <div class="founder-title">Founder</div>
                     </div>
                     <div class="founder-details">
                         <p>
