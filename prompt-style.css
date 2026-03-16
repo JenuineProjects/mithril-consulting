@@ -1,0 +1,194 @@
+/* ─── Mithril Consulting — Agent Prompt Pages ─── */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #0a0a14;
+    --bg-secondary: #10101e;
+    --bg-card: #161628;
+    --bg-code: #0d0d1a;
+    --accent-blue: #4a8eff;
+    --accent-silver: #b8c4d8;
+    --text-primary: #e8ecf4;
+    --text-secondary: #8892a8;
+    --text-muted: #585f72;
+    --border: #1e2038;
+    --border-light: #2a2c48;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    min-height: 100vh;
+}
+
+/* ─── PAGE LAYOUT ─── */
+
+.prompt-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+}
+
+/* ─── HEADER ─── */
+
+.prompt-header {
+    text-align: center;
+    padding: 3rem 0 2.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+}
+
+.agent-badge {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--agent-color), transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    border: 2px solid var(--agent-color);
+}
+
+.agent-icon {
+    font-size: 2rem;
+}
+
+.prompt-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.02em;
+}
+
+.agent-role {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.agent-slogan {
+    font-style: italic;
+    color: var(--accent-silver);
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.agent-meta {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.meta-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+}
+
+/* ─── CONTENT ─── */
+
+.prompt-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+}
+
+/* ─── CODE BLOCK ─── */
+
+.prompt-block {
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    overflow-x: auto;
+    margin-bottom: 2rem;
+}
+
+.prompt-block code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 0.825rem;
+    line-height: 1.75;
+    color: #c4ccdd;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* ─── FOOTER ─── */
+
+.prompt-footer {
+    text-align: center;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+}
+
+.prompt-footer p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.prompt-footer em {
+    color: var(--accent-silver);
+}
+
+.prompt-footer-note {
+    margin-top: 0.5rem;
+    font-size: 0.8rem !important;
+    color: var(--text-muted) !important;
+}
+
+/* ─── RESPONSIVE ─── */
+
+@media (max-width: 640px) {
+    .prompt-page {
+        padding: 1rem 1rem 3rem;
+    }
+
+    .prompt-header {
+        padding: 2rem 0 1.5rem;
+    }
+
+    .prompt-header h1 {
+        font-size: 2rem;
+    }
+
+    .prompt-block {
+        padding: 1.25rem;
+        border-radius: 8px;
+    }
+
+    .prompt-block code {
+        font-size: 0.75rem;
+    }
+
+    .agent-badge {
+        width: 64px;
+        height: 64px;
+    }
+
+    .agent-icon {
+        font-size: 1.5rem;
+    }
+}
