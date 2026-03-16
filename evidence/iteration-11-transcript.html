@@ -109,124 +109,6 @@
     }
     .footer a { color: #7B8CC8; text-decoration: none; }
     .footer a:hover { color: #a0aec0; }
-
-    /* Summary section */
-    .summary-block {
-      margin-top: 36px;
-      padding: 32px;
-      background: #161628;
-      border: 1px solid #1E2038;
-      border-radius: 12px;
-    }
-    .summary-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 4px;
-    }
-    .summary-subtitle {
-      font-size: 13px;
-      color: #7B8CC8;
-      margin-bottom: 24px;
-    }
-    .summary-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      margin-bottom: 24px;
-    }
-    .summary-table thead tr {
-      background: #0D0D1A;
-    }
-    .summary-table th {
-      text-align: left;
-      padding: 10px 14px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #7B8CC8;
-      border-bottom: 1px solid #1E2038;
-    }
-    .summary-table td {
-      padding: 10px 14px;
-      border-bottom: 1px solid #1E2038;
-      color: #c8d0e7;
-      vertical-align: top;
-    }
-    .summary-table tbody tr:last-child td { border-bottom: none; }
-    .summary-table .review-row td { background: #0D0D1A; }
-    .file-col {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 12px;
-      color: #a0aec0;
-      white-space: nowrap;
-    }
-    .agent-col {
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .agent-col.saruman  { color: #4A8FBB; }
-    .agent-col.galadriel { color: #9B6FD4; }
-    .agent-col.gimli    { color: #C9922A; }
-    .agent-col.pippin   { color: #4CAF50; }
-    .agent-col.aragorn  { color: #CC4444; }
-    .approved-badge {
-      display: inline-block;
-      background: #1a3a1a;
-      color: #4CAF50;
-      border: 1px solid #2d5a2d;
-      border-radius: 4px;
-      padding: 2px 10px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-    }
-    .prototype-card {
-      background: #0D0D1A;
-      border: 1px solid #1E2038;
-      border-left: 3px solid #C9922A;
-      border-radius: 8px;
-      padding: 16px 20px;
-      margin-bottom: 16px;
-    }
-    .prototype-label {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #C9922A;
-      margin-bottom: 6px;
-    }
-    .prototype-name {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 13px;
-      color: #e2e8f0;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    .prototype-desc {
-      font-size: 13px;
-      color: #a0aec0;
-      line-height: 1.6;
-    }
-    .final-note {
-      font-size: 14px;
-      color: #4CAF50;
-      font-weight: 600;
-      padding: 12px 16px;
-      background: #0f1f0f;
-      border: 1px solid #2d5a2d;
-      border-radius: 6px;
-    }
-    .brew-time {
-      margin-top: 20px;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 13px;
-      color: #7B8CC8;
-      text-align: right;
-      padding-right: 8px;
-    }
   </style>
 </head>
 <body>
@@ -722,81 +604,43 @@
       217 -*Session: Iteration 10 system prompts + full pipeline run — all 8 steps complete*
       172 +*Session: Iteration 10 + 11 complete — system prompts, two full pipeline runs, prototype with presentation improvements*
 
-● Iteration 11 is fully complete.</pre>
+● Iteration 11 is fully complete. Here&#x27;s the summary:
 
-    <div class="summary-block">
-      <h2 class="summary-title">Iteration 11 Summary</h2>
-      <p class="summary-subtitle">What was produced — 9 files + HTML prototype</p>
+  What was produced (9 files + HTML prototype)
 
-      <table class="summary-table">
-        <thead>
-          <tr>
-            <th>File</th>
-            <th>Agent</th>
-            <th>Key Addition Over Iteration 10</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="file-col">01_Saruman_Research_Brief.md</td>
-            <td class="agent-col saruman">Saruman</td>
-            <td>Social media analysis, Spotify Wrapped benchmark, App Store discrepancy, GDPR privacy guidance</td>
-          </tr>
-          <tr class="review-row">
-            <td class="file-col">01a_Aragorn_Review1_Saruman.md</td>
-            <td class="agent-col aragorn">Aragorn</td>
-            <td><span class="approved-badge">APPROVED</span></td>
-          </tr>
-          <tr>
-            <td class="file-col">02_Galadriel_Design_Specification.md</td>
-            <td class="agent-col galadriel">Galadriel</td>
-            <td>10 screens (+3), 4 AI features (+1), Fair Price tooltip, social layer, "Your Year in Live"</td>
-          </tr>
-          <tr class="review-row">
-            <td class="file-col">02a_Aragorn_Review2_Galadriel.md</td>
-            <td class="agent-col aragorn">Aragorn</td>
-            <td><span class="approved-badge">APPROVED</span></td>
-          </tr>
-          <tr>
-            <td class="file-col">03_Gimli_Working_Prototype.md</td>
-            <td class="agent-col gimli">Gimli</td>
-            <td>17 built to spec, 8 simplified, 7 deferred</td>
-          </tr>
-          <tr class="review-row">
-            <td class="file-col">03a_Aragorn_Review3_Gimli.md</td>
-            <td class="agent-col aragorn">Aragorn</td>
-            <td><span class="approved-badge">APPROVED</span></td>
-          </tr>
-          <tr>
-            <td class="file-col">04_Pippin_GoToMarket_Package.md</td>
-            <td class="agent-col pippin">Pippin</td>
-            <td>4 campaigns (+1), 8 KPIs (+3), extended trust narrative</td>
-          </tr>
-          <tr class="review-row">
-            <td class="file-col">04a_Aragorn_Review4_Pippin.md</td>
-            <td class="agent-col aragorn">Aragorn</td>
-            <td><span class="approved-badge">APPROVED</span></td>
-          </tr>
-          <tr>
-            <td class="file-col">05_Aragorn_Executive_Summary.md</td>
-            <td class="agent-col aragorn">Aragorn</td>
-            <td>3 clean end-to-end traces, cross-iteration coherence analysis</td>
-          </tr>
-        </tbody>
-      </table>
+  ┌──────────────────────────────────────┬───────────┬───────────────────────────────────────────────────────────────────────────────────────┐
+  │                 File                 │   Agent   │                            Key Addition Over Iteration 10                             │
+  ├──────────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────┤
+  │ 01_Saruman_Research_Brief.md         │ Saruman   │ Social media analysis, Spotify Wrapped benchmark, App Store discrepancy, GDPR privacy │
+  │                                      │           │  guidance                                                                             │
+  ├──────────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────┤
+  │ 01a_Aragorn_Review1_Saruman.md       │ Aragorn   │ APPROVED                                                                              │
+  ├──────────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────┤
+  │ 02_Galadriel_Design_Specification.md │ Galadriel │ 10 screens (+3), 4 AI features (+1), Fair Price tooltip, social layer, &quot;Your Year in  │
+  │                                      │           │ Live&quot;                                                                                 │
+  ├──────────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────┤
+  │ 02a_Aragorn_Review2_Galadriel.md     │ Aragorn   │ APPROVED                                                                              │
+  ├──────────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────┤
+  │ 03_Gimli_Working_Prototype.md        │ Gimli     │ 17 built to spec, 8 simplified, 7 deferred                                            │
+  ├──────────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────┤
+  │ 03a_Aragorn_Review3_Gimli.md         │ Aragorn   │ APPROVED                                                                              │
+  ├──────────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────┤
+  │ 04_Pippin_GoToMarket_Package.md      │ Pippin    │ 4 campaigns (+1), 8 KPIs (+3), extended trust narrative                               │
+  ├──────────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────┤
+  │ 04a_Aragorn_Review4_Pippin.md        │ Aragorn   │ APPROVED                                                                              │
+  ├──────────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────┤
+  │ 05_Aragorn_Executive_Summary.md      │ Aragorn   │ 3 clean end-to-end traces, cross-iteration coherence analysis                         │
+  └──────────────────────────────────────┴───────────┴───────────────────────────────────────────────────────────────────────────────────────┘
 
-      <div class="prototype-card">
-        <div class="prototype-label">HTML Prototype</div>
-        <p class="prototype-name">Ticketmaster_Prototype_Iteration11.html</p>
-        <p class="prototype-desc">Info panel with journey guides, Unsplash images, 10 screens, Fair Price tooltip, confirmation screen, "Your Year in Live," friend activity, social privacy controls.</p>
-      </div>
+  HTML Prototype
 
-      <div class="final-note">
-        All agents approved on first pass. Session progress file updated.
-      </div>
-    </div>
+  Ticketmaster_Prototype_Iteration11.html — info panel with journey guides, Unsplash images, 10 screens, Fair Price tooltip, confirmation
+  screen, &quot;Your Year in Live,&quot; friend activity, social privacy controls.
 
-    <div class="brew-time">✻ Brewed for 34m 16s</div>
+  All agents approved on first pass. Session progress file updated. Your next priority is writing the submission or testing the prototype
+  in-browser.
+
+✻ Brewed for 34m 16s</pre>
     </div>
 
     <div class="footer">
