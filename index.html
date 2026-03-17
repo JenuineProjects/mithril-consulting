@@ -325,14 +325,6 @@
             box-shadow: 0 12px 40px rgba(74, 142, 255, 0.08);
         }
 
-        .pillar-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: var(--accent-blue);
-            margin-bottom: 0.5rem;
-        }
-
         .pillar-title {
             font-family: 'Playfair Display', serif;
             font-size: 1.35rem;
@@ -392,8 +384,20 @@
             transition: border-color 0.3s ease;
         }
 
-        .agent-pip:hover .agent-pip-img {
-            border-color: var(--accent-blue);
+        .agent-strip .agent-pip:nth-child(1):hover .agent-pip-img {
+            border-color: rgb(74, 142, 255);
+        }
+        .agent-strip .agent-pip:nth-child(2):hover .agent-pip-img {
+            border-color: rgb(168, 85, 247);
+        }
+        .agent-strip .agent-pip:nth-child(3):hover .agent-pip-img {
+            border-color: rgb(245, 158, 11);
+        }
+        .agent-strip .agent-pip:nth-child(4):hover .agent-pip-img {
+            border-color: rgb(34, 197, 94);
+        }
+        .agent-strip .agent-pip:nth-child(5):hover .agent-pip-img {
+            border-color: rgb(239, 68, 68);
         }
 
         .agent-pip-name {
@@ -651,9 +655,25 @@
             transition: all 0.3s ease;
         }
 
-        .team-profile:hover {
-            border-color: var(--accent-blue-dim);
-            box-shadow: 0 8px 30px rgba(74, 142, 255, 0.06);
+        #agent-saruman:hover {
+            border-color: rgb(74, 142, 255);
+            box-shadow: 0 8px 30px rgba(74, 142, 255, 0.12);
+        }
+        #agent-galadriel:hover {
+            border-color: rgb(168, 85, 247);
+            box-shadow: 0 8px 30px rgba(168, 85, 247, 0.12);
+        }
+        #agent-gimli:hover {
+            border-color: rgb(245, 158, 11);
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.12);
+        }
+        #agent-pippin:hover {
+            border-color: rgb(34, 197, 94);
+            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.12);
+        }
+        #agent-aragorn:hover {
+            border-color: rgb(239, 68, 68);
+            box-shadow: 0 8px 30px rgba(239, 68, 68, 0.12);
         }
 
         .team-profile:nth-child(even) {
@@ -770,12 +790,13 @@
         .trait-tag {
             font-size: 0.7rem;
             font-weight: 500;
-            color: var(--accent-blue);
-            background: rgba(74, 142, 255, 0.08);
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.04);
             padding: 0.25rem 0.65rem;
             border-radius: 4px;
-            border: 1px solid rgba(74, 142, 255, 0.15);
+            border: 1px solid var(--border-light);
         }
+
 
         .team-profile-email {
             display: inline-flex;
@@ -882,6 +903,12 @@
         .project-card-badge.active-badge {
             background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
             color: #fff;
+        }
+
+        .project-card-badge.completed-badge {
+            background: rgba(34, 197, 94, 0.12);
+            color: rgb(34, 197, 94);
+            border: 1px solid rgba(34, 197, 94, 0.3);
         }
 
         .project-card-badge.coming-soon-badge {
@@ -1293,7 +1320,7 @@
             <div class="hero-content">
                 <img src="Logo/Mithril Consulting_JustLogo1_Transparent Background.png" alt="Mithril Consulting" class="hero-logo">
                 <h1>Mithril Consulting</h1>
-                <p class="subtitle">Insight. Action. Impact.</p>
+                <p class="subtitle" style="color: rgb(55, 150, 180);">Insight. Action. Impact.</p>
                 <p class="lead">
                     An AI-native consultancy powered by five specialist agents working in a structured pipeline.
                     We transform digital products through deep research, evidence-based design, rapid prototyping,
@@ -1345,17 +1372,17 @@
                     <div class="agent-pip-role">Designer</div>
                 </div>
                 <div class="agent-pip" onclick="scrollToAgent('agent-gimli')">
-                    <img src="Agents/Headshots/Gimli.png" alt="Gimli" class="agent-pip-img">
+                    <img src="Agents/Headshots/GimliHeadshot.png" alt="Gimli" class="agent-pip-img">
                     <div class="agent-pip-name">Gimli</div>
                     <div class="agent-pip-role">Maker</div>
                 </div>
                 <div class="agent-pip" onclick="scrollToAgent('agent-pippin')">
-                    <img src="Agents/Headshots/Pippin.png" alt="Pippin" class="agent-pip-img">
+                    <img src="Agents/Headshots/PippinHeadshot.png" alt="Pippin" class="agent-pip-img">
                     <div class="agent-pip-name">Pippin</div>
                     <div class="agent-pip-role">Communicator</div>
                 </div>
                 <div class="agent-pip" onclick="scrollToAgent('agent-aragorn')">
-                    <img src="Agents/Headshots/ArogornHeadshot.png" alt="Aragorn" class="agent-pip-img">
+                    <img src="Agents/Headshots/AragornHeadshot.png" alt="Aragorn" class="agent-pip-img">
                     <div class="agent-pip-name">Aragorn</div>
                     <div class="agent-pip-role">Manager</div>
                 </div>
@@ -1495,7 +1522,7 @@
 
                         <!-- Galadriel -->
                         <rect x="195" y="175" width="150" height="80" rx="10" fill="#161628" stroke="#1e2038" stroke-width="1.5"/>
-                        <text x="270" y="200" text-anchor="middle" fill="#4a8eff" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1">AGENT 2</text>
+                        <text x="270" y="200" text-anchor="middle" fill="#a855f7" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1">AGENT 2</text>
                         <text x="270" y="220" text-anchor="middle" fill="#e8ecf4" font-family="Playfair Display, serif" font-size="14" font-weight="700">Galadriel</text>
                         <text x="270" y="240" text-anchor="middle" fill="#585f72" font-family="Inter, sans-serif" font-size="11">Designer</text>
 
@@ -1504,7 +1531,7 @@
 
                         <!-- Gimli -->
                         <rect x="375" y="175" width="150" height="80" rx="10" fill="#161628" stroke="#1e2038" stroke-width="1.5"/>
-                        <text x="450" y="200" text-anchor="middle" fill="#4a8eff" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1">AGENT 3</text>
+                        <text x="450" y="200" text-anchor="middle" fill="#f59e0b" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1">AGENT 3</text>
                         <text x="450" y="220" text-anchor="middle" fill="#e8ecf4" font-family="Playfair Display, serif" font-size="14" font-weight="700">Gimli</text>
                         <text x="450" y="240" text-anchor="middle" fill="#585f72" font-family="Inter, sans-serif" font-size="11">Builder</text>
 
@@ -1513,7 +1540,7 @@
 
                         <!-- Pippin -->
                         <rect x="555" y="175" width="150" height="80" rx="10" fill="#161628" stroke="#1e2038" stroke-width="1.5"/>
-                        <text x="630" y="200" text-anchor="middle" fill="#4a8eff" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1">AGENT 4</text>
+                        <text x="630" y="200" text-anchor="middle" fill="#22c55e" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1">AGENT 4</text>
                         <text x="630" y="220" text-anchor="middle" fill="#e8ecf4" font-family="Playfair Display, serif" font-size="14" font-weight="700">Pippin</text>
                         <text x="630" y="240" text-anchor="middle" fill="#585f72" font-family="Inter, sans-serif" font-size="11">Communicator</text>
 
@@ -1522,7 +1549,7 @@
 
                         <!-- Aragorn (final) -->
                         <rect x="735" y="175" width="150" height="80" rx="10" fill="#161628" stroke="#1e2038" stroke-width="1.5"/>
-                        <text x="810" y="200" text-anchor="middle" fill="#4a8eff" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1">AGENT 5</text>
+                        <text x="810" y="200" text-anchor="middle" fill="#f85149" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1">AGENT 5</text>
                         <text x="810" y="220" text-anchor="middle" fill="#e8ecf4" font-family="Playfair Display, serif" font-size="14" font-weight="700">Aragorn</text>
                         <text x="810" y="240" text-anchor="middle" fill="#585f72" font-family="Inter, sans-serif" font-size="11">Manager</text>
                     </svg>
@@ -1600,7 +1627,7 @@
                     <img src="Agents/Final/Fully Body/Transparent/Saruman.png" alt="Saruman" class="team-profile-img">
                 </div>
                 <div class="team-profile-body">
-                    <div class="team-profile-role">Senior Research Analyst</div>
+                    <div class="team-profile-role" style="color: rgb(74, 142, 255);">Senior Research Analyst</div>
                     <div class="team-profile-name">Saruman</div>
                     <p class="team-profile-slogan">"Insight before invention."</p>
                     <div class="team-profile-bio">
@@ -1647,7 +1674,7 @@
                     <img src="Agents/Final/Fully Body/Transparent/Galadriel.png" alt="Galadriel" class="team-profile-img">
                 </div>
                 <div class="team-profile-body">
-                    <div class="team-profile-role">Lead UX Designer</div>
+                    <div class="team-profile-role" style="color: rgb(168, 85, 247);">Lead UX Designer</div>
                     <div class="team-profile-name">Galadriel</div>
                     <p class="team-profile-slogan">"See what could be."</p>
                     <div class="team-profile-bio">
@@ -1693,7 +1720,7 @@
                     <img src="Agents/Final/Fully Body/Transparent/Gimli.png" alt="Gimli" class="team-profile-img">
                 </div>
                 <div class="team-profile-body">
-                    <div class="team-profile-role">Prototype Engineer</div>
+                    <div class="team-profile-role" style="color: rgb(245, 158, 11);">Prototype Engineer</div>
                     <div class="team-profile-name">Gimli</div>
                     <p class="team-profile-slogan">"If it doesn't work, it isn't finished."</p>
                     <div class="team-profile-bio">
@@ -1739,7 +1766,7 @@
                     <img src="Agents/Final/Fully Body/Transparent/Pippin.png" alt="Pippin" class="team-profile-img">
                 </div>
                 <div class="team-profile-body">
-                    <div class="team-profile-role">Communications Specialist</div>
+                    <div class="team-profile-role" style="color: rgb(34, 197, 94);">Communications Specialist</div>
                     <div class="team-profile-name">Pippin</div>
                     <p class="team-profile-slogan">"Make them understand. Make them care."</p>
                     <div class="team-profile-bio">
@@ -1786,7 +1813,7 @@
                     <img src="Agents/Final/Fully Body/Transparent/Aragorn.png" alt="Aragorn" class="team-profile-img">
                 </div>
                 <div class="team-profile-body">
-                    <div class="team-profile-role">Managing Consultant</div>
+                    <div class="team-profile-role" style="color: rgb(239, 68, 68);">Managing Consultant</div>
                     <div class="team-profile-name">Aragorn</div>
                     <p class="team-profile-slogan">"Guiding every agent toward the goal."</p>
                     <div class="team-profile-bio">
@@ -1861,7 +1888,7 @@
                         <img src="Portfolio Logos/NorthSouthCoffee_Logo_.png" alt="NorthSouth Coffee">
                     </div>
                     <div class="project-card-body">
-                        <span class="project-card-badge active-badge">Completed</span>
+                        <span class="project-card-badge completed-badge">Completed</span>
                         <div class="project-card-name">NorthSouth Coffee</div>
                         <p class="project-card-desc">Loyalty programme transformation &mdash; from failing rewards system to behavioural-science-driven engagement engine across 120 locations.</p>
                     </div>
@@ -1908,7 +1935,7 @@
                     engagement. Across 11 iterative pipeline cycles, our five-agent team has delivered a
                     comprehensive solution spanning AI-powered support, transparent pricing, personalised
                     discovery, social features, post-event engagement, and full EU regulatory compliance.
-                    The engagement produced a 26-screen interactive prototype with four AI features
+                    The engagement produced a 10-screen interactive prototype with four AI features
                     covering the complete customer lifecycle from discovery to post-event retention.
                 </p>
             </div>
@@ -1971,14 +1998,14 @@
                         downstream agents.
                     </p>
                     <span class="timeline-agent">Led by Saruman &mdash; Research Analyst</span>
-                    <a href="reports/saruman-research-brief.html" target="_blank" class="timeline-report-btn">View Report &rarr;</a>
+                    <a href="reports/saruman-research-brief.html" target="_blank" rel="noopener noreferrer" class="timeline-report-btn">View Report &rarr;</a>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-phase">Phase 2 &mdash; Design</div>
                     <h3>UX Design &amp; Experience Architecture</h3>
                     <p>
-                        26 screens designed across four AI features: ARIA (conversational support with visible
+                        10 screens designed across four AI features: ARIA (conversational support with visible
                         tool calls), EventMatch (personalised discovery with social filtering), Confidence Bridge
                         (resilient queue-to-checkout), and the social &amp; post-event suite (Go Together,
                         Your Year in Live). Mobile-first design at 393&times;852px with thumb-zone CTAs and
@@ -1988,14 +2015,14 @@
                         screens cannot be simplified during build.
                     </p>
                     <span class="timeline-agent">Led by Galadriel &mdash; UX Designer</span>
-                    <a href="reports/galadriel-design-specification.html" target="_blank" class="timeline-report-btn">View Report &rarr;</a>
+                    <a href="reports/galadriel-design-specification.html" target="_blank" rel="noopener noreferrer" class="timeline-report-btn">View Report &rarr;</a>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-phase">Phase 3 &mdash; Build</div>
                     <h3>Working Prototype</h3>
                     <p>
-                        Interactive 26-screen prototype built as zero-dependency HTML/JavaScript. ARIA features
+                        Interactive 10-screen prototype built as zero-dependency HTML/JavaScript. ARIA features
                         a six-tool agentic loop with visible tool invocations, identity verification,
                         &gt;&euro;500 refund escalation safeguards, and EU AI Act disclosure on every interaction.
                         EventMatch delivers personalised recommendations with social discovery ("Popular with
@@ -2007,7 +2034,7 @@
                         Experience, and ARIA Support.
                     </p>
                     <span class="timeline-agent">Led by Gimli &mdash; Prototype Engineer</span>
-                    <a href="reports/gimli-working-prototype.html" target="_blank" class="timeline-report-btn">View Report &rarr;</a>
+                    <a href="reports/gimli-working-prototype.html" target="_blank" rel="noopener noreferrer" class="timeline-report-btn">View Report &rarr;</a>
                 </div>
 
                 <div class="timeline-item">
@@ -2025,7 +2052,7 @@
                         customer lifecycle with quantified KPIs.
                     </p>
                     <span class="timeline-agent">Led by Pippin &mdash; Communications Specialist</span>
-                    <a href="reports/pippin-go-to-market.html" target="_blank" class="timeline-report-btn">View Report &rarr;</a>
+                    <a href="reports/pippin-go-to-market.html" target="_blank" rel="noopener noreferrer" class="timeline-report-btn">View Report &rarr;</a>
                 </div>
 
                 <div class="timeline-item">
@@ -2043,7 +2070,7 @@
                         required before production deployment. Pipeline quality scored 9.5/10 across all agents.
                     </p>
                     <span class="timeline-agent">Led by Aragorn &mdash; Managing Consultant</span>
-                    <a href="reports/aragorn-executive-summary.html" target="_blank" class="timeline-report-btn">View Report &rarr;</a>
+                    <a href="reports/aragorn-executive-summary.html" target="_blank" rel="noopener noreferrer" class="timeline-report-btn">View Report &rarr;</a>
                 </div>
             </div>
 
@@ -2146,8 +2173,8 @@
                     <div class="timeline-phase">Phase 5 &mdash; Executive Report</div>
                     <h3>Pipeline Synthesis &amp; Board Recommendation</h3>
                     <p>
-                        Full agent performance review (Researcher 7.5/10, Designer 9.0/10, Coder scored,
-                        Communicator scored). Projected outcomes: MAU from 48,000 to 80,000+, reward
+                        Full agent performance review (Researcher 7.5/10, Designer 9.0/10, Engineer 8.5/10,
+                        Communicator 8.0/10). Projected outcomes: MAU from 48,000 to 80,000+, reward
                         redemption from 12% to 32%, NPS from -12 to +22, app uninstall rate from 58% to 22%.
                         ROI model: 3.56:1 on programme costs, 8.8:1 on communication spend. Board-level
                         recommendation: approve and execute immediately &mdash; every week of delay costs
@@ -2248,6 +2275,8 @@
 
     function showProject(project) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.nav-links button')[3].classList.add('active');
         if (project === 'back') {
             document.getElementById('portfolio').classList.add('active');
         } else if (project === 'ticketmaster') {
