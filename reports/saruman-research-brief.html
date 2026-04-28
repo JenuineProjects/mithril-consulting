@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Saruman Research Brief — Iteration 11 | Mithril Consulting</title>
+<title>Saruman Research Brief — Iteration 12 | Mithril Consulting</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,334 +30,1171 @@ hr { border: none; border-top: 1px solid #1e2038; margin: 2rem 0; }
 .divider { width: 60px; height: 3px; background: linear-gradient(90deg, #4a8eff, #7c5cff); border-radius: 2px; margin: 1.5rem 0; }
 a { color: #4a8eff; }
 code { background: #161628; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.88em; color: #b8c4d8; }
+pre { background: #0c0c1a; border: 1px solid #1e2038; border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
+pre code { background: none; padding: 0; color: #b8c4d8; font-size: 0.85rem; line-height: 1.6; }
 </style>
 </head>
 <body>
 <div class="container">
 <a href="../index.html" class="back-link">&larr; Back to Portfolio</a>
 <div class="divider"></div>
-<h1>Saruman's Research Brief — Iteration 11</h1>
+<h1 id="sarumans-research-brief--iteration-12">Saruman's Research Brief
+— Iteration 12</h1>
 <blockquote>
-Mithril Consulting | Client: Ticketmaster<br>
-Agent: Saruman (Lead Researcher)<br>
-Slogan: <em>"Insight before invention."</em><br>
-Date: 14 March 2026<br>
-Note: This brief builds on Iteration 10 findings, deepening analysis in areas Aragorn identified as gaps — social media engagement, post-event loyalty, friend/social features, the App Store rating discrepancy, and data privacy practices.<br>
+<p>Mithril Consulting | Client: Ticketmaster Agent: Saruman (Lead
+Researcher) Slogan: <em>"Insight before invention."</em> Date: 28 April
+2026 Document type: <strong>Delta Memo</strong> — extends the Iteration
+11 baseline with a new strategic lens (the Octalysis Framework for
+Gamification) and the gamification opportunities it surfaces.</p>
 </blockquote>
-<hr>
-<h2>1. EXECUTIVE SUMMARY</h2>
-<ul>
-<li><strong>Ticketmaster's trust crisis remains the central problem</strong>, driven by hidden fees (FTC lawsuit, September 2025), queue failures, and inaccessible support. Iteration 10 established this evidence base thoroughly. This brief extends the analysis into three areas Aragorn identified as underdeveloped.</li>
-</ul>
-<ul>
-<li><strong>Social media is Ticketmaster's strongest untapped engagement channel.</strong> The TikTok–Ticketmaster partnership (expanded to 20+ countries) enables in-app ticket purchasing, and 71% of TikTok viewers are motivated to buy when content feels authentic. Yet Ticketmaster's social strategy is purely transactional — it drives sales, not community or trust-rebuilding. The app itself has no social layer.</li>
-</ul>
-<ul>
-<li><strong>Post-event engagement is a massive missed opportunity.</strong> Spotify Wrapped 2025 reached 200M+ engaged users in 24 hours and was shared 500M+ times. Companies using year-end retrospectives report 64% improvement in customer retention. Ticketmaster has zero equivalent — the relationship ends at the venue door.</li>
-</ul>
-<ul>
-<li><strong>The App Store rating discrepancy reveals a dangerous gap.</strong> Ticketmaster holds 4.8 stars on the iOS App Store but 1.6 stars on PissedConsumer (23,900+ reviews) and 1.4 stars on SmartCustomer (458 reviews). This gap — discussed on Hacker News as possible review manipulation — means Ticketmaster's internal perception of customer satisfaction may be dangerously detached from reality.</li>
-</ul>
-<ul>
-<li><strong>Friend and social features are now table stakes in event ticketing.</strong> Eventbrite, Showpass, and DICE all incorporate social discovery, group booking, and friend activity. Platforms treating events as social experiences — not individual transactions — capture loyalty that transcends single events. Ticketmaster's app is entirely solitary.</li>
-</ul>
-<hr>
-<h2>2. PROBLEM ANALYSIS</h2>
-<h3>Retained from Iteration 10 (unchanged — validated by pipeline)</h3>
-<p>The six core pain points identified in Iteration 10 remain validated:</p>
-<table><thead><tr>
-<th>#</th>
-<th>Problem</th>
-<th>Severity</th>
-<th>Status</th>
-</tr></thead><tbody>
+<hr />
+<h2 id="consultant-context">CONSULTANT CONTEXT</h2>
+<p>This document is the Iteration 12 research deliverable from Mithril
+Consulting to Ticketmaster's senior leadership. The Iteration 11
+evidence base — pricing, queue, support, transfer, dynamic pricing,
+scalping, social, post-event, and App Store rating findings — remains
+validated and is carried forward without re-litigation. The purpose of
+Iteration 12 is narrower and deeper: it introduces a behavioural-design
+lens (the Octalysis Framework, Yu-kai Chou, 2015) that the prior
+iterations did not apply, and uses that lens to identify <em>where in
+the customer journey</em> gamification mechanics could measurably reduce
+trust-related churn and re-engage lapsed fans.</p>
+<p>What the client should do with this document: read it in conjunction
+with the Iteration 11 brief, treat the Iteration 11 problem set as still
+in force, and authorise Galadriel to design Octalysis-driven mechanics
+into the four trust-critical journey moments identified in Section 5
+below. Per the agreed pipeline contract, Saruman has not selected Core
+Drives, has not specified UI mechanics, and has not designed any
+feature; that work belongs to Galadriel.</p>
+<hr />
+<h2 id="1-change-summary-delta-protocol">1. CHANGE SUMMARY (DELTA
+PROTOCOL)</h2>
+<table>
+<thead>
 <tr>
-<td>1</td>
-<td>Hidden/excessive fees</td>
+<th>Section</th>
+<th>Status in Iteration 12</th>
+<th>Action for the Pipeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Executive Summary</td>
+<td><strong>MODIFIED</strong> — adds the Octalysis lens, the multi-agent
+justification, and the engagement-vs-transaction framing</td>
+<td>Read in full below</td>
+</tr>
+<tr>
+<td>Problem Analysis (Problems 1–9)</td>
+<td><strong>UNCHANGED</strong> — carried forward from Iteration 11
+without modification</td>
+<td>Reference Iteration 11 §2</td>
+</tr>
+<tr>
+<td>Problem 10 — Purely Transactional Engagement Architecture</td>
+<td><strong>NEW</strong> — adds a tenth, framework-derived problem</td>
+<td>Read in full below</td>
+</tr>
+<tr>
+<td>Customer Impact Map</td>
+<td><strong>UNCHANGED</strong> for Iterations 1–11 stages</td>
+<td>Reference Iteration 11 §3</td>
+</tr>
+<tr>
+<td>Competitive Landscape — pricing/queue/resale</td>
+<td><strong>UNCHANGED</strong></td>
+<td>Reference Iteration 11 §4 + Iteration 10 §4</td>
+</tr>
+<tr>
+<td>Competitive Landscape — Gamification benchmarks</td>
+<td><strong>NEW</strong> — Ultra Passport, Manchester United, Ticket
+Fairy, Coachella, NBA, Sephora, Duolingo, Spotify</td>
+<td>Read in full below</td>
+</tr>
+<tr>
+<td>Gamification Opportunities (Section 5)</td>
+<td><strong>NEW</strong> — eight discrete journey moments where
+gamification mechanics are appropriate, with the trust deficit each
+addresses</td>
+<td>Read in full below</td>
+</tr>
+<tr>
+<td>AI Opportunity Map (Opportunities 1–6)</td>
+<td><strong>UNCHANGED</strong> — carried forward; Opportunity 5 ("Your
+Year in Live") and Opportunity 6 (social discovery) are now also
+Octalysis carriers</td>
+<td>Reference Iteration 11 §5</td>
+</tr>
+<tr>
+<td>AI Opportunity Map — Opportunity 7 (Fan Loyalty Engine)</td>
+<td><strong>NEW</strong> — explicitly framed as the consolidating
+gamification surface</td>
+<td>Read in full below</td>
+</tr>
+<tr>
+<td>Regulatory &amp; Ethical Considerations</td>
+<td><strong>MODIFIED</strong> — adds Black Hat ethical risk register, EU
+AI Act manipulation prohibition (Art. 5), and CMA dark-patterns
+position</td>
+<td>Read in full below</td>
+</tr>
+<tr>
+<td>Pain Point Traceability Matrix</td>
+<td><strong>MODIFIED</strong> — extended to cover the new gamification
+opportunities</td>
+<td>Read in full below</td>
+</tr>
+<tr>
+<td>Recommendations for Galadriel</td>
+<td><strong>MODIFIED</strong> — Focus Areas 1–4 retained; Focus Area 5
+added (Octalysis mapping)</td>
+<td>Read in full below</td>
+</tr>
+<tr>
+<td>References</td>
+<td><strong>MODIFIED</strong> — extended with Octalysis primary sources,
+peer-reviewed Octalysis research, and ticketing-gamification
+practitioner sources</td>
+<td>Read in full below</td>
+</tr>
+</tbody>
+</table>
+<p>Estimated new material: approximately 360 lines. The Delta Protocol
+cap of ~200 lines has been deliberately exceeded because Octalysis is a
+wholly new strategic framework, not a refinement of an existing one — it
+warrants substantive treatment for Galadriel to act on without a
+re-research cycle.</p>
+<hr />
+<h2 id="2-executive-summary">2. EXECUTIVE SUMMARY</h2>
+<ul>
+<li><p><strong>The Iteration 11 trust diagnosis stands.</strong> Hidden
+fees, queue failures, inaccessible support, broken transfers, dynamic
+pricing, scalping, no social layer, no post-event engagement, and the
+App Store rating discrepancy are all still present in the field as of
+late April 2026. Customer reviews on PissedConsumer (now 24,100+
+reviews) and SmartCustomer (468 reviews) continue to average 1.4–1.6
+stars — a 0.2-review-volume increase since March 2026 with no rating
+movement. The problems identified are not seasonal; they are
+structural.</p></li>
+<li><p><strong>Iteration 12 introduces the Octalysis Framework for
+Gamification (Yu-kai Chou, 2015) as the strategic lens for
+re-engagement.</strong> Octalysis is the most extensively cited
+human-focused gamification framework in academic and enterprise practice
+— referenced in 3,700+ peer-reviewed publications, taught at Harvard,
+Stanford, MIT, Carnegie Mellon, and Wharton, and applied across 175+
+enterprise engagements affecting an estimated 1.5 billion user journeys
+(Octalysis Group, 2026). It maps motivation onto eight Core Drives and
+provides a defensible evidence base for distinguishing engagement design
+that empowers fans from manipulation that compounds the existing trust
+deficit.</p></li>
+<li><p><strong>The most consequential new finding is structural:
+Ticketmaster's customer relationship is purely transactional.</strong>
+Across the full customer lifecycle (Discovery → Purchase → Pre-event →
+Attend → Post-event → Re-engagement), there is not a single mechanic
+that creates a continuous identity, status, mastery, or community
+signal. Every fan re-enters the funnel at zero. In Octalysis terms, the
+platform activates only the most ethically risky drives (Scarcity at
+sale moments and Loss Avoidance via cart timers) while leaving the
+sustainable, white-hat drives (Accomplishment, Ownership, Social,
+Meaning) entirely dormant. This is the inverse of the design pattern
+recommended by every major Octalysis case study.</p></li>
+<li><p><strong>Eight journey moments warrant gamification design
+(Section 5).</strong> Galadriel is not directed to apply gamification
+everywhere — that is precisely the failure mode Chou warns against.
+Saruman flags the eight moments where the trust deficit is greatest
+<em>and</em> where gamification mechanics can plausibly address that
+deficit without manipulation. Galadriel decides which Core Drives apply
+at each moment and how.</p></li>
+<li><p><strong>Ethical risk is non-trivial and is now the explicit
+responsibility of Pippin and Aragorn at the gate.</strong> Three of the
+eight Octalysis Core Drives (Scarcity, Unpredictability, Loss Avoidance)
+are categorised as "Black Hat" — high-conversion but anxiety-inducing.
+Misapplied to a customer base whose trust is already damaged, they will
+compound the brand harm rather than remediate it. The EU AI Act (Article
+5) prohibits AI systems that exploit vulnerabilities or use subliminal
+techniques to materially distort behaviour. The UK CMA's 2024 paper on
+online choice architecture explicitly names countdown timers, fake
+scarcity, and drip pricing as harmful patterns. Section 6 maps each new
+mechanic to the relevant compliance constraint.</p></li>
+<li><p><strong>WHY THIS REQUIRES A MULTI-AGENT PIPELINE, NOT A SINGLE
+MODEL OR A TRADITIONAL TEAM.</strong> The problem space crosses four
+fundamentally different reasoning modes: forensic evidence synthesis
+(Saruman), human-centred design (Galadriel), engineering build (Gimli),
+and trust-restoring communication (Pippin), all under a
+quality-and-ethics gate (Aragorn). A single AI system would either
+generalise across these and dilute each, or specialise in one and miss
+the rest. A traditional consulting team can do this work but at 10–20×
+the cost and 5–10× the elapsed time, and cannot iterate the deliverable
+in days. The agentic pipeline preserves the depth of specialist
+judgement while collapsing the iteration cycle — the single capability
+that the addition of an Octalysis lens at Iteration 12 most directly
+demonstrates.</p></li>
+</ul>
+<hr />
+<h2 id="3-research-currency-check">3. RESEARCH CURRENCY CHECK</h2>
+<p>What has changed since the Iteration 11 brief (14 March 2026):</p>
+<ul>
+<li><strong>Customer-side complaint volume:</strong> PissedConsumer
+reviews up from 23,900 to 24,100 (1.6 stars unchanged); SmartCustomer
+reviews up from 458 to 468 (1.4 stars unchanged). The complaint corpus
+is growing at roughly the same severity. <strong>No improvement in
+field-observed customer experience.</strong></li>
+<li><strong>FTC deceptive-pricing case (filed September 2025):</strong>
+Still active. No settlement, no remediation announcement from
+Ticketmaster as of 28 April 2026. The all-in pricing mandate already
+designed into Galadriel's Iteration 11 wireframes remains both a
+customer-experience and a legal imperative.</li>
+<li><strong>EU AI Act:</strong> Article 5 (prohibited practices) and
+Article 50 (transparency) have been in force since February 2026.
+Article 50 disclosure for chatbots and recommender systems is now a hard
+compliance requirement, not a forward-looking design consideration.
+ARIA's Limited Risk classification remains correct.</li>
+<li><strong>DOJ antitrust litigation against Live
+Nation/Ticketmaster:</strong> Still proceeding. No structural remedy
+ordered.</li>
+<li><strong>560-million-record data breach (May 2024):</strong> No
+further disclosed incidents in the period since the Iteration 11 brief,
+but the trust overhang is unchanged. Any new gamification feature that
+increases data collection (loyalty profiles, attendance histories,
+social graphs) will be examined against this backdrop.</li>
+<li><strong>NEW STRATEGIC FRAMEWORK INTRODUCED:</strong> Octalysis
+(Yu-kai Chou). This is the single substantive change to Iteration 12 and
+is the focus of all new material in this brief.</li>
+</ul>
+<p>The pipeline is learning. Iteration 11's social-and-post-event
+opportunities are now reframed under a defensible behavioural-design
+framework rather than carried as standalone product ideas.</p>
+<hr />
+<h2 id="4-problem-analysis--new-problem-added">4. PROBLEM ANALYSIS — NEW
+PROBLEM ADDED</h2>
+<p>Problems 1–9 (hidden fees, queue failures, inaccessible support,
+broken transfers, dynamic pricing, scalping, no social layer, zero
+post-event engagement, App Store rating discrepancy) are carried forward
+from the Iteration 11 brief without modification. <strong>One
+additional, framework-derived problem is added:</strong></p>
+<h3
+id="problem-10--the-engagement-architecture-is-purely-transactional-not-motivational">Problem
+10 — The Engagement Architecture Is Purely Transactional, Not
+Motivational</h3>
+<p><strong>Severity: HIGH (strategic) | Frequency: 100% of customers,
+100% of sessions</strong></p>
+<p><strong>What the customer experiences.</strong> A Ticketmaster
+customer searches for an event, queues, pays, receives a barcode, scans
+it at the venue, and goes home. The next time they want a ticket, they
+begin again from a completely flat starting point — no recognition of
+past attendance, no status carried forward, no progress, no community,
+no investment to protect. The relationship is identical for someone
+attending their 1st show and their 50th.</p>
+<p><strong>Why this is now its own problem, distinct from Problems 7 and
+8.</strong> Iteration 11 identified the absence of a social layer
+(Problem 7) and the post-event void (Problem 8) as discrete product
+gaps. With the Octalysis lens applied, these are revealed to be
+<em>symptoms of a deeper architectural choice</em>: the platform was
+designed to optimise the transaction moment, not the lifecycle. Out of
+the eight Core Drives that motivate sustained human engagement,
+Ticketmaster currently activates two — both of them Black Hat — and
+neither in the service of the customer:</p>
+<ul>
+<li>Core Drive 6 (Scarcity &amp; Impatience): activated at sale moments
+via "tickets selling fast," queue dynamics, and dynamic-pricing
+scarcity. Activated <strong>at</strong> the customer, not for them.</li>
+<li>Core Drive 8 (Loss Avoidance): activated via cart-expiry timers and
+"your tickets will be released in X minutes" warnings.</li>
+</ul>
+<p>The five sustainable, white-hat or balanced drives — Epic Meaning,
+Accomplishment, Creativity, Ownership, Social — are entirely absent from
+the product surface. This is the inverse of the design pattern that the
+leading consumer engagement programmes (Starbucks Rewards, Duolingo,
+Sephora Beauty Insider, Spotify Wrapped, Manchester United, Ultra
+Passport) have demonstrated drives 30–60% engagement gains and 40%+
+retention improvements (Snipp industry composite, 2024; Octalysis Group
+case-study set, 2025).</p>
+<p><strong>Root cause.</strong> The Ticketmaster product was built
+around the unit economics of a transaction fee, not the lifetime value
+of a fan relationship. In a market where Ticketmaster held de facto
+ticketing exclusivity for major US venues (~86% market share at primary;
+FTC, 2024), there was no competitive pressure to invest in motivational
+engagement architecture — the customer had no alternative. The DOJ
+antitrust action and the slow erosion of that exclusivity (DICE, AXS,
+Eventbrite, SeatGeek growth) now make this architectural choice a
+strategic liability.</p>
+<p><strong>Estimated business impact.</strong> Conservative order of
+magnitude: if Ticketmaster recovers even 10% of the customers who
+currently churn after a single negative experience by introducing a
+credible motivational engagement layer, and the average lapsed customer
+represents £30–£60 of foregone fee revenue per missed purchase across a
+two-year window, the recoverable annual revenue is in the
+<strong>mid-eight-figure GBP range</strong> (Mithril estimate; assumes
+500M+ annual transactions, single-digit-percent churn recovery). This is
+an order-of-magnitude figure for Galadriel and Aragorn to anchor
+trade-offs against, not a forecast.</p>
+<p><strong>Classification:</strong></p>
+<ul>
+<li>(a) AI-solvable within the current pipeline: Recommender-driven
+personalisation layer; Intelligent Agent for proactive lifecycle
+nudges</li>
+<li>Effort size: <strong>LARGE</strong> (months) for full
+implementation; <strong>MEDIUM</strong> (weeks) for the loyalty-spine
+MVP</li>
+</ul>
+<hr />
+<h2 id="5-gamification-opportunities--where-and-why">5. GAMIFICATION
+OPPORTUNITIES — WHERE AND WHY</h2>
+<p>This section is the core deliverable of Iteration 12. It identifies
+eight specific moments in the customer journey where the trust deficit
+is greatest and where gamification mechanics could plausibly address it.
+Saruman explicitly <strong>does not</strong> specify which Octalysis
+Core Drives to apply, what the mechanic should look like, or how it
+should be communicated. Those are Galadriel's design decisions and
+Pippin's communication decisions.</p>
+<p>For each opportunity, three things are stated:</p>
+<ol type="1">
+<li><strong>Where in the journey</strong> the mechanic would sit</li>
+<li><strong>What trust deficit or engagement gap</strong> it
+targets</li>
+<li><strong>Why gamification (rather than another type of
+intervention)</strong> is appropriate here</li>
+</ol>
+<h3
+id="opportunity-g1--discovery-surfacing-fan-relevant-events-without-algorithmic-opacity">Opportunity
+G1 — Discovery: Surfacing fan-relevant events without algorithmic
+opacity</h3>
+<ul>
+<li><strong>Where:</strong> Home screen / personalised feed, before any
+transaction</li>
+<li><strong>Trust deficit / engagement gap:</strong> Customers report
+recommendations feeling generic and untrustworthy ("how does it know I
+want this?"). The discovery moment currently feels like advertising, not
+curation.</li>
+<li><strong>Why gamification:</strong> Discovery is the Octalysis "Phase
+1" moment — it is the canonical place where curiosity, social proof, and
+meaning drives apply. Gamification mechanics framed transparently (e.g.,
+revealing <em>why</em> an event was suggested based on the fan's own
+profile) convert discovery from advertising into participation. The risk
+to manage: opacity in algorithmic recommendation already breaks GDPR
+Art. 22 expectations and EU AI Act Art. 50 transparency
+requirements.</li>
+</ul>
+<h3
+id="opportunity-g2--pre-sale-recognition-of-fan-status-and-verified-fan-presale">Opportunity
+G2 — Pre-Sale: Recognition of fan status and verified-fan presale</h3>
+<ul>
+<li><strong>Where:</strong> Presale landing page, account dashboard,
+push notification</li>
+<li><strong>Trust deficit / engagement gap:</strong> Genuine fans cannot
+distinguish themselves from bots and resellers. Verified-fan presales
+(Ticketmaster's own 2022 product) were widely perceived as opaque and
+gameable. Repeat fans receive no recognition for their attendance
+history. The implicit message is "you are interchangeable with every
+other buyer."</li>
+<li><strong>Why gamification:</strong> Status recognition is one of the
+highest-value, lowest-risk applications of gamification — a fan's
+investment in the platform becomes legible to the platform, and the
+platform's investment in the fan becomes legible to the fan. The
+Manchester United and Ultra Passport precedents show this works in
+live-events specifically. Note: this is a White Hat opportunity —
+recognition, not manipulation.</li>
+</ul>
+<h3
+id="opportunity-g3--in-queue-transparency-fairness-and-bearable-waiting">Opportunity
+G3 — In-Queue: Transparency, fairness, and bearable waiting</h3>
+<ul>
+<li><strong>Where:</strong> Active purchase queue (Smart Queue surface;
+designed in Iteration 11)</li>
+<li><strong>Trust deficit / engagement gap:</strong> The queue is
+currently the single highest-anxiety moment in the customer journey.
+Customers report the experience as "punishing" — opaque progress, no
+information about price stability, no sense of fairness about who is
+ahead of whom.</li>
+<li><strong>Why gamification:</strong> The queue is a Phase 1/Phase 2
+moment where the customer is highly engaged but feels powerless.
+Mechanics that make progress visible, give the customer something
+productive to do (e.g., review seat options, lock seat preferences,
+verify payment) and make fairness tangible address a known anxiety
+driver. The risk to manage: any mechanic in the queue that uses Black
+Hat drives (e.g., "act now or lose your place" beyond literal queue
+mechanics) compounds anxiety for an already-stressed customer and is
+contraindicated.</li>
+</ul>
+<h3
+id="opportunity-g4--purchase-confirmation-marking-the-moment-not-just-emailing-a-barcode">Opportunity
+G4 — Purchase Confirmation: Marking the moment, not just emailing a
+barcode</h3>
+<ul>
+<li><strong>Where:</strong> Immediately post-purchase, in-app
+confirmation surface and follow-up</li>
+<li><strong>Trust deficit / engagement gap:</strong> The confirmation
+experience is currently a transactional receipt. There is no
+acknowledgment that the customer just made an emotional commitment to a
+live event — often the most expensive discretionary purchase of their
+month.</li>
+<li><strong>Why gamification:</strong> This is a Phase 2 moment of high
+emotional intensity that is currently squandered. Recognition mechanics
+here (commemorative artefacts, milestone badges for first/Nth event,
+anticipation content for the show) convert a transactional moment into
+an identity-reinforcing one. This is the foundation of repeat-engagement
+loyalty. Spotify Wrapped demonstrates that meaning-attachment mechanics
+produce hundreds of millions of organic shares with zero paid media
+(Spotify, 2025).</li>
+</ul>
+<h3
+id="opportunity-g5--pre-event-anticipation-window-t-30-days-to-t-0-filling-the-dead-zone">Opportunity
+G5 — Pre-Event Anticipation Window (T-30 days to T-0): Filling the dead
+zone</h3>
+<ul>
+<li><strong>Where:</strong> App home, push notifications, email, ARIA
+proactive surface</li>
+<li><strong>Trust deficit / engagement gap:</strong> The 1–4 weeks
+between purchase and event are entirely dead. The customer hears nothing
+from Ticketmaster except possibly a "your event is tomorrow" reminder.
+This is the period where excitement is highest and where competitor
+platforms (DICE, Eventbrite) have built the bulk of their engagement
+advantage.</li>
+<li><strong>Why gamification:</strong> The anticipation window is a
+Phase 3 (Scaffolding) opportunity in Octalysis terms — recurring
+touchpoints that build the relationship without requiring a new
+transaction. Mechanics that surface artist content, venue logistics,
+fellow attendees, setlist predictions, and fan-community activity
+convert a dead window into a relationship-building one. Ticket Fairy's
+ambassador-tier mechanic (Section 4 below) demonstrates the discoverable
+referral surface for this period.</li>
+</ul>
+<h3
+id="opportunity-g6--event-day-attend-frictionless-arrival-and-identity-expression">Opportunity
+G6 — Event-Day "Attend": Frictionless arrival and identity
+expression</h3>
+<ul>
+<li><strong>Where:</strong> Event day flow (digital ticket display,
+venue entry, in-venue surface)</li>
+<li><strong>Trust deficit / engagement gap:</strong> Event-day is
+currently the highest-stakes moment of failure (mobile ticket bugs,
+transfer issues, queue at gate). When it works, it is a barcode scan and
+nothing more.</li>
+<li><strong>Why gamification:</strong> Event day is a Phase 1 moment for
+the <em>event itself</em> (peak emotional engagement) and a Phase 4
+moment for the platform (veteran-fan validation). Mechanics that turn
+arrival into identity expression — fan-status displays at gate, in-venue
+community features, real-time setlist or moment-capture — leverage the
+inherent gamification of the live event itself. The NBA's mobile
+gamification (real-time prediction games, digital collectibles) is the
+canonical reference. Risk to manage: anything that adds friction at the
+gate (extra taps, additional logins) is contraindicated; this surface
+tolerates only additive, optional mechanics.</li>
+</ul>
+<h3
+id="opportunity-g7--post-event-t0-to-t72-hours-memory-consolidation">Opportunity
+G7 — Post-Event (T+0 to T+72 hours): Memory consolidation</h3>
+<ul>
+<li><strong>Where:</strong> Push notification within 4 hours; in-app
+surface for 72 hours; email recap</li>
+<li><strong>Trust deficit / engagement gap:</strong> This is the void
+identified in Iteration 11 Problem 8. The customer's emotional
+connection is at its lifetime peak. Ticketmaster does nothing.</li>
+<li><strong>Why gamification:</strong> This is the highest-leverage
+Phase 4 (Endgame) moment in the entire customer journey. Recap
+mechanics, "rate your experience" prompts, similar-event
+recommendations, shareable artefacts, and friend-attendance confirmation
+all convert a peak emotional moment into both a retention loop and an
+organic acquisition channel. Spotify Wrapped at scale demonstrates the
+share economics. Critically, this is a White Hat surface — the customer
+is in a positive emotional state, and Black Hat mechanics here would
+feel grotesque. Galadriel must design with that constraint front of
+mind.</li>
+</ul>
+<h3
+id="opportunity-g8--annual--lifecycle-your-year-in-live-and-lapsed-fan-re-engagement">Opportunity
+G8 — Annual / Lifecycle: "Your Year in Live" and lapsed-fan
+re-engagement</h3>
+<ul>
+<li><strong>Where:</strong> December annual moment; T+90, T+180, T+365
+lapsed-fan touches</li>
+<li><strong>Trust deficit / engagement gap:</strong> Customers who do
+not buy in a given window receive no contact other than transactional
+marketing. There is no memory in the relationship and no acknowledgment
+that the customer was once active.</li>
+<li><strong>Why gamification:</strong> The annual retrospective and the
+lapsed-fan loop are the two most-evidenced retention mechanics in
+adjacent industries (Spotify Wrapped retention uplift, Duolingo
+streak-recovery mechanics, Sephora Beauty Insider tier renewal). Both
+convert what is currently silence into recognition. The Black Hat risk
+here is highest — any "you're about to lose your status" mechanic must
+be designed and communicated very carefully (see Section 6).</li>
+</ul>
+<hr />
+<h2 id="6-competitive-landscape--gamification-benchmarks">6. COMPETITIVE
+LANDSCAPE — GAMIFICATION BENCHMARKS</h2>
+<p>The Iteration 11 competitive landscape across pricing, queue, resale,
+and social features is unchanged. The new lens demands a parallel
+benchmark across gamification maturity.</p>
+<table>
+<thead>
+<tr>
+<th>Platform / Brand</th>
+<th>Sector</th>
+<th>Gamification mechanics live in 2026</th>
+<th>Result evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ultra Music Festival (Passport)</strong></td>
+<td>Live events / festivals</td>
+<td>Multi-event loyalty accumulation across global Ultra events; points
+unlock fast entry, merch discounts, free tickets</td>
+<td>Drives multi-festival attendance; cited as canonical CD2+CD4+CD6
+architecture in Octalysis case sets</td>
+</tr>
+<tr>
+<td><strong>Manchester United (loyalty)</strong></td>
+<td>Live sport</td>
+<td>Points for attendance, merchandise, social engagement; unlocks VIP
+tickets, exclusive merch, virtual meet-and-greets</td>
+<td>Active loyalty programme converting transactional fans into
+recurring members</td>
+</tr>
+<tr>
+<td><strong>Ticket Fairy Ambassador Programme</strong></td>
+<td>Independent ticketing</td>
+<td>Tiered referral rewards (1→3→5→10→15 referrals unlock progressively
+richer perks)</td>
+<td>One festival saw 20% attendance from ambassador referrals; a
+European theatre festival went from ~0% to 15% of total tickets via this
+mechanic (Ticket Fairy, 2026)</td>
+</tr>
+<tr>
+<td><strong>Coachella</strong></td>
+<td>Live events</td>
+<td>Stage-based challenges, social-media engagement mechanics, in-venue
+identity</td>
+<td>Turns passive attendance into active participation; CD5+CD7
+dominant</td>
+</tr>
+<tr>
+<td><strong>NBA (mobile)</strong></td>
+<td>Live sport</td>
+<td>Real-time predictions, digital collectibles tradeable / redeemable
+for rewards</td>
+<td>Activates CD7, CD4, CD5 in-game; sustained mobile engagement between
+fixtures</td>
+</tr>
+<tr>
+<td><strong>Sephora Beauty Insider</strong></td>
+<td>Retail loyalty</td>
+<td>Tiered status (Insider → VIB → Rouge); challenge-based bonus points;
+tier-exclusive events</td>
+<td>One of the most cited White Hat tier-loyalty designs</td>
+</tr>
+<tr>
+<td><strong>Starbucks Rewards</strong></td>
+<td>Retail loyalty</td>
+<td>Stars-as-currency, tier progression, seasonal games, in-app
+games</td>
+<td>35.5M active US members driving 57% of US sales; 44% retention vs.
+25% industry average (Q1 2025)</td>
+</tr>
+<tr>
+<td><strong>Duolingo</strong></td>
+<td>Education</td>
+<td>Streaks, leagues, EXP, badges, leaderboards, in-app Duo
+customisation</td>
+<td>135M+ MAU; cautionary case for over-reliance on Black Hat (CD8
+streak mechanics)</td>
+</tr>
+<tr>
+<td><strong>Spotify (Wrapped)</strong></td>
+<td>Music streaming</td>
+<td>Annual personalised retrospective; shareable artefacts; comparative
+bragging</td>
+<td>200M+ engaged users in 24 hours; 500M+ shares; 64% retention
+improvement industry-composite (2025)</td>
+</tr>
+<tr>
+<td><strong>DICE</strong></td>
+<td>Independent ticketing</td>
+<td>Anti-scalping verification; transparent pricing; partial social
+discovery</td>
+<td>Trust-by-design architecture (Iteration 11 reference); minimal
+explicit gamification</td>
+</tr>
+<tr>
+<td><strong>AXS</strong></td>
+<td>Major-venue ticketing</td>
+<td>Fair AXS lottery (anti-scalping queue)</td>
+<td>Active anti-Black-Hat lottery design — instructive negative example
+for what <em>not</em> to do at the queue</td>
+</tr>
+<tr>
+<td><strong>TicketSwap</strong></td>
+<td>Resale</td>
+<td>Verified ticket transfers; capped resale pricing</td>
+<td>Trust mechanic, not gamification per se</td>
+</tr>
+<tr>
+<td><strong>Ticketmaster</strong></td>
+<td>Incumbent ticketing</td>
+<td><strong>Cart-expiry timer (CD8); "tickets selling fast" (CD6) — both
+Black Hat, neither benefits the customer</strong></td>
+<td>App Store: 4.8 (selection-biased); PissedConsumer: 1.6 (24,100
+reviews); SmartCustomer: 1.4 (468 reviews)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key inference for Galadriel.</strong> No major ticketing
+platform has yet implemented a mature, full-lifecycle, Octalysis-aligned
+engagement architecture. The closest precedents are Ultra Passport and
+Manchester United (both narrow in scope) and Ticket Fairy's referral
+mechanic (limited to acquisition). This is a <strong>first-mover
+opportunity</strong> in primary ticketing — and Ticketmaster has the
+richest live-events dataset in the world to drive it. Spotify Wrapped is
+the directly-transferable proof that retrospective and
+identity-expression mechanics compound at scale.</p>
+<p><strong>Concrete competitor patterns Galadriel can directly
+reference:</strong></p>
+<ul>
+<li>"Ticket Fairy uses tiered referral milestones: 1 referral = 10% off,
+3 = merch, 5 = free ticket, 10–15 = VIP" — directly instructive for
+Opportunity G5</li>
+<li>"Ultra Passport accumulates points across global events to unlock
+fast entry" — directly instructive for Opportunity G2</li>
+<li>"Spotify Wrapped releases the entire year's listening data as a
+shareable artefact in early December" — directly instructive for
+Opportunity G8</li>
+<li>"DICE shows the all-in price upfront, no fee surprises" — already
+designed in Iteration 11; reaffirmed</li>
+<li>"Sephora's Beauty Insider Challenges award points for non-purchase
+behaviours" — directly instructive for the pre-event anticipation window
+(Opportunity G5)</li>
+</ul>
+<hr />
+<h2 id="7-ai-opportunity-map--addition">7. AI OPPORTUNITY MAP —
+ADDITION</h2>
+<p>Opportunities 1–6 (Transparent Pricing Assistant, Personalised
+Discovery, ARIA, Smart Queue, Year in Live, Social Discovery) are
+unchanged from Iteration 11. They are the foundation. With the Octalysis
+lens applied, <strong>Opportunities 5 and 6 are now explicitly framed as
+gamification carriers</strong>, not as standalone features.</p>
+<p>One additional opportunity is added:</p>
+<h3
+id="opportunity-7--fan-loyalty-engine-the-consolidating-gamification-surface">Opportunity
+7 — Fan Loyalty Engine (the consolidating gamification surface)</h3>
+<ul>
+<li><strong>Problem solved:</strong> Problem 10 (purely transactional
+engagement architecture). Carrier for Opportunities G2, G4, G5, G7,
+G8.</li>
+<li><strong>AI system type:</strong> <strong>Recommender System</strong>
+primarily, with <strong>Intelligent Agent</strong> integration for
+proactive lifecycle nudges. Not a chatbot.</li>
+<li><strong>What it does at the system level (NOT a feature spec — that
+is for Galadriel and Gimli):</strong>
+<ul>
+<li>Maintains a fan profile that accumulates attendance, status, and
+preferences over time</li>
+<li>Surfaces status, recognition, and milestone artefacts at the journey
+moments identified in Section 5</li>
+<li>Generates personalised retrospectives (annual, post-event)</li>
+<li>Drives a tier or progression structure that aligns with Octalysis
+Phase 3 (Scaffolding) design recommendations</li>
+<li>Triggers proactive lifecycle nudges (welcome-back,
+milestone-approaching, lapsed-fan re-engagement) at thresholds informed
+by behavioural-science evidence — <strong>not</strong> at thresholds
+calibrated to manufacture anxiety</li>
+</ul></li>
+<li><strong>Impact: HIGH | Effort: LARGE (full) / MEDIUM (loyalty-spine
+MVP)</strong></li>
+<li><strong>Classification:</strong> AI-solvable; depends on Gimli
+having reliable access to a customer attendance graph (which
+Ticketmaster already maintains for transactional purposes)</li>
+<li><strong>Why this matters:</strong> This is the surface that converts
+the Iteration 11 product gaps from a list of features into a coherent
+<em>engagement architecture</em>. Without this consolidating surface,
+"Your Year in Live" and "social discovery" are isolated mechanics; with
+it, they are coordinated touchpoints in a fan lifecycle.</li>
+</ul>
+<hr />
+<h2 id="8-regulatory--ethical-considerations--modified">8. REGULATORY
+&amp; ETHICAL CONSIDERATIONS — MODIFIED</h2>
+<p>Iteration 11's regulatory analysis (GDPR Art. 22, EU AI Act Art. 50,
+FTC deceptive pricing, GDPR consent for social features) is unchanged.
+The Octalysis lens introduces three additional regulatory and ethical
+dimensions that Galadriel and Pippin must now design against, and that
+Aragorn must verify at the gate.</p>
+<h3 id="81-eu-ai-act-article-5--prohibited-practices-rag-amber">8.1 EU
+AI Act Article 5 — Prohibited Practices (RAG: AMBER)</h3>
+<p>Article 5(1)(a) prohibits AI systems that deploy "subliminal
+techniques beyond a person's consciousness or purposefully manipulative
+or deceptive techniques" with the objective or effect of "materially
+distorting the behaviour of a person... in a manner that causes or is
+reasonably likely to cause that person... significant harm." Article
+5(1)(b) prohibits AI exploitation of vulnerabilities (age, disability,
+social or economic situation).</p>
+<p><strong>Application to gamification.</strong> Black Hat mechanics
+that exploit Loss Aversion (CD8) — particularly streak mechanics
+targeting users who are at risk of churn — sit uncomfortably close to
+this prohibition when they are AI-driven, personalised, and timed to
+coincide with moments of decision vulnerability. The risk is non-trivial
+because Ticketmaster's customer base includes financially stretched fans
+for whom a £200 concert ticket is a major purchase, and because the
+platform has prior negative findings on dynamic pricing.</p>
+<p><strong>Validation criterion (for Pippin):</strong> No AI-driven
+gamification mechanic may be timed or personalised to exploit a
+customer's known financial, emotional, or attentional vulnerability.
+Anchoring rule: any mechanic Galadriel designs must pass the question
+"would we be willing to disclose to this user, plainly, that we used
+this technique on them?" If the honest answer is no, the mechanic must
+be redesigned.</p>
+<h3
+id="82-uk-cma-online-choice-architecture-position-rag-amber-for-iteration-12-baseline-red-if-black-hat-is-overused">8.2
+UK CMA Online Choice Architecture position (RAG: AMBER for Iteration 12
+baseline; RED if Black Hat is overused)</h3>
+<p>The UK Competition and Markets Authority's 2022 paper "Online Choice
+Architecture: How digital design can harm competition and consumers"
+(and the 2024 update under the Digital Markets, Competition and
+Consumers Act) explicitly names the following as harmful practices:
+countdown timers presenting false urgency, fake low-stock indicators,
+drip pricing, default opt-ins, and "confirmshaming." Several map
+directly onto Black Hat Octalysis mechanics if implemented
+carelessly.</p>
+<p><strong>Application to Ticketmaster.</strong> Ticketmaster currently
+uses several of these patterns (cart-expiry timers, "tickets selling
+fast"). Iteration 11 already removed drip pricing through the all-in
+pricing design. Iteration 12 must not re-introduce CMA-disfavoured
+patterns under the banner of "gamification."</p>
+<p><strong>Validation criterion (for Pippin and Aragorn):</strong> Every
+scarcity, urgency, or loss mechanic in the Iteration 12 design must be
+(a) factually accurate (no fake counters), (b) materially relevant to
+the customer's choice (no countdown that does not meaningfully expire),
+and (c) accompanied by a less-pressurised path to the same decision.</p>
+<h3 id="83-black-hat-ethical-risk-register-new--this-iteration">8.3
+Black Hat Ethical Risk Register (NEW — this iteration)</h3>
+<p>Three Octalysis Core Drives are categorised by Chou himself as Black
+Hat: CD6 (Scarcity &amp; Impatience), CD7 (Unpredictability &amp;
+Curiosity), CD8 (Loss Avoidance). Each is high-conversion but
+anxiety-inducing if overused or applied to vulnerable users.</p>
+<table>
+<thead>
+<tr>
+<th>Black Hat Drive</th>
+<th>Where it can appear in the Iteration 12 design</th>
+<th>Risk if misapplied</th>
+<th>Mitigation principle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CD6 — Scarcity</td>
+<td>Pre-sale, sale, queue ("only X left," presale countdowns)</td>
+<td>Compounds existing trust deficit on dynamic pricing; CMA-flagged if
+inaccurate</td>
+<td>Use only for genuinely scarce events; never artificially
+manufacture</td>
+</tr>
+<tr>
+<td>CD7 — Unpredictability</td>
+<td>Loot-style mystery rewards, surprise upgrades, raffles</td>
+<td>Crosses into gambling-adjacent design at scale; UK regulatory
+exposure</td>
+<td>Use for delight, never for monetised lottery-mechanic
+redirection</td>
+</tr>
+<tr>
+<td>CD8 — Loss Avoidance</td>
+<td>Streak mechanics, "your status will lapse" warnings, expiring
+offers</td>
+<td>Punishes lapsed fans rather than welcoming them back; EU AI Act Art.
+5 risk</td>
+<td>Frame as recovery opportunities, not threats; never time to coincide
+with known vulnerability</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Compliance Implementation Sheet — additions for Iteration
+12:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Regulatory Requirement</th>
+<th>User-Facing Obligation</th>
+<th>Exact Copy (illustrative — Pippin to refine)</th>
+<th>Required Behaviour</th>
+<th>Pass/Fail Validation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EU AI Act Art. 50</td>
+<td>Disclose AI-driven personalisation in any gamified
+recommendation</td>
+<td>"This recommendation is personalised based on your activity.
+[Manage] [Why this?]"</td>
+<td>Persistent disclosure on any AI-personalised gamification
+surface</td>
+<td>One-tap explanation of personalisation logic exists</td>
+</tr>
+<tr>
+<td>EU AI Act Art. 5</td>
+<td>No exploitation of vulnerability via gamification</td>
+<td>(No user-facing copy — system-level constraint)</td>
+<td>No streak/loss mechanic personalised to user financial or emotional
+vulnerability signals</td>
+<td>Design review confirms no vulnerability-targeting logic</td>
+</tr>
+<tr>
+<td>UK CMA / DMCC Act</td>
+<td>No false urgency or scarcity</td>
+<td>"Tickets remaining at this price: [actual number]"</td>
+<td>All scarcity / countdown indicators reflect real platform state</td>
+<td>QA verifies counter accuracy against backend in 100% of cases</td>
+</tr>
+<tr>
+<td>GDPR Art. 6 / 7</td>
+<td>Granular, withdrawable consent for loyalty / fan-profile data</td>
+<td>"Build my fan profile [On/Off] · Show me to friends [On/Off]"</td>
+<td>Loyalty engine functions only with explicit consent; degrades
+gracefully if withheld</td>
+<td>Account settings expose both toggles independently</td>
+</tr>
+<tr>
+<td>GDPR Art. 17</td>
+<td>Right to delete fan-profile and attendance history</td>
+<td>"Delete my fan history" with confirmation flow</td>
+<td>Deletion removes loyalty profile, attendance record, social graph,
+and personalisation data within 30 days</td>
+<td>One-tap entry to deletion flow exists in account settings</td>
+</tr>
+</tbody>
+</table>
+<h3 id="84-trust-implications--the-frame">8.4 Trust Implications — The
+Frame</h3>
+<p>Trust is the central LO1 outcome and the central commercial risk.
+Iteration 12 either deepens it through White-Hat-led design or shatters
+it through Black-Hat-led design. The Saruman position to Galadriel is
+unambiguous: <strong>lead the design with White Hat (Accomplishment,
+Ownership, Social, Meaning, Creativity); use Black Hat sparingly,
+transparently, and only at conversion moments where the customer's
+choice architecture is genuinely time-sensitive.</strong> "White Hat
+sustains. Black Hat punctuates." (Chou, 2015, restated.)</p>
+<hr />
+<h2 id="9-pain-point-traceability-matrix--extended">9. PAIN POINT
+TRACEABILITY MATRIX — EXTENDED</h2>
+<table>
+<thead>
+<tr>
+<th>Design Opportunity</th>
+<th>Original Pain Point</th>
+<th>Annual Revenue Risk (order of magnitude)</th>
+<th>Effort</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All-in pricing (Iteration 11)</td>
+<td>P1 Hidden fees</td>
+<td>8-figure GBP (FTC settlement risk + abandonment recovery)</td>
+<td>M</td>
 <td>HIGH</td>
-<td>Confirmed — FTC lawsuit active</td>
 </tr>
 <tr>
-<td>2</td>
-<td>System failures during high-demand sales</td>
+<td>Smart Queue with transparency (Iteration 11)</td>
+<td>P2 System failures</td>
+<td>8-figure GBP (failed-sale revenue + brand damage)</td>
+<td>L</td>
 <td>HIGH</td>
-<td>Confirmed — queue crashes ongoing</td>
 </tr>
 <tr>
-<td>3</td>
-<td>Inaccessible customer service</td>
+<td>ARIA with human escalation (Iteration 11)</td>
+<td>P3 Inaccessible support</td>
+<td>7-figure GBP (support cost + churn)</td>
+<td>M</td>
 <td>HIGH</td>
-<td>Confirmed — chatbot dead ends</td>
 </tr>
 <tr>
-<td>4</td>
-<td>Broken account/ticket transfer flows</td>
-<td>MEDIUM-HIGH</td>
-<td>Confirmed</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Dynamic pricing eroding trust</td>
-<td>HIGH</td>
-<td>Confirmed — DOJ settlement</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Scalping and resale manipulation</td>
+<td>Trustworthy transfer flow (Iteration 11)</td>
+<td>P4 Broken transfers</td>
+<td>7-figure GBP (transfer-failure churn)</td>
+<td>M</td>
 <td>MEDIUM</td>
-<td>Confirmed — FTC findings</td>
 </tr>
-</tbody></table>
-<h3>NEW — Problem 7: No Social Layer in the App</h3>
-<p><strong>Severity: MEDIUM-HIGH | Frequency: Persistent (affects every user, every session)</strong></p>
-<p><strong>What customers experience:</strong> The Ticketmaster app is entirely solitary. A customer cannot see if friends are attending an event, cannot discover events through social activity, cannot coordinate group bookings, and has no way to share their event experience within the app. Every interaction is individual and transactional.</p>
-<p><strong>Evidence:</strong></p>
+<tr>
+<td>Fair Price Indicator (Iteration 11)</td>
+<td>P5 Dynamic pricing distrust</td>
+<td>7-figure GBP (per-event abandonment)</td>
+<td>S</td>
+<td>HIGH</td>
+</tr>
+<tr>
+<td>Verified-fan presale evolution (Opportunity G2)</td>
+<td>P6 Scalping + P10 transactional architecture</td>
+<td>7–8-figure GBP (recurring fan revenue)</td>
+<td>M</td>
+<td>HIGH</td>
+</tr>
+<tr>
+<td>Social discovery + group booking (Iteration 11 Opp 6)</td>
+<td>P7 No social layer</td>
+<td>7-figure GBP (acquisition + retention compound)</td>
+<td>M</td>
+<td>MEDIUM</td>
+</tr>
+<tr>
+<td>Year in Live + post-event recap (Iteration 11 Opp 5; Opportunities
+G7+G8)</td>
+<td>P8 No post-event engagement + P10</td>
+<td>7–8-figure GBP (organic acquisition + retention)</td>
+<td>M</td>
+<td>HIGH</td>
+</tr>
+<tr>
+<td>Fan Loyalty Engine (Opportunity 7; Opportunities
+G2/G4/G5/G7/G8)</td>
+<td>P10 Transactional architecture</td>
+<td><strong>Mid-8-figure GBP</strong> (lapsed-fan recovery + lifetime
+value)</td>
+<td>L</td>
+<td>HIGH</td>
+</tr>
+<tr>
+<td>Pre-event anticipation surface (Opportunity G5)</td>
+<td>P8 + P10</td>
+<td>7-figure GBP (referral-driven acquisition; Ticket Fairy
+precedent)</td>
+<td>M</td>
+<td>MEDIUM</td>
+</tr>
+<tr>
+<td>Event-day Attend mechanics (Opportunity G6)</td>
+<td>P4 + P8</td>
+<td>Low 7-figure GBP (NPS + word-of-mouth)</td>
+<td>S–M</td>
+<td>MEDIUM</td>
+</tr>
+</tbody>
+</table>
+<p>Effort key: S = days–weeks; M = weeks; L = months; XL = quarters.
+Revenue figures are order-of-magnitude, illustrative, and intended as
+commercial anchors for design and prioritisation trade-offs — not
+forecasts. Confidence: low-to-moderate (industry composites; not
+Ticketmaster proprietary data).</p>
+<hr />
+<h2 id="10-recommendations-for-galadriel--revised-for-iteration-12">10.
+RECOMMENDATIONS FOR GALADRIEL — REVISED FOR ITERATION 12</h2>
+<p>Focus Areas 1–4 from Iteration 11 are retained without
+modification:</p>
 <ul>
-<li>Competitors have moved ahead: Eventbrite offers social sharing, event reminders, and friend invitations. Showpass integrates with Facebook Events. DICE's discovery UX includes trending and friend-recommended events.</li>
-<li>Industry analysis (2025–2026): "Platforms treating events as social experiences rather than individual purchases capture loyalty that transcends single transactions."</li>
-<li>Live events are inherently social — attending a concert alone is the exception, not the rule. Yet the booking process treats every customer as an isolated individual.</li>
+<li><strong>Focus Area 1: Transparent All-In Pricing</strong> (with the
+Fair Price Indicator tooltip)</li>
+<li><strong>Focus Area 2: AI-Powered Personalisation with Social
+Layer</strong> (friend activity, group coordination, privacy
+controls)</li>
+<li><strong>Focus Area 3: Post-Event Engagement — "Your Year in
+Live"</strong> (now also a primary Octalysis carrier)</li>
+<li><strong>Focus Area 4: Trustworthy Support &amp; Queue
+Experience</strong> (ARIA + Smart Queue)</li>
 </ul>
-<p><strong>Root cause:</strong> Ticketmaster's app was built as a commerce platform (search → buy → attend), not an engagement platform. Social features were never part of the core product design because the business model depends on transactions, not relationships.</p>
-<hr>
-<h3>NEW — Problem 8: Zero Post-Event Engagement</h3>
-<p><strong>Severity: MEDIUM | Frequency: After every event (100% of attendees affected)</strong></p>
-<p><strong>What customers experience:</strong> After attending an event, the app offers nothing. No recap, no recommendations based on the experience, no way to share memories, no prompt to explore similar events. The customer relationship ends at the venue door and only resumes when the customer actively searches for their next ticket.</p>
-<p><strong>Evidence:</strong></p>
+<p>One additional focus area is added:</p>
+<h3
+id="focus-area-5-new--apply-the-octalysis-framework-to-design-a-coherent-fan-loyalty-engine-that-consolidates-iteration-11s-social-and-post-event-features-into-a-lifecycle-architecture">Focus
+Area 5 (NEW) — Apply the Octalysis Framework to design a coherent Fan
+Loyalty Engine that consolidates Iteration 11's social and post-event
+features into a lifecycle architecture</h3>
+<p><strong>Rationale.</strong> Iteration 11's social discovery and "Your
+Year in Live" features were correct in direction but isolated in design.
+The Octalysis Framework provides the architectural backbone to
+consolidate them into a single, lifecycle-aware engagement surface that
+addresses the structural Problem 10 (purely transactional engagement).
+Without this consolidation, Iteration 12 risks producing more features
+rather than a more coherent product.</p>
+<p><strong>What Galadriel should design (and explicitly retains
+discretion over):</strong></p>
 <ul>
-<li>Spotify Wrapped 2025 reached 200M+ engaged users in 24 hours (19% year-on-year increase) and was shared 500M+ times (41% year-on-year increase). Companies using year-end retrospectives report 64% improvement in customer retention rates (VERIFIED — Hightouch/industry analysis, 2025).</li>
-<li>Apple Music's "Replay" and Tidal's "My Rewind" demonstrate that personalized year-in-review features are now standard in music-adjacent platforms.</li>
-<li>Ticketmaster has no equivalent. No "your year in events." No post-event recommendations. No community features. The richest dataset in live entertainment — who went where, when, with whom — is completely unmonetised for customer engagement.</li>
+<li>A Fan Loyalty Engine surface — what the visible product is, how
+status accumulates, what tiers (if any) exist, what artefacts the fan
+owns</li>
+<li>Octalysis Core Drive selection for each of the eight journey moments
+(Opportunities G1–G8) identified in Section 5 — Galadriel decides which
+drives apply where</li>
+<li>The White Hat / Black Hat balance at each moment, with the explicit
+guidance that Black Hat must be used sparingly, transparently, and only
+at moments where the customer's choice is genuinely time-sensitive</li>
+<li>The Octalysis Design Rationale table that her own prompt now
+requires (one row per Solution Concept: Feature × Core Drive(s) × Phase
+× Hat × Design Intent)</li>
+<li>Privacy and consent UI for fan-profile data (per Section 8
+above)</li>
+<li>The disclosure copy required by EU AI Act Art. 50 for any
+AI-personalised gamification surface</li>
 </ul>
-<p><strong>Root cause:</strong> Ticketmaster's business model focuses on the purchase moment, not the relationship lifecycle. Post-event engagement was never prioritised because it doesn't directly generate transaction fees.</p>
-<hr>
-<h3>NEW — Problem 9: App Store Rating Discrepancy</h3>
-<p><strong>Severity: MEDIUM | Strategic importance: HIGH</strong></p>
-<p><strong>The discrepancy:</strong></p>
-<table><thead><tr>
-<th>Platform</th>
-<th>Rating</th>
-<th>Reviews</th>
-</tr></thead><tbody>
-<tr>
-<td>iOS App Store</td>
-<td>4.8 / 5</td>
-<td>High volume</td>
-</tr>
-<tr>
-<td>PissedConsumer</td>
-<td>1.6 / 5</td>
-<td>23,900+ reviews</td>
-</tr>
-<tr>
-<td>SmartCustomer</td>
-<td>1.4 / 5</td>
-<td>458 reviews</td>
-</tr>
-<tr>
-<td>ComplaintsBoard</td>
-<td>1.4 / 5</td>
-<td>331 complaints</td>
-</tr>
-</tbody></table>
-<p><strong>Why this matters:</strong> If Ticketmaster's leadership relies on the App Store rating as a measure of customer satisfaction, they are operating on fundamentally misleading data. The gap between 4.8 and 1.4–1.6 is not a normal variance — it suggests a structural difference in who reviews where.</p>
-<p><strong>Possible explanations (INFERENCE — not verified):</strong></p>
-<ol>
-<li><strong>Selection bias:</strong> The App Store prompts for ratings after successful transactions (when customers are happy). Complaint platforms self-select for frustrated customers.</li>
-<li><strong>Rating prompt timing:</strong> Apple's SKStoreReviewController API allows apps to prompt for ratings at strategic moments. If Ticketmaster prompts after successful ticket receipt (not after a queue crash or fee surprise), the rating is biased toward positive experiences.</li>
-<li><strong>Review volume dilution:</strong> Millions of successful transactions dilute negative reviews on the App Store, while complaint platforms concentrate dissatisfaction.</li>
-<li><strong>The Hacker News question:</strong> Users on Hacker News have openly questioned whether Ticketmaster games the App Store rating system. No evidence of manipulation was found, but the discrepancy is notable enough to warrant investigation.</li>
+<p><strong>What Galadriel must NOT do:</strong></p>
+<ul>
+<li>Re-research the Octalysis Framework — Saruman's Section 6 above and
+the supporting research file
+(<code>Research about Agentic Organisations/Octalysis_Framework_Research.txt</code>)
+are the sufficient evidence base. If anything is ambiguous, return to
+Saruman.</li>
+<li>Apply gamification mechanics outside the eight journey moments
+identified in Section 5 without strong design rationale. The framework
+recommends focused application, not spray-coverage.</li>
+<li>Design any mechanic that does not pass the disclosability test in
+Section 8.1.</li>
+</ul>
+<hr />
+<h2 id="11-references">11. REFERENCES</h2>
+<p>The reference list below covers all sources cited in this Iteration
+12 brief. Iteration 11 references are not duplicated; consult the
+Iteration 11 brief for the prior bibliography. Numbered in order of
+first citation in the body of this document.</p>
+<ol type="1">
+<li>Chou, Y.K., 2015. <em>Actionable Gamification: Beyond Points,
+Badges, and Leaderboards</em>. Octalysis Media. Available at: <a
+href="https://yukaichou.com/">https://yukaichou.com/</a></li>
+<li>Chou, Y.K., 2012. <em>Octalysis: Complete Gamification
+Framework</em>. yukaichou.com. Available at: <a
+href="https://yukaichou.com/gamification-examples/octalysis-complete-gamification-framework/">https://yukaichou.com/gamification-examples/octalysis-complete-gamification-framework/</a></li>
+<li>The Octalysis Group, 2026. <em>Framework, case studies and
+enterprise engagements</em>. octalysisgroup.com. Available at: <a
+href="https://octalysisgroup.com/framework/">https://octalysisgroup.com/framework/</a></li>
+<li>Federal Trade Commission, 2025. <em>Action against Live
+Nation/Ticketmaster regarding deceptive pricing practices</em>. Filed
+September 2025.</li>
+<li>Federal Trade Commission, 2024. <em>Live Nation/Ticketmaster:
+Findings on market concentration and consumer protection</em>.
+Washington, DC: FTC.</li>
+<li>United States Department of Justice, 2024. <em>DOJ v. Live Nation
+Entertainment Inc. and Ticketmaster L.L.C.</em> — antitrust complaint.
+United States District Court, Southern District of New York.</li>
+<li>European Parliament and Council, 2024. <em>Regulation (EU) 2024/1689
+— Artificial Intelligence Act</em>. Official Journal of the European
+Union. Articles 5 (prohibited practices) and 50 (transparency
+obligations).</li>
+<li>European Parliament and Council, 2016. <em>Regulation (EU) 2016/679
+— General Data Protection Regulation</em>. Articles 6, 7, 17, 22.</li>
+<li>UK Competition and Markets Authority, 2022. <em>Online Choice
+Architecture: How digital design can harm competition and
+consumers</em>. Discussion paper. London: CMA.</li>
+<li>UK Government, 2024. <em>Digital Markets, Competition and Consumers
+Act 2024</em>. London: HMSO.</li>
+<li>Mohanty, S. and PrabuChristopher, J., 2023. A bibliometric analysis
+of the use of the Gamification Octalysis Framework in training.
+<em>Humanities and Social Sciences Communications</em>, 10, Article 849.
+Nature Publishing Group. <a
+href="https://www.nature.com/articles/s41599-023-02243-3">https://www.nature.com/articles/s41599-023-02243-3</a></li>
+<li>Springer Nature, 2024. Running Towards a Better Brand Attitude: How
+Gamification in Nike Run Club Can Help? <em>Journal of the Knowledge
+Economy</em>. DOI: 10.1007/s13132-024-02398-7.</li>
+<li>Deci, E.L., 1971. Effects of externally mediated rewards on
+intrinsic motivation. <em>Journal of Personality and Social
+Psychology</em>, 18(1), pp. 105–115.</li>
+<li>Deci, E.L. and Ryan, R.M., 1985. <em>Intrinsic Motivation and
+Self-Determination in Human Behavior</em>. New York: Plenum Press.</li>
+<li>Csikszentmihalyi, M., 1990. <em>Flow: The Psychology of Optimal
+Experience</em>. New York: Harper &amp; Row.</li>
+<li>Kahneman, D. and Tversky, A., 1979. Prospect Theory: An analysis of
+decision under risk. <em>Econometrica</em>, 47(2), pp. 263–291.</li>
+<li>Cialdini, R.B., 1984. <em>Influence: The Psychology of
+Persuasion</em>. New York: William Morrow.</li>
+<li>Bartle, R., 1996. Hearts, Clubs, Diamonds, Spades: Players Who Suit
+MUDs. <em>Journal of MUD Research</em>, 1(1).</li>
+<li>Fogg, B.J., 2009. A Behavior Model for Persuasive Design.
+<em>Proceedings of the 4th International Conference on Persuasive
+Technology</em>.</li>
+<li>Thaler, R.H. and Sunstein, C.R., 2008. <em>Nudge: Improving
+decisions about health, wealth, and happiness</em>. New Haven: Yale
+University Press.</li>
+<li>Spotify, 2025. <em>Spotify Wrapped 2025: 200M+ engaged users in 24
+hours; 500M+ shares</em>. Press release.</li>
+<li>Ticket Fairy, 2026. <em>Mastering Gamification for Event Promotion
+in 2026</em>. Available at: <a
+href="https://ticketfairy.com/blog/mastering-gamification-for-event-promotion-in-2026/">https://ticketfairy.com/blog/mastering-gamification-for-event-promotion-in-2026/</a></li>
+<li>Fanzone, 2025. <em>Building Fan Loyalty at Live Events with
+Gamification and Loyalty Platforms</em>. Available at: <a
+href="https://fanzone.me/blog/">https://fanzone.me/blog/</a></li>
+<li>Snipp Interactive, 2024. <em>Gamification industry composite: 47%
+engagement rise; 22% loyalty rise; 15% awareness rise</em>. Industry
+report cited across multiple commentaries.</li>
+<li>Starbucks Corporation, 2025. <em>Q1 2025 earnings: Starbucks Rewards
+membership and revenue contribution</em>. Investor disclosure.</li>
+<li>PissedConsumer, 2026. <em>Ticketmaster review aggregate: 24,100+
+reviews; 1.6 / 5 stars (accessed 28 April 2026)</em>. Available at: <a
+href="https://ticketmaster.pissedconsumer.com/">https://ticketmaster.pissedconsumer.com/</a></li>
+<li>SmartCustomer, 2026. <em>Ticketmaster review aggregate: 468 reviews;
+1.4 / 5 stars (accessed 28 April 2026)</em>.</li>
+<li>Mithril Consulting Internal Research, 2026. <em>Octalysis Framework
+Research Report</em>. Internal file:
+<code>Research about Agentic Organisations/Octalysis_Framework_Research.txt</code>.
+Compiled 28 April 2026.</li>
+<li>Mithril Consulting, 2026. <em>Saruman Research Brief — Iteration
+11</em>. Internal file:
+<code>Output/Iteration 11/01_Saruman_Research_Brief.md</code>. Dated 14
+March 2026.</li>
+<li>Apple Inc., 2024. <em>SKStoreReviewController API
+documentation</em>. Cited in Iteration 11 §2.</li>
 </ol>
-<p><strong>Implication for Galadriel:</strong> Do not design based on the App Store rating. Design based on the complaint data — that is where the real customer experience is documented.</p>
-<hr>
-<h2>3. CUSTOMER IMPACT</h2>
-<h3>Updated Customer Journey Failure Map</h3>
-<table><thead><tr>
-<th>Journey Stage</th>
-<th>Iteration 10 Finding</th>
-<th>New Iteration 11 Finding</th>
-</tr></thead><tbody>
-<tr>
-<td><strong>Discover</strong></td>
-<td>Generic browsing, no personalisation</td>
-<td><strong>No social discovery</strong> — cannot see friend activity, trending among contacts, or group-popular events</td>
-</tr>
-<tr>
-<td><strong>Browse</strong></td>
-<td>Prices shown without fees</td>
-<td>Unchanged — addressed by all-in pricing</td>
-</tr>
-<tr>
-<td><strong>Purchase</strong></td>
-<td>Queue crashes, dynamic pricing, fee reveals</td>
-<td>Unchanged — addressed by queue transparency + pricing</td>
-</tr>
-<tr>
-<td><strong>Pre-event</strong></td>
-<td>Tickets may not appear, transfer issues</td>
-<td><strong>No group coordination</strong> — cannot easily share tickets, plan together, or coordinate attendance</td>
-</tr>
-<tr>
-<td><strong>Attend</strong></td>
-<td>Mobile ticket access issues</td>
-<td>Unchanged</td>
-</tr>
-<tr>
-<td><strong>Post-event</strong></td>
-<td>No engagement at all</td>
-<td><strong>Complete void</strong> — no recap, no recommendations, no community, no loyalty loop. This is the single largest missed engagement opportunity.</td>
-</tr>
-</tbody></table>
-<h3>The Post-Event Void — What It Costs</h3>
-<p>The post-event moment is when emotional connection to live entertainment is highest. A customer who just experienced an incredible concert is primed to:</p>
+<hr />
+<p>─── HANDOFF TO ARAGORN FOR REVIEW ─── <strong>Agent:</strong> Saruman
+(Researcher) <strong>Passing to:</strong> Aragorn (Managing Consultant)
+for Review 1 / quality gate <strong>Document type:</strong> Delta Memo
+extending the Iteration 11 baseline with the Octalysis Framework
+lens</p>
+<p><strong>What is new in this iteration:</strong></p>
 <ul>
-<li>Explore similar events immediately</li>
-<li>Share the experience with friends</li>
-<li>Relive the memory (setlists, photos, venue memories)</li>
-<li>Be receptive to personalised recommendations</li>
+<li>The Octalysis Framework (Yu-kai Chou, 2015) is introduced as the
+strategic lens for re-engagement design (§2, §6, §10)</li>
+<li>Problem 10 (purely transactional engagement architecture) is added —
+framework-derived, structural (§4)</li>
+<li>Eight journey moments where gamification is appropriate are
+identified, with the trust deficit each addresses and why gamification
+fits (§5) — Saruman has flagged WHERE and WHY only; Core Drive selection
+is left to Galadriel</li>
+<li>A gamification competitive landscape is added covering Ultra
+Passport, Manchester United, Ticket Fairy, Coachella, NBA, Sephora,
+Starbucks, Duolingo, Spotify, DICE, AXS, TicketSwap (§6)</li>
+<li>Opportunity 7 (Fan Loyalty Engine) is added as the consolidating
+gamification surface (§7)</li>
+<li>A Black Hat ethical risk register, EU AI Act Art. 5 analysis, and
+CMA / DMCC dark-patterns position are added to the regulatory section
+(§8)</li>
+<li>The Pain Point Traceability Matrix is extended (§9)</li>
+<li>A fifth focus area is added for Galadriel: apply the Octalysis
+Framework to design a coherent Fan Loyalty Engine (§10)</li>
+<li>A Harvard-format reference list is provided (§11)</li>
 </ul>
-<p>Ticketmaster captures none of this. The customer closes the app and doesn't return until they actively decide to search for another event — which may be weeks or months later. Every day between events is a day of potential engagement lost.</p>
-<p><strong>Benchmark:</strong> Spotify Wrapped demonstrates that a well-designed retrospective drives both engagement (200M users in 24 hours) and social sharing (500M shares). A "Your Year in Live" feature for Ticketmaster could similarly transform passive ticket buyers into active, sharing fans.</p>
-<hr>
-<h2>4. COMPETITIVE LANDSCAPE</h2>
-<h3>Retained from Iteration 10</h3>
-<p>DICE (transparent pricing, anti-scalping), SeatGeek (Deal Score, value comparison), AXS (Fair AXS lottery), Eventbrite (DIY events, community) — all unchanged.</p>
-<h3>NEW — Social and Engagement Features Comparison</h3>
-<table><thead><tr>
-<th>Feature</th>
-<th>Ticketmaster</th>
-<th>DICE</th>
-<th>Eventbrite</th>
-<th>Showpass</th>
-</tr></thead><tbody>
-<tr>
-<td>Friend activity / social discovery</td>
-<td>❌ None</td>
-<td>✅ Trending, friend recommendations</td>
-<td>✅ Social sharing, friend invitations</td>
-<td>✅ Facebook Events integration</td>
-</tr>
-<tr>
-<td>Group booking coordination</td>
-<td>❌ None</td>
-<td>Partial</td>
-<td>✅ Group registration, social discounts</td>
-<td>✅ Group offers, social discounts</td>
-</tr>
-<tr>
-<td>Post-event engagement</td>
-<td>❌ None</td>
-<td>✅ Event discovery post-attendance</td>
-<td>Partial</td>
-<td>❌ None</td>
-</tr>
-<tr>
-<td>Year-in-review / retrospective</td>
-<td>❌ None</td>
-<td>❌ None</td>
-<td>❌ None</td>
-<td>❌ None</td>
-</tr>
-<tr>
-<td>In-app social sharing</td>
-<td>❌ None</td>
-<td>✅ Built-in sharing</td>
-<td>✅ Cross-platform sharing</td>
-<td>✅ Social selling</td>
-</tr>
-</tbody></table>
-<p><strong>Opportunity:</strong> No major ticketing platform has implemented a Spotify Wrapped-style "Year in Live" feature. This is a first-mover opportunity for Ticketmaster — a platform that has the richest dataset of live event attendance in the world.</p>
-<h3>NEW — TikTok Partnership Analysis</h3>
-<p>Ticketmaster has an existing partnership with TikTok (expanded to 20+ countries in 2024) enabling in-app ticket discovery and purchase. Key data:</p>
-<ul>
-<li>60% of TikTok users are Gen Z — Ticketmaster's next-generation audience</li>
-<li>71% of TikTok viewers are motivated to buy when content feels authentic</li>
-<li>A UK festival campaign achieved 49.5% more ticket sales from TikTok ads than Meta ads, with 50% lower cost per acquisition</li>
-<li>TikTok's "Ticketmaster Mini-App" enables in-stream ticket purchasing</li>
-</ul>
-<p><strong>The gap:</strong> This partnership drives transactions, not in-app engagement. Ticketmaster pushes users from TikTok → Ticketmaster for the purchase, but there is no reverse flow — no in-app content creation, no sharing back to social, no community features that keep users engaged within the Ticketmaster ecosystem.</p>
-<p><strong>What Galadriel should consider:</strong> The TikTok partnership demonstrates that social-driven ticket discovery works. Bringing that social layer <em>into</em> the Ticketmaster app (friend activity, event sharing, post-event content) would reduce dependency on external platforms and create owned engagement.</p>
-<hr>
-<h2>5. AI OPPORTUNITY MAP</h2>
-<h3>Retained from Iteration 10</h3>
-<ol>
-<li>AI-Powered Transparent Pricing Assistant (Intelligent Agent) — <strong>Impact: HIGH</strong></li>
-<li>Personalised Event Discovery &amp; Recommendations (Recommender System) — <strong>Impact: HIGH</strong></li>
-<li>AI Customer Support Agent / ARIA (Chatbot/Intelligent Agent hybrid) — <strong>Impact: HIGH</strong></li>
-<li>Smart Queue Management with Transparency (Intelligent Agent) — <strong>Impact: HIGH</strong></li>
+<p><strong>Top three findings to anchor on:</strong></p>
+<ol type="1">
+<li>Ticketmaster currently activates only the two highest-risk Black Hat
+Octalysis drives (Scarcity, Loss Avoidance) and uses both <em>at</em>
+the customer rather than <em>for</em> them. The five sustainable drives
+(Meaning, Accomplishment, Creativity, Ownership, Social) are entirely
+dormant — the inverse of every successful consumer engagement design
+referenced.</li>
+<li>Eight discrete journey moments warrant gamification design
+(Opportunities G1–G8). The highest-leverage are G2 (verified-fan presale
+and recognition), G7 (post-event memory consolidation, T+0 to T+72
+hours) and G8 (annual / lapsed-fan re-engagement).</li>
+<li>Black Hat ethical risk is the most consequential new compliance
+dimension. EU AI Act Art. 5 and the UK CMA's online choice architecture
+position both directly constrain how Scarcity, Loss Avoidance, and
+Unpredictability can be applied. Pippin must own the framing and Aragorn
+must verify at the gate.</li>
 </ol>
-<h3>Updated — Opportunity 5: Post-Event Engagement &amp; "Your Year in Live"</h3>
-<p><strong>Problem it solves:</strong> Zero post-event engagement, no loyalty loop (Problems 7 &amp; 8)</p>
-<p><strong>AI system type:</strong> Recommender System</p>
-<p><strong>What it does:</strong></p>
+<p><strong>What Aragorn should look for at Review 1:</strong></p>
 <ul>
-<li>Within 24 hours of an event: personalised recap (event name, venue, setlist if available), "Rate your experience" prompt, "Events like this coming up" recommendations</li>
-<li>Monthly: "Your month in live" summary — events attended, genres explored, miles travelled</li>
-<li>Annually: "Your Year in Live" — full retrospective inspired by Spotify Wrapped. Top artists, favourite venues, total events, shareable card for social media</li>
-<li>Friend features: "Friends who also attended [Event]," "Events your friends are going to"</li>
+<li>Does the brief stay within Saruman's lane? (No Core Drive selection,
+no UI specification, no mechanic design — verify in §5 and §10.)</li>
+<li>Is the evidence base sufficient and properly cited? (References §11;
+competitive table §6.)</li>
+<li>Is the Black Hat ethical position strong enough to bind Galadriel
+and Pippin? (§8 and §10 final paragraph.)</li>
+<li>Does the brief give Galadriel everything she needs to design without
+returning for re-research?</li>
 </ul>
-<p><strong>Impact: HIGH | Effort: MEDIUM</strong></p>
-<p><em>Spotify Wrapped proves the model. 200M users, 500M shares, 64% retention improvement. Ticketmaster has the data — it needs the product.</em></p>
-<h3>NEW — Opportunity 6: Social Discovery &amp; Group Coordination</h3>
-<p><strong>Problem it solves:</strong> No social layer in the app (Problem 7)</p>
-<p><strong>AI system type:</strong> Recommender System (social filtering)</p>
-<p><strong>What it does:</strong></p>
-<ul>
-<li>Shows events friends are attending or interested in (with consent)</li>
-<li>Enables group booking coordination (share a link, friends select their tickets, pay individually)</li>
-<li>"Popular with your friends" recommendation layer</li>
-<li>Post-purchase: "Invite friends to [Event]" with easy sharing</li>
-</ul>
-<p><strong>Impact: MEDIUM-HIGH | Effort: MEDIUM</strong></p>
-<p><em>Live events are inherently social. The booking process should reflect this.</em></p>
-<hr>
-<h2>6. REGULATORY CONSIDERATIONS</h2>
-<h3>Retained from Iteration 10</h3>
-<ul>
-<li>GDPR Article 22 (human escalation for automated decisions)</li>
-<li>EU AI Act Article 50 (transparency disclosure)</li>
-<li>FTC deceptive pricing compliance</li>
-</ul>
-<h3>NEW — Data Privacy for Social and Personalisation Features</h3>
-<p><strong>The privacy challenge:</strong> Social features (friend activity, group booking, "events friends are attending") and deep personalisation ("Your Year in Live") require processing more personal data — social connections, location history, attendance records, sharing activity.</p>
-<p><strong>GDPR implications:</strong></p>
-<ul>
-<li><strong>Consent must be granular.</strong> Users must opt in to social features separately from basic personalisation. "Share my attendance with friends" and "Show me friends' activity" must be independent toggles.</li>
-<li><strong>Data minimisation applies.</strong> Social features should use the minimum data needed. "Friends attending" can work with just event attendance + friend connections — it does not need location tracking or browsing history.</li>
-<li><strong>Right to deletion.</strong> Users must be able to delete their attendance history, social connections, and personalisation data at any time. The "Your Year in Live" feature must have a clear "Delete my data" option.</li>
-<li><strong>Data retention limits.</strong> Define how long attendance data, social connections, and personalisation profiles are stored. ESTIMATE: 24 months for active personalisation, with annual archival/deletion prompts.</li>
-</ul>
-<p><strong>EU AI Act implications:</strong></p>
-<ul>
-<li>Social recommendations ("Popular with your friends") are still Recommender Systems under Limited Risk — Article 50 disclosure applies.</li>
-<li>If friend activity influences what events are surfaced, users must be told: "This recommendation is based on events your friends are attending."</li>
-</ul>
-<p><strong>Design principle:</strong> Privacy controls must be as prominent as social features. Users should feel they control their social presence, not that it was enabled by default.</p>
-<hr>
-<h2>7. RECOMMENDATIONS FOR GALADRIEL</h2>
-<h3>Focus Area 1: Transparent All-In Pricing (RETAINED — Non-Negotiable)</h3>
-<p><strong>Rationale:</strong> Unchanged from Iteration 10. FTC lawsuit, #1 complaint, legal imperative.</p>
-<p><strong>Iteration 11 enhancement:</strong> Add the Fair Price Indicator <strong>tappable tooltip</strong> — when a user taps the badge, show a contextual explanation: "This is a fair price — similar events at this venue average €65–€85." This was designed but not fully implemented in Iteration 10.</p>
-<h3>Focus Area 2: AI-Powered Personalisation with Social Layer (ENHANCED)</h3>
-<p><strong>Rationale:</strong> Iteration 10 established personalised discovery. Iteration 11 adds the social dimension: friend activity, group coordination, and the "Popular with your friends" recommendation layer. Events are social — the app should be too.</p>
-<p><strong>What Galadriel should design:</strong> Friend activity feed ("Sarah and 3 friends are going to Oasis"), group booking coordination flow, and social privacy controls.</p>
-<h3>Focus Area 3: Post-Event Engagement — "Your Year in Live" (NEW)</h3>
-<p><strong>Rationale:</strong> The post-event void is the single largest untapped engagement opportunity. Spotify Wrapped proves the model. Ticketmaster has the data.</p>
-<p><strong>What Galadriel should design:</strong> Post-event recap (within 24 hours), "Your Year in Live" retrospective feature, shareable social cards, and post-event "similar events" recommendations.</p>
-<h3>Focus Area 4: Trustworthy Support &amp; Queue Experience (RETAINED)</h3>
-<p><strong>Rationale:</strong> Unchanged from Iteration 10. ARIA with human escalation + queue price guarantee.</p>
-<p><strong>Iteration 11 enhancement:</strong> Deepen ARIA's conversational capability beyond the 6 original query types. Add: refund assistance, event rescheduling help, accessibility queries, and proactive suggestions based on context.</p>
-<hr>
-<p>Agent: Saruman (Researcher)</p>
-<p>Passing to: Aragorn (Managing Consultant) for quality review</p>
-<p>Summary: This Research Brief builds on the validated Iteration 10 evidence base, deepening analysis in three areas Aragorn identified as gaps: social media engagement (TikTok partnership analysis, social layer comparison), post-event loyalty (Spotify Wrapped benchmark, "Your Year in Live" opportunity), and data privacy for social features (granular consent, retention limits). Three new problems are added (no social layer, zero post-event engagement, App Store rating discrepancy) and two new AI opportunities (post-event engagement, social discovery).</p>
-<p>Top 3 findings:</p>
-<ul>
-<li>Post-event engagement is a massive missed opportunity — Spotify Wrapped proves retrospective features drive 200M+ users and 64% retention improvement</li>
-<li>Ticketmaster has no social layer despite live events being inherently social — every competitor has moved ahead on friend features and group booking</li>
-<li>The App Store rating discrepancy (4.8 vs 1.4–1.6) means internal satisfaction metrics may be dangerously misleading</li>
-</ul>
-<p>Recommendation for Galadriel: Retain transparent pricing and ARIA from Iteration 10, add social discovery with friend activity and group booking, design "Your Year in Live" post-event engagement, implement Fair Price Indicator tooltip, and add social privacy controls</p>
+<p><strong>Recommendation for Galadriel (subject to Aragorn
+approval):</strong> Retain Iteration 11 Focus Areas 1–4. Add Focus Area
+5 (Octalysis Fan Loyalty Engine). Design Octalysis Core Drives onto each
+of the eight journey moments (G1–G8). Treat the eight moments as the
+sanctioned scope — do not extend gamification beyond them without a
+stronger design rationale than is currently available.</p>
+<p><strong>Ready for review:</strong> YES</p>
+<p style="text-align:center;font-size:0.8rem;color:#585f72;margin-top:2rem;padding-bottom:1rem;">Last edited: 29 April 2026</p>
 </div>
-<p style="text-align:center;font-size:0.8rem;color:#585f72;margin-top:2rem;padding-bottom:1rem;">Last edited: 18 March 2026</p>
 </body>
 </html>

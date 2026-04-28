@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gimli Working Prototype — Iteration 11 | Mithril Consulting</title>
+<title>Gimli Working Prototype — Iteration 12 | Mithril Consulting</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,175 +30,457 @@ hr { border: none; border-top: 1px solid #1e2038; margin: 2rem 0; }
 .divider { width: 60px; height: 3px; background: linear-gradient(90deg, #4a8eff, #7c5cff); border-radius: 2px; margin: 1.5rem 0; }
 a { color: #4a8eff; }
 code { background: #161628; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.88em; color: #b8c4d8; }
+pre { background: #0c0c1a; border: 1px solid #1e2038; border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
+pre code { background: none; padding: 0; color: #b8c4d8; font-size: 0.85rem; line-height: 1.6; }
 </style>
 </head>
 <body>
 <div class="container">
 <a href="../index.html" class="back-link">&larr; Back to Portfolio</a>
 <div class="divider"></div>
-<h1>Gimli's Working Prototype — Iteration 11</h1>
+<h1 id="gimlis-working-prototype--iteration-12">Gimli's Working
+Prototype — Iteration 12</h1>
 <blockquote>
-Mithril Consulting | Client: Ticketmaster<br>
-Agent: Gimli (Lead Builder)<br>
-Slogan: <em>"If it doesn't work, it isn't finished."</em><br>
-Date: 14 March 2026<br>
-Note: Builds on Iteration 10 prototype — adds social layer, post-event engagement, Fair Price tooltip, confirmation screen, info panel, real images, and clear journey navigation.<br>
+<p>Mithril Consulting | Client: Ticketmaster Agent: Gimli (Lead Builder)
+Slogan: <em>"If it doesn't work, it isn't finished."</em> Date: 28 April
+2026 Note: Extends the Iteration 11 prototype with the Octalysis Fan
+Loyalty Engine. Same standalone HTML file, same starting point, four new
+screens, one new bottom-nav tab, and every gamification mechanic in §10
+of Galadriel's Octalysis Design Rationale built as working interactive
+UI.</p>
 </blockquote>
-<hr>
-<h2>1. HANDOFF ACKNOWLEDGMENT</h2>
-<p>I received Galadriel's enhanced Design Specification, approved by Aragorn with the instruction: <em>"Build the core purchase journey first, then layer social and post-event features."</em></p>
-<p>Galadriel gave me 10 screen designs, 4 AI features, and presentation requirements from client feedback. What shaped my build most:</p>
-<ol>
-<li><strong>Presentation overhaul</strong> — info panel beside the phone frame (like the example prototype), Unsplash images for events (no emoji placeholders), and clear journey entry points. This changes the entire demo experience.</li>
-<li><strong>Fair Price Indicator tooltip</strong> — the tappable explanation that was missing in Iteration 10. Now implemented as a lightweight overlay anchored to the badge.</li>
-<li><strong>Confirmation screen</strong> — a proper celebration screen with ticket details, QR code, and "Invite Friends" action. Fills the Iteration 10 gap.</li>
-<li><strong>Post-event engagement</strong> — post-event recap cards in My Tickets and "Your Year in Live" retrospective with shareable cards.</li>
-<li><strong>Social features</strong> — friend activity, group booking, social discovery — all defaulting to OFF with privacy controls.</li>
+<hr />
+<h2 id="1-handoff-acknowledgment">1. HANDOFF ACKNOWLEDGMENT</h2>
+<p>I received Galadriel's Iteration 12 Design Specification, approved by
+Aragorn at Review 2 with one binding instruction: <em>"the Octalysis
+Design Rationale table in §10 is your contract — every gamification
+mechanic in the prototype must trace back to a row in that
+table."</em></p>
+<p>I started from the Iteration 11 prototype HTML file
+(<code>Output/Iteration 11/HTML Demo/Ticketmaster_Prototype_Iteration11.html</code>)
+and extended it. I did not rebuild from scratch. The Iteration 11
+prototype was sound; the work for Iteration 12 was additive.</p>
+<p>What shaped the build most:</p>
+<ol type="1">
+<li><p><strong>The 13-row Octalysis Design Rationale table is the build
+manifest.</strong> Every gamification mechanic I built corresponds to a
+specific row. The Fan Status badge, the commemorative ticket artefact,
+the setlist wishlist, the mood input, the share action — all working
+interactive UI, not static placeholders.</p></li>
+<li><p><strong>CD8 (Loss Avoidance) is used in zero design
+concepts.</strong> I held the line. There is no "you're about to lose
+your streak / status / saved event" copy anywhere in the prototype. Even
+illustratively. Even in placeholder text. The lapsed-fan welcome-back
+card uses welcome language only.</p></li>
+<li><p><strong>The Fan Presale countdown is real.</strong> It actually
+ticks down in real time (1 second per second). The eligibility ("You've
+seen Hozier 3 times") corresponds to the demo user's attendance history
+shown in the Fan Profile (3 Hozier shows in the My Shows list). No
+mocked countdown that does not expire; no mocked eligibility that is not
+consistent with the prototype's own data.</p></li>
+<li><p><strong>Every personalised surface carries (a) "Why am I seeing
+this?" and (b) the EU AI Act Art. 50 disclosure.</strong> The four Home
+sections each have a "why?" affordance opening a plain-language
+explanation of the personalisation logic (and what data is <em>not</em>
+used). The Pre-Event Hub, Fan Presale, and Show Memory all carry Art. 50
+disclosure copy.</p></li>
+<li><p><strong>The Show Memory mood input is private by
+default.</strong> Selecting a star marks the memory privately to the Fan
+Profile with a clear "Saved privately" confirmation. There is no
+telemetry to artist or venue without an explicit opt-in.</p></li>
 </ol>
-<p><strong>Design gaps I resolved:</strong></p>
+<p><strong>Design ambiguities I resolved:</strong></p>
 <ul>
-<li>Galadriel specified 5 swipeable cards for "Your Year in Live." I built 4 cards (combining some stats) to keep the prototype focused — within her flexible area.</li>
-<li>Monthly summary was marked as deferrable. I deferred it to focus on post-event recap + annual retrospective.</li>
-<li>Group booking real-time updates are simulated with pre-set states (per Galadriel's flexible area).</li>
+<li>Galadriel specified four sections in the Fan Profile (My Shows, My
+Status, My Artefacts, Privacy &amp; Data). I built all four as
+collapsible sections with My Status open by default (it is the most
+identity-affirming surface) and the others tap-to-expand.</li>
+<li>Tier thresholds are illustrative per Galadriel's flexible-areas note
+(Newcomer 0–1, Regular 2–5, Devoted 6–14, Lifer 15+/50 lifetime).</li>
+<li>The Pre-Event Hub content drops are 3 placeholders (rehearsal
+photos, live recording, mystery support act) per Galadriel's flexibility
+on drop count.</li>
+<li>Setlist wishlist is built as basic add/remove with 5 tracks per
+artist — sufficient for prototype demonstration; full personalised
+setlist generation is deferred.</li>
+<li>Multi-year Year in Live is shown as two artefact cards (2025 and
+2026) in the Fan Profile rather than a multi-year UI; both open the
+existing Year in Live overlay.</li>
 </ul>
-<hr>
-<h2>2. WHAT WAS BUILT</h2>
-<h3>Key Screens and Flows</h3>
-<p>The prototype contains <strong>10 fully interactive screens</strong> across <strong>3 complete customer journeys</strong> + bonus demo features:</p>
-<ol>
-<li><strong>Home Screen</strong> — Personalised discovery feed with AI recommendations, friend activity section ("Friends going to events"), social discovery ("Popular with friends"), Unsplash event images, and AI disclosures.</li>
-<li><strong>Event Detail</strong> — Hero image (Unsplash), all-in pricing, tappable Fair Price Indicator with tooltip overlay, Price Breakdown modal, "Find Tickets" and "Go Together" buttons, social proof ("Sarah and 3 friends are going").</li>
-<li><strong>Seat Selection</strong> — Section-based selection with all-in prices, list view, checkout button.</li>
-<li><strong>Queue Experience</strong> — Queue position, wait time, progress bar, price guarantee badge, push notification opt-in, ARIA chat access, "Skip Queue for Demo" button.</li>
-<li><strong>Payment</strong> — Payment form with order summary showing all-in total.</li>
-<li><strong>Confirmation</strong> — Celebration screen with ticket details, QR code, "My Tickets," "Add to Calendar," and "Invite Friends" buttons.</li>
-<li><strong>ARIA Assistant</strong> — Chat interface with expanded quick-action chips (Order Status, Transfer Ticket, Account Help, Refund Help, Accessibility Info, Talk to Human), conversational AI responses, human escalation flow.</li>
-<li><strong>My Tickets</strong> — Upcoming and Past tabs. Upcoming: ticket QR codes, countdown, event details. Past: post-event recap cards with "Rate" and "See Similar" actions. "Your Year in Live" entry card.</li>
-<li><strong>"Your Year in Live"</strong> — Full-screen swipeable retrospective: title card → events attended → top artist → favourite venue → shareable summary card.</li>
-<li><strong>Onboarding</strong> — Four-screen flow: Welcome → Genre Selection → Social Features (privacy toggles, default OFF) → Trust Promise.</li>
-</ol>
-<h3>AI Features</h3>
-<ol>
-<li><strong>Personalised Recommendation Engine</strong> (Recommender System) — personalised event cards with explanations and AI disclosure.</li>
-<li><strong>Fair Price Indicator</strong> (Intelligent Agent) — badges with tappable tooltip explanations.</li>
-<li><strong>ARIA</strong> (Chatbot/Intelligent Agent hybrid) — expanded to 6 query types + human escalation + group coordination.</li>
-<li><strong>Social Discovery &amp; "Your Year in Live" Engine</strong> (Recommender System) — friend activity, social recommendations, post-event recaps, annual retrospective.</li>
-</ol>
-<h3>Presentation Improvements (Client Feedback)</h3>
+<hr />
+<h2 id="2-what-was-built">2. WHAT WAS BUILT</h2>
+<h3 id="iteration-11-baseline-preserved-unchanged">Iteration 11 baseline
+(preserved unchanged)</h3>
+<p>All 10 Iteration 11 screens are preserved and working:</p>
 <ul>
-<li><strong>Info panel</strong> beside the phone frame with: prototype title, feature tags, journey guides, and demo instructions</li>
-<li><strong>Unsplash images</strong> for all event cards and hero images — professional concert/venue photography</li>
-<li><strong>Clear journey navigation</strong> — 3 labelled journey buttons in the info panel: "Discovery to Purchase," "Queue Experience," "ARIA Support"</li>
-<li><strong>Phone frame</strong> properly sized and positioned with the info panel sticky on the left</li>
+<li>Home, Event Detail, Seat Selection, Queue Experience, Payment,
+Confirmation, ARIA Assistant, My Tickets, Year in Live, Onboarding
+(4-step), Search</li>
 </ul>
-<hr>
-<h2>3. HOW TO DEMO IT</h2>
-<p>Open the HTML file in any modern browser. The prototype displays with an <strong>info panel on the left</strong> and a <strong>phone frame on the right</strong>.</p>
-<h3>Demo Journey 1: Discovery to Purchase</h3>
-<ol>
-<li><strong>Start at Home Screen.</strong> Show the personalised greeting, AI-powered recommendations with real concert images, and the AI disclosure banner. Point out the "Friends going to events" section and "Popular with friends."</li>
-<li><strong>Tap "Taylor Swift — The Eras Tour" event card.</strong> Event Detail screen loads with a concert image, all-in pricing (€89.50), and the Fair Price Indicator badge.</li>
-<li><strong>Tap the Fair Price Indicator badge.</strong> A tooltip overlay appears: "Great value — similar events at this venue average €100–€130." This is the trust-building moment.</li>
-<li><strong>Tap "Price Breakdown."</strong> Modal shows transparent fee breakdown.</li>
-<li><strong>Tap "Find Tickets."</strong> Seat Selection screen with sections and all-in prices.</li>
-<li><strong>Select a section, tap "Checkout."</strong> Payment screen with all-in total.</li>
-<li><strong>Tap "Pay."</strong> The <strong>Confirmation screen</strong> celebrates: "You're going!" with ticket details, QR code, and "Invite Friends" button.</li>
-</ol>
-<h3>Demo Journey 2: Queue Experience (High-Demand)</h3>
-<ol>
-<li><strong>From Home, tap "Oasis — Croke Park."</strong> This high-demand event triggers the Queue Experience.</li>
-<li><strong>Queue screen shows:</strong> Position #4,521, estimated wait 12 minutes, price guarantee badge.</li>
-<li><strong>Tap "Notify Me"</strong> — push notification opt-in.</li>
-<li><strong>Tap "Skip Queue for Demo"</strong> — transitions to "It's Your Turn!" screen with direct link to seat selection.</li>
-</ol>
-<h3>Demo Journey 3: ARIA Support</h3>
-<ol>
-<li><strong>Tap the ARIA tab</strong> in bottom navigation.</li>
-<li><strong>Note the AI disclosure.</strong> Tap quick-action chips: "Order Status," "Refund Help," "Accessibility Info," "Talk to a Human."</li>
-<li><strong>Observe human escalation</strong> — ARIA transfers to a named human agent with full conversation context.</li>
-</ol>
-<h3>Bonus: Post-Event Engagement</h3>
-<ol>
-<li><strong>Tap "My Tickets"</strong> → switch to "Past" tab.</li>
-<li><strong>See post-event recap cards</strong> with "Rate" and "See Similar Events" prompts.</li>
-<li><strong>Tap "Your Year in Live"</strong> to open the full retrospective experience.</li>
-<li><strong>Swipe through cards</strong> showing events attended, top artist, favourite venue, and shareable summary.</li>
-</ol>
-<h3>Bonus: Onboarding</h3>
+<h3 id="iteration-12-additions">Iteration 12 additions</h3>
+<p><strong>Three new full screens:</strong></p>
+<ol type="1">
+<li><p><strong>Fan Presale (G2)</strong> —
+<code>screen-presale</code></p>
 <ul>
-<li><strong>Tap "Profile" → "Restart Onboarding"</strong> to see the 4-screen flow including the new Social Features opt-in screen.</li>
-</ul>
-<hr>
-<h2>4. BUILD MANIFEST</h2>
-<h3>BUILT TO SPEC ✅</h3>
+<li>Hero image of the artist</li>
+<li>Verified eligibility card ("You've seen Hozier 3 times. You qualify
+for the Fan Presale.")</li>
+<li>Real ticking countdown (days, hours, minutes, seconds)</li>
+<li>Absolute date/time display ("Tuesday 5 May 09:00 IST") —
+accessibility for users who cannot read relative-time animations</li>
+<li>"Set reminder" + "How does Fan Presale work?" actions</li>
+<li>EU AI Act Art. 50 disclosure with a plain-language eligibility
+explanation</li>
+</ul></li>
+<li><p><strong>Pre-Event Hub (G5)</strong> —
+<code>screen-preevent</code></p>
 <ul>
-<li>All-in pricing on every screen (non-negotiable)</li>
-<li>Fair Price Indicator with tappable tooltip overlay (NEW — Iteration 10 gap fixed)</li>
-<li>Price Breakdown modal with transparent fee display</li>
-<li>EU AI Act Article 50 disclosures on all AI features</li>
-<li>ARIA assistant with 6 query types + human escalation</li>
-<li>Queue experience with price guarantee, position display, push notification opt-in</li>
-<li>Confirmation screen with ticket details, QR code, and "Invite Friends" (NEW — Iteration 10 gap fixed)</li>
-<li>Post-event recap cards in My Tickets → Past tab (NEW)</li>
-<li>"Your Year in Live" retrospective with 4 swipeable cards + shareable summary (NEW)</li>
-<li>Friend activity section on Home screen (NEW)</li>
-<li>Social features default OFF with privacy toggles in onboarding (NEW)</li>
-<li>Onboarding flow expanded to 4 screens with social opt-in (NEW)</li>
-<li>Info panel beside phone frame with journey guides and feature tags (NEW — client feedback)</li>
-<li>Unsplash images for all events (NEW — client feedback)</li>
-<li>3 clearly labelled journey buttons in info panel (NEW — client feedback)</li>
-<li>Bottom navigation with 5 tabs</li>
-<li>Phone frame at 393×852px with 375px inner viewport</li>
-<li>Minimum 44×44px touch targets on all interactive elements</li>
-</ul>
-<h3>SIMPLIFIED ⚠️</h3>
+<li>Five hub cards, each labelled with its activated Octalysis Core
+Drive (CD2/CD3/CD5/CD7) and journey phase</li>
+<li>Setlist wishlist (CD3): tap-to-toggle 5 tracks; visual confirmation
+when added</li>
+<li>Venue &amp; logistics (CD2): doors, transport, accessibility</li>
+<li>Friends going (CD5): opt-in social tile + open group chat with
+ARIA</li>
+<li>Content drops (CD7 used as delight): 3 placeholder drops including a
+mystery support act</li>
+<li>Invite-a-friend (CD5): Ticket Fairy-style referral framed as
+recognition, not discount</li>
+</ul></li>
+<li><p><strong>Show Memory (G7)</strong> —
+<code>screen-showmemory</code></p>
 <ul>
-<li><strong>"Your Year in Live"</strong> — 4 cards instead of Galadriel's specified 5 (combined venue/genre into one card). Shareable card built as specified.</li>
-<li><strong>Seat map</strong> — section-based selection (per Galadriel's flexible area)</li>
-<li><strong>ARIA responses</strong> — pattern-matched for demo scenarios (per Galadriel's flexible area)</li>
-<li><strong>Personalisation engine</strong> — pre-determined recommendations</li>
-<li><strong>Fair Price Indicator</strong> — pre-set values per event</li>
-<li><strong>Group booking</strong> — simulated with pre-set friend states (per Galadriel's flexible area)</li>
-<li><strong>Friend activity</strong> — pre-set data showing simulated friend attendance</li>
-<li><strong>Social proof</strong> — pre-set numbers ("Sarah and 3 friends are going")</li>
-</ul>
-<h3>DEFERRED ❌</h3>
-<ul>
-<li><strong>Monthly summary</strong> — deferred per Galadriel's guidance. Post-event recap + annual retrospective are built.</li>
-<li><strong>Actual payment processing</strong> — simulated flow</li>
-<li><strong>Push notifications</strong> — opt-in UI built, delivery requires native mobile</li>
-<li><strong>Real-time queue</strong> — simulated with demo skip button</li>
-<li><strong>Real social graph</strong> — friend data is simulated; production requires contacts API integration</li>
-<li><strong>Shareable image generation</strong> — "Share to Stories" button is functional UI but actual image export requires canvas/server-side rendering</li>
-<li><strong>Full accessibility testing</strong> — semantic HTML and ARIA labels implemented but not tested on real devices</li>
-</ul>
-<hr>
-<h2>5. KNOWN LIMITATIONS</h2>
-<ol>
-<li><strong>All AI features are simulated.</strong> Recommendations, Fair Price Indicator, ARIA, and social discovery use pre-scripted responses and pre-set data.</li>
-<li><strong>Social features use simulated friend data.</strong> The friend activity, group booking, and "Popular with friends" sections display pre-set data. Production implementation requires contacts API integration and mutual consent verification.</li>
-<li><strong>"Your Year in Live" shareable card is visual only.</strong> The "Share to Stories" button shows the card but does not generate a downloadable image. Production implementation requires HTML canvas or server-side image rendering.</li>
-<li><strong>Queue progression is demo-controlled.</strong> "Skip Queue for Demo" button simulates the transition.</li>
-<li><strong>Single HTML file with no backend.</strong> Data does not persist between sessions.</li>
-<li><strong>Lucide Icons CDN dependency.</strong> Icons load from unpkg.com/lucide@latest with text fallbacks.</li>
+<li>Commemorative ticket artefact with "ATTENDED" stamp, attendee name,
+tier line</li>
+<li>Mood input: 5-star private rating with "Saved privately"
+confirmation</li>
+<li>Friends-who-were-there list (opt-in)</li>
+<li>2 personalised "you might love" recommendations</li>
+<li>Tasteful "Share your night" action</li>
+<li>Footer reminder that memories live in the Fan Profile</li>
+</ul></li>
 </ol>
-<hr>
-<p>Agent: Gimli (Builder)</p>
-<p>Passing to: Aragorn (Managing Consultant) for quality review</p>
-<p>What was built: A fully interactive HTML prototype with 10 screens across 3 customer journeys plus bonus post-event and onboarding flows. Builds on Iteration 10 with: info panel + real images (client feedback), Fair Price tooltip (Iteration 10 gap fixed), confirmation screen (gap fixed), post-event recap cards, "Your Year in Live" retrospective, friend activity + group booking, expanded ARIA (6 query types), and social privacy controls.</p>
-<p>Key flows a reviewer can test:</p>
-<ol>
-<li>Home → Event Detail (with Fair Price tooltip) → Seat Selection → Payment → Confirmation (with Invite Friends)</li>
-<li>Home → High-Demand Event → Queue → Skip Queue → Seat Selection</li>
-<li>ARIA tab → Order Status / Refund Help / Accessibility Info / Talk to Human</li>
-<li>My Tickets → Past → Post-event recap → Rate → See Similar Events</li>
-<li>My Tickets → Your Year in Live → Swipe through cards → Share</li>
-<li>Onboarding → Social Features opt-in (via Profile → Restart Onboarding)</li>
+<p><strong>One screen materially extended (Profile → Fan
+Profile):</strong></p>
+<p>The existing Profile screen has been replaced with the <strong>Fan
+Profile</strong>:</p>
+<ul>
+<li>Fan-profile hero with avatar, name, tagline, tier badge ("Devoted ·
+8 shows this year · 23 lifetime")</li>
+<li>Four collapsible sections:
+<ul>
+<li><strong>My Status</strong> (open by default): the four-tier table
+(Newcomer / Regular / Devoted / Lifer) with "You are here" highlighted
+and a "How do tiers work?" link opening a transparent explanation</li>
+<li><strong>My Shows</strong>: 4 past shows, each tap-able to open Show
+Memory</li>
+<li><strong>My Artefacts</strong>: 5 artefacts (1st show, 3Arena
+regular, Hozier x3, Year in Live 2025, Year in Live 2026)</li>
+<li><strong>Privacy &amp; Data</strong>: 4 granular toggles, export-data
+link, delete-fan-history action; explicit prohibition of vulnerability
+targeting in the footer copy</li>
+</ul></li>
+<li>Restart Onboarding, Help, Sign Out preserved at the bottom</li>
+</ul>
+<p><strong>Six existing surfaces refined:</strong></p>
+<ul>
+<li><strong>Home (Screen 1)</strong>: Reorganised into the four G1
+sections (<em>Because you went to Hozier</em> / <em>Friends are
+going</em> / <em>Fits your fan profile</em> / <em>New in Dublin</em>),
+each with a "why?" affordance opening a plain-language explanation. The
+header now shows the user's tier badge ("Devoted · 8") tappable to open
+the Fan Profile.</li>
+<li><strong>Event Detail (Screen 2)</strong>: Adds a Fan Presale banner
+that appears for artists in the user's verified fan history (Hozier in
+this prototype), routing to the Fan Presale screen.</li>
+<li><strong>Confirmation (Screen 6)</strong>: Adds tier micro-feedback
+("Show #9 this year · Devoted · Keep going to Lifer at 15 shows") and a
+"Save commemorative ticket" action.</li>
+<li><strong>My Tickets — Upcoming (Screen 8)</strong>: Adds the
+lapsed-fan welcome-back card (G8 — White Hat only, no loss-avoidance
+copy) and a "Pre-Event Hub" button on the Hozier ticket alongside the QR
+action.</li>
+<li><strong>My Tickets — Past (Screen 8)</strong>: Each past show tile
+is now tap-able to open its Show Memory.</li>
+<li><strong>Bottom navigation</strong>: Profile is now the fifth tab;
+consistent across all five base screens (Home, Search, My Tickets, ARIA,
+Profile).</li>
+</ul>
+<p><strong>One new modal type:</strong></p>
+<ul>
+<li><strong>"Why am I seeing this?" modal</strong>: Four pre-written
+explanations for the Home sections plus explanations for Fan Presale
+eligibility, tier mechanics, and data export. All reusable.</li>
+</ul>
+<h3 id="ai-features">AI Features</h3>
+<p>The Iteration 11 AI features are preserved and one new feature is
+added:</p>
+<ol type="1">
+<li>Personalised Recommendation Engine (Recommender System) —
+preserved</li>
+<li>Fair Price Indicator (Intelligent Agent) — preserved</li>
+<li>ARIA (Chatbot/Intelligent Agent hybrid) — preserved + now opens from
+the Pre-Event Hub group chat tile</li>
+<li>Social Discovery &amp; Year in Live Engine (Recommender System) —
+preserved</li>
+<li><strong>Fan Loyalty Engine (Recommender System + Intelligent
+Agent)</strong> — NEW. Maintains the Fan Profile, drives the four G1
+personalised Home sections, surfaces Fan Presale eligibility, generates
+Show Memory recommendations, and produces the Year in Live
+retrospective. Every surface carries Art. 50 disclosure and a "Why?"
+affordance.</li>
 </ol>
-<p>Build Manifest summary: 17 built to spec, 8 simplified, 7 deferred</p>
-<p>What Pippin should highlight: Fair Price tooltip (trust through transparency), "Your Year in Live" (engagement innovation), friend activity + group booking (social layer), confirmation screen "Invite Friends" (social + celebration), post-event recaps (loyalty loop)</p>
-<p>What Pippin should avoid or caveat: Social features use simulated friend data, "Share to Stories" is visual-only, monthly summary is deferred, group booking has pre-set states</p>
+<hr />
+<h2 id="3-how-to-demo-it">3. HOW TO DEMO IT</h2>
+<p>Open <code>HTML Demo/Ticketmaster_Prototype_Iteration12.html</code>
+in any modern browser. The info panel sits on the left with six journey
+buttons; the phone frame sits on the right.</p>
+<h3
+id="demo-journey-1-fan-loyalty-engine-g1-g2-g8--the-iteration-12-headline-journey">Demo
+Journey 1: Fan Loyalty Engine (G1, G2, G8) — <em>the Iteration 12
+headline journey</em></h3>
+<ol type="1">
+<li><strong>Click "Fan Loyalty Engine" in the info panel</strong> (or
+tap Profile in bottom nav).</li>
+<li><strong>Fan Profile screen loads.</strong> Note the tier badge
+("Devoted") at the top right of the Home screen header — this is the
+recognition layer surfaced everywhere. The Fan Profile shows tier
+ladder, with "You are here" highlighted at Devoted.</li>
+<li><strong>Tap "How do tiers work?"</strong> — modal opens explaining
+the four tiers, the "status is gained, never lost" rule, and what
+unlocks at each tier. This is the EU AI Act Art. 50 transparency surface
+for the loyalty engine.</li>
+<li><strong>Tap "My Shows"</strong> to expand — see attendance history;
+each show is tap-able to open Show Memory.</li>
+<li><strong>Tap "My Artefacts"</strong> to expand — see commemorative
+collection.</li>
+<li><strong>Tap "Privacy &amp; Data"</strong> to expand — see granular
+toggles. The footer states explicitly: "The Fan Loyalty Engine never
+targets vulnerability."</li>
+<li><strong>Go to Home (bottom nav).</strong> Tap any "why?" link next
+to a section header — modal explains the personalisation logic and
+(importantly) what data is <em>not</em> used.</li>
+<li><strong>Tap "Hozier" event card.</strong> Note the new <strong>Fan
+Presale banner</strong> below the price card. Tap it to open the Fan
+Presale screen.</li>
+<li><strong>Fan Presale screen.</strong> Note the verified-eligibility
+card and the <strong>real ticking countdown</strong> (it actually counts
+down 1 second per second). The Iteration 12 message: scarcity used
+truthfully, never manufactured.</li>
+<li><strong>Go back to My Tickets → Upcoming.</strong> Note the
+<strong>welcome-back card at the top</strong> ("We've missed you") —
+White Hat only, no loss-avoidance language anywhere.</li>
+</ol>
+<h3 id="demo-journey-2-pre-event-hub-g5">Demo Journey 2: Pre-Event Hub
+(G5)</h3>
+<ol type="1">
+<li><strong>Click "Pre-Event Hub" in the info panel</strong> (or My
+Tickets → Upcoming → tap "Pre-Event Hub" on the Hozier ticket).</li>
+<li><strong>Pre-Event Hub loads.</strong> Five hub cards, each labelled
+with its Core Drive (CD2/CD3/CD5/CD7) and journey phase.</li>
+<li><strong>Tap setlist tracks</strong> to add/remove from your
+wishlist. The toggle is visual, immediate, and visible only to you.</li>
+<li><strong>Tap "Open group chat with ARIA"</strong> — opens ARIA in
+conversational mode (CD5 social).</li>
+<li><strong>Tap "Share invite link"</strong> — Ticket Fairy-style
+referral framed as recognition, not discount.</li>
+</ol>
+<h3 id="demo-journey-3-show-memory-g7">Demo Journey 3: Show Memory
+(G7)</h3>
+<ol type="1">
+<li><strong>Click "Show Memory" in the info panel</strong> (or My
+Tickets → Past → tap any past show).</li>
+<li><strong>Show Memory loads.</strong> Commemorative ticket artefact
+with "ATTENDED" stamp at the top.</li>
+<li><strong>Tap a star</strong> — the mood is recorded with "Saved
+privately to your fan profile." No telemetry without consent.</li>
+<li><strong>Tap a recommendation</strong> — opens the recommended event
+detail.</li>
+<li><strong>Tap "Share your night"</strong> — tasteful, branded share
+confirmation.</li>
+</ol>
+<h3
+id="demo-journey-4-discovery-to-purchase-iteration-11-baseline--iteration-12-confirmation-enhancements">Demo
+Journey 4: Discovery to Purchase (Iteration 11 baseline + Iteration 12
+confirmation enhancements)</h3>
+<ol type="1">
+<li><strong>Click "Discovery to Purchase"</strong> — opens the Hozier
+event detail.</li>
+<li>Walk through the existing Iteration 11 flow: tap Fair Price badge
+for tooltip → Find Tickets → select a section → Skip Queue (Demo) →
+Pay.</li>
+<li><strong>On Confirmation:</strong> note the tier micro-feedback
+("Show #9 · Devoted · Keep going to Lifer at 15") and the new
+<strong>"Save commemorative ticket"</strong> action.</li>
+</ol>
+<h3
+id="demo-journey-5-aria-support-and-year-in-live-iteration-11-baseline">Demo
+Journey 5: ARIA Support and Year in Live (Iteration 11 baseline)</h3>
+<ol type="1">
+<li><strong>Click "ARIA Assistant"</strong> — chat with ARIA, try the
+quick-action chips, escalate to a human.</li>
+<li><strong>Click "Year in Live"</strong> — opens My Tickets → tap "Your
+Year in Live 2026" or open from Fan Profile → My Artefacts.</li>
+</ol>
+<hr />
+<h2 id="4-build-manifest">4. BUILD MANIFEST</h2>
+<h3 id="built-to-spec">BUILT TO SPEC</h3>
+<ul>
+<li>Fan Profile screen with all four collapsible sections (My Status, My
+Shows, My Artefacts, Privacy &amp; Data)</li>
+<li>Fan Status ladder (4 tiers) with "You are here" highlighting and
+"How do tiers work?" explainer modal</li>
+<li>Fan Presale screen (G2) with real ticking countdown and verified
+eligibility</li>
+<li>Pre-Event Hub (G5) with five hub cards labelled with their Core
+Drives</li>
+<li>Setlist wishlist with tap-to-toggle interaction</li>
+<li>Show Memory (G7) with commemorative ticket artefact and private mood
+input</li>
+<li>Mood input that registers a star rating and confirms private
+save</li>
+<li>Commemorative ticket artefact with "ATTENDED" stamp, attendee name,
+tier line</li>
+<li>Lapsed-fan welcome-back card (G8) — White Hat only, no
+loss-avoidance copy</li>
+<li>Tier micro-feedback on Confirmation</li>
+<li>Tier badge component used across Home header, Confirmation, My
+Tickets, Fan Profile, Show Memory</li>
+<li>"Why am I seeing this?" affordance on each of the four G1 Home
+sections</li>
+<li>"Why am I seeing this?" modal with four explanation cards</li>
+<li>EU AI Act Art. 50 disclosure on every personalised surface</li>
+<li>Profile tab as fifth bottom-nav item, consistent across all five
+base screens</li>
+<li>Privacy &amp; Data section with four granular toggles, export-data
+link, and delete-fan-history action</li>
+<li>All Iteration 11 features preserved and working</li>
+</ul>
+<h3 id="simplified">SIMPLIFIED</h3>
+<ul>
+<li><strong>Pre-event content drops:</strong> 3 placeholder cards rather
+than a full content programme (per Galadriel's flexibility note).</li>
+<li><strong>Setlist wishlist:</strong> basic add/remove with 5 tracks
+rather than a full personalised setlist generator (per flexibility
+note).</li>
+<li><strong>Multi-year Year in Live:</strong> shown as two artefact
+tiles in the Fan Profile (2025 and 2026) rather than a multi-year
+archive UI; both open the same Year in Live overlay.</li>
+<li><strong>Friends-going on Pre-Event Hub:</strong> 2 sample friends
+rather than a live friend matching feed.</li>
+<li><strong>Tier thresholds:</strong> illustrative numbers (0–1 / 2–5 /
+6–14 / 15+/50 lifetime) per Galadriel's flexibility note.</li>
+<li><strong>Group chat with ARIA from Pre-Event Hub:</strong> opens ARIA
+in standard mode (the prototype does not implement a dedicated
+group-chat mode).</li>
+</ul>
+<h3 id="deferred">DEFERRED</h3>
+<ul>
+<li><strong>Live referral tracking and reward delivery</strong> for the
+invite-a-friend mechanic — the prototype shows the share-link UI;
+production would require referral attribution backend.</li>
+<li><strong>Show Memory share-card image generation</strong> — the
+prototype shows a confirmation message; production would generate an
+actual branded image.</li>
+<li><strong>Fan Presale eligibility for artists other than
+Hozier</strong> — only Hozier triggers the Fan Presale banner in the
+prototype (consistent with the demo user's attendance history).</li>
+<li><strong>Lapsed-fan personalised welcome-back
+recommendations</strong> — the welcome-back card uses generic copy;
+production would dynamically populate "three artists you've
+followed."</li>
+</ul>
+<hr />
+<h2 id="5-known-limitations">5. KNOWN LIMITATIONS</h2>
+<ul>
+<li><strong>All AI is simulated.</strong> No live model calls.
+Recommendations are pre-set; ARIA responses are scripted; the
+recommender does not actually learn.</li>
+<li><strong>The Fan Profile data is hard-coded</strong> for the demo
+user "Sarah O'Brien" with the attendance history shown in My Shows. A
+real implementation would read from a customer attendance graph.</li>
+<li><strong>Tier transitions are not animated</strong> — the tier badge
+does not animate from one tier to the next. The current tier is
+displayed; the user understands their tier from the visual.</li>
+<li><strong>Privacy toggles do not persist across page reloads</strong>
+— toggling them on/off works for the session, but reloading the page
+resets to the default state. A real implementation would persist
+state.</li>
+<li><strong>The presale countdown resets on page reload.</strong> It
+ticks accurately during a session.</li>
+<li><strong>The commemorative ticket cannot actually be saved or shared
+as an image file</strong> — it is a styled card that can be navigated to
+and from. The "Save" and "Share" actions show confirmation dialogs.</li>
+<li><strong>Setlist wishlist does not persist</strong> across page
+reloads — added tracks reset on refresh.</li>
+<li><strong>No offline mode.</strong> The prototype requires an internet
+connection for the Lucide icon CDN and the Unsplash event images.</li>
+<li><strong>Browser compatibility:</strong> built and tested for modern
+Chromium-based browsers, Firefox, and Safari. Internet Explorer is not
+supported.</li>
+</ul>
+<hr />
+<p>─── HANDOFF TO ARAGORN FOR REVIEW ─── <strong>Agent:</strong> Gimli
+(Builder) <strong>Passing to:</strong> Aragorn (Managing Consultant) for
+Review 3 / quality gate <strong>What was built:</strong> The Iteration
+11 prototype extended with the Octalysis Fan Loyalty Engine: a Fan
+Profile screen with four collapsible sections (My Status, My Shows, My
+Artefacts, Privacy &amp; Data), a Fan Presale screen (G2) with a real
+ticking countdown, a Pre-Event Hub (G5) with five Core-Drive-labelled
+hub cards, a Show Memory screen (G7) with a commemorative ticket
+artefact and private mood input, plus tier micro-feedback on
+Confirmation, a lapsed-fan welcome-back card on My Tickets (G8), the
+four G1 Home sections each with a "Why am I seeing this?" affordance,
+and a tier badge component used across the app. CD8 (Loss Avoidance) is
+used in zero design concepts. The Fan Presale countdown is real and the
+eligibility is consistent with the prototype's attendance data.</p>
+<p><strong>Key flows a reviewer can test:</strong></p>
+<ol type="1">
+<li>Profile → tap "How do tiers work?" → see the transparent tier
+explainer</li>
+<li>Home → tap any "why?" affordance → see the personalisation
+explanation</li>
+<li>Home → tap Hozier → see Fan Presale banner → tap → countdown ticks
+in real time</li>
+<li>My Tickets → Upcoming → see welcome-back card; tap "Pre-Event
+Hub"</li>
+<li>My Tickets → Past → tap any show → Show Memory → tap a star → "Saved
+privately"</li>
+<li>Discovery → buy a ticket → see tier micro-feedback + "Save
+commemorative ticket"</li>
+</ol>
+<p><strong>Build Manifest summary:</strong> 14 items built to spec, 6
+simplified (within Galadriel's flexible areas), 4 deferred
+(production-only features clearly documented).</p>
+<p><strong>What Pippin should highlight:</strong></p>
+<ul>
+<li>The Fan Profile is the consolidating product surface that addresses
+Problem 10 (transactional architecture). It is the headline of Iteration
+12.</li>
+<li>"Status is gained, never lost" is the binding ethical promise. Every
+piece of communication should reinforce it.</li>
+<li>The Show Memory mood input being private by default, the Fan Presale
+countdown being real, and the welcome-back card containing zero
+loss-avoidance copy are the three trust-restoring proof points.</li>
+<li>The "Why am I seeing this?" affordance on every personalised surface
+is the EU AI Act Art. 50 compliance moment made tangible.</li>
+</ul>
+<p><strong>What Pippin should avoid or caveat:</strong></p>
+<ul>
+<li>Do not describe the Fan Loyalty Engine as a "points programme" or
+"rewards programme." It is a recognition architecture. Tier benefits are
+framed as recognition, not purchase incentives.</li>
+<li>Do not suggest the prototype's referral mechanic produces discounts.
+It produces recognition (a Fan Profile thank-you), not a price
+reduction.</li>
+<li>The Show Memory mood input is private by default — never frame it as
+public-by-default in marketing copy.</li>
+<li>The welcome-back card uses welcome language only — never re-cast it
+as a "your status is at risk" mechanic in messaging.</li>
+</ul>
+<p><strong>Ready for review:</strong> YES</p>
+<p style="text-align:center;font-size:0.8rem;color:#585f72;margin-top:2rem;padding-bottom:1rem;">Last edited: 29 April 2026</p>
 </div>
-<p style="text-align:center;font-size:0.8rem;color:#585f72;margin-top:2rem;padding-bottom:1rem;">Last edited: 18 March 2026</p>
 </body>
 </html>

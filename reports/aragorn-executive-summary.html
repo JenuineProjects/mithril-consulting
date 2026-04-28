@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aragorn Executive Summary — Iteration 11 | Mithril Consulting</title>
+<title>Aragorn Executive Summary — Iteration 12 | Mithril Consulting</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,391 +30,459 @@ hr { border: none; border-top: 1px solid #1e2038; margin: 2rem 0; }
 .divider { width: 60px; height: 3px; background: linear-gradient(90deg, #4a8eff, #7c5cff); border-radius: 2px; margin: 1.5rem 0; }
 a { color: #4a8eff; }
 code { background: #161628; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.88em; color: #b8c4d8; }
+pre { background: #0c0c1a; border: 1px solid #1e2038; border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
+pre code { background: none; padding: 0; color: #b8c4d8; font-size: 0.85rem; line-height: 1.6; }
 </style>
 </head>
 <body>
 <div class="container">
 <a href="../index.html" class="back-link">&larr; Back to Portfolio</a>
 <div class="divider"></div>
-<h1>Aragorn's Executive Summary / Operational Plan — Iteration 11</h1>
+<h1 id="executive-summary--operational-plan--iteration-12">Executive
+Summary &amp; Operational Plan — Iteration 12</h1>
 <blockquote>
-Mithril Consulting | Client: Ticketmaster<br>
-Agent: Aragorn (Managing Consultant)<br>
-Slogan: <em>"Guiding every agent toward the goal."</em><br>
-Date: 14 March 2026<br>
+<p>Mithril Consulting | Client: Ticketmaster Authored by: Aragorn
+(Managing Consultant) Slogan: <em>"Guiding every agent toward the
+goal."</em> Date: 28 April 2026 Engagement: Iteration 12 — Octalysis Fan
+Loyalty Engine</p>
 </blockquote>
-<hr>
-<h2>SECTION 1 — STRATEGIC OVERVIEW</h2>
-<p>Ticketmaster engaged Mithril Consulting to address a crisis of customer trust: hidden fees, system failures, inaccessible support, and zero post-purchase engagement have created a customer base that is actively hostile. The FTC has sued for deceptive pricing. The DOJ has forced an antitrust settlement. Competitors are solving the same problems more effectively.</p>
-<p>Iteration 11 is the second full pipeline run using Mithril Consulting's five-agent architecture with quality gate reviews. It builds on Iteration 10's validated foundation (transparent pricing, ARIA support, queue fairness) and extends into three new strategic areas identified in my Iteration 10 review: <strong>social engagement</strong>, <strong>post-event loyalty</strong>, and <strong>deeper trust-building through price context</strong>.</p>
-<p>The pipeline produced:</p>
-<ul>
-<li>A <strong>Research Brief</strong> extending the evidence base into social media engagement, post-event loyalty benchmarks, and data privacy requirements</li>
-<li>A <strong>Design Specification</strong> covering 10 screens with 4 AI features, including friend activity, group booking, "Your Year in Live" retrospective, and the Fair Price tappable tooltip</li>
-<li>A <strong>Working HTML Prototype</strong> with real event images, an info panel with journey guides, and all new features interactive</li>
-<li>A <strong>Go-to-Market Package</strong> with 4 campaigns, an extended trust narrative, finished UX copy, and 8 KPIs</li>
-</ul>
-<p><strong>Recommendation to Ticketmaster:</strong> Iteration 10 addressed the trust foundation — honest pricing, genuine support, fair queues. Iteration 11 addresses the engagement layer — social connection, post-event loyalty, and community. Together, they transform Ticketmaster from a transaction platform into an experience platform. Implement the trust features first (Iteration 10), then layer the engagement features (Iteration 11) to build on the restored trust.</p>
-<hr>
-<h2>SECTION 2 — PIPELINE COHERENCE REVIEW</h2>
-<h3>Agent-by-Agent Assessment</h3>
-<p><strong>Saruman (Researcher) — Strong.</strong> Addressed every gap I identified: social media engagement (TikTok partnership analysis, competitor social feature matrix), post-event engagement (Spotify Wrapped benchmark — 200M users, 500M shares, 64% retention improvement), App Store rating discrepancy (4.8 vs 1.4–1.6 with 4 possible explanations), and data privacy for social features (GDPR granular consent, retention limits). Stayed within his lane.</p>
-<p><strong>Galadriel (Designer) — Excellent.</strong> Produced a clean iterative design that retains all Iteration 10 features and adds 3 new screens (Confirmation, Group Booking, "Your Year in Live"), a 4th onboarding step (social privacy), and the Fair Price tooltip. Design Principle #6 ("Social by invitation, not by default") directly implements Saruman's privacy guidance. Non-negotiable/flexible distinctions are well-judged. Stayed within her lane.</p>
-<p><strong>Gimli (Builder) — Excellent.</strong> Built 10 screens with all presentation improvements (info panel, Unsplash images, journey guides). Every Iteration 10 gap is fixed (Fair Price tooltip, confirmation screen). All new features functional. Build Manifest: 17 built to spec, 8 simplified (all within flexible areas), 7 deferred (all documented). Stayed within his lane.</p>
-<p><strong>Pippin (Communicator) — Strong.</strong> Extended the trust narrative to acknowledge the loneliness of the current app alongside pricing failures. "Your Year in Live" campaign is well-positioned as a cultural moment. "Go Together" campaign addresses a relatable pain point (WhatsApp coordination). Build Manifest rigorously respected. Stayed within his lane.</p>
-<h3>End-to-End Decision Tracing</h3>
-<p><strong>Trace 1: Post-Event Void → "Your Year in Live" → Shareable Cards → "Your Year in Live" Campaign</strong></p>
-<ul>
-<li><strong>Saruman</strong> identified zero post-event engagement as Problem 8, benchmarked Spotify Wrapped (200M users, 500M shares, 64% retention), and noted no ticketing platform has an equivalent.</li>
-<li><strong>Galadriel</strong> designed "Your Year in Live" as a 4-card swipeable retrospective with shareable summary cards, post-event recaps within 24 hours, and the "See similar events" loyalty loop.</li>
-<li><strong>Gimli</strong> built the full retrospective with 4 navigable cards, shareable visual, and post-event recap cards in My Tickets.</li>
-<li><strong>Pippin</strong> created Campaign 2: "Your Year in Live" positioned as a December cultural moment with Instagram Stories/TikTok-native vertical format, benchmarked against Spotify Wrapped engagement metrics.</li>
-</ul>
-<p><strong>This chain is clean.</strong> Research finding → design specification → working prototype → honest campaign. No breaks.</p>
-<p><strong>Trace 2: No Social Layer → Friend Activity + Group Booking → "Go Together" Campaign</strong></p>
-<ul>
-<li><strong>Saruman</strong> identified the absence of social features as Problem 7, produced a competitive matrix showing every competitor has some social features, and provided GDPR guidance for privacy-first social design.</li>
-<li><strong>Galadriel</strong> designed friend activity cards, "Go Together" group booking flow, social discovery recommendations, and social privacy controls defaulting to OFF. Design Principle #6 directly implements the privacy guidance.</li>
-<li><strong>Gimli</strong> built friend activity on Home, "Go Together" on Event Detail, "Invite Friends" on Confirmation, and social toggles in onboarding — all with simulated friend data (documented in Build Manifest).</li>
-<li><strong>Pippin</strong> created Campaign 3: "Go Together" with the WhatsApp comparison creative, correctly noting that friend data is simulated and production requires contacts API integration.</li>
-</ul>
-<p><strong>This chain is clean.</strong> No breaks.</p>
-<p><strong>Trace 3 (from Iteration 10, retained): Hidden Fees → All-In Pricing → Fair Price Tooltip → "No Surprises" Campaign</strong></p>
-<ul>
-<li><strong>Saruman</strong> retained the #1 complaint finding (FTC lawsuit, hidden fees).</li>
-<li><strong>Galadriel</strong> enhanced the Fair Price Indicator with a tappable tooltip providing contextual price explanation.</li>
-<li><strong>Gimli</strong> built the tooltip overlay with contextual text for each badge type.</li>
-<li><strong>Pippin</strong> updated Campaign 1 ("No Surprises") to feature the tooltip in the creative.</li>
-</ul>
-<p><strong>This chain is clean across two iterations.</strong> Research → design → build → messaging — the pipeline's cumulative intelligence works.</p>
-<h3>Pipeline Coherence Assessment</h3>
-<p>The Iteration 11 pipeline demonstrates something beyond single-iteration coherence: <strong>cross-iteration improvement</strong>. The gaps I identified in my Iteration 10 review were addressed systematically — each agent picked up the specific improvements relevant to their role without losing the validated Iteration 10 foundation. This is the strongest evidence that the quality gate architecture works: it enables directed, iterative improvement rather than starting from scratch.</p>
-<hr>
-<h2>SECTION 3 — STRATEGIC ALIGNMENT ASSESSMENT</h2>
-<p>The client asked for improvements to <strong>customer engagement</strong> and <strong>personalisation</strong>. Iteration 11 deepens both:</p>
-<p><strong>Engagement:</strong> The social layer (friend activity, group booking, "Go Together") and post-event engagement ("Your Year in Live," post-event recaps, "See similar events") address the full customer lifecycle — not just the purchase moment. The app now has reasons to open it before buying (discover what friends are doing), during the event (digital ticket + group coordination), and after (recap, rate, discover more). This is genuine engagement, not just transaction facilitation.</p>
-<p><strong>Personalisation:</strong> The Recommender System now includes social filtering ("Popular with your friends") alongside the Iteration 10 behavioural filtering ("Because you saw Hozier"). "Your Year in Live" is the ultimate personalisation — a unique retrospective generated from individual attendance data. The Fair Price tooltip provides personalised price context (relative to similar events the user might consider).</p>
-<p><strong>Overall:</strong> Iteration 11 is <strong>strongly aligned</strong> with the client brief. The combination of trust restoration (Iteration 10) and engagement innovation (Iteration 11) addresses both the immediate problem (customers don't trust the platform) and the strategic opportunity (customers could love the platform if it served their social and emotional needs).</p>
-<hr>
-<h2>SECTION 4 — CUSTOMER ENGAGEMENT ANALYSIS</h2>
-<h3>AI Features Across the Customer Lifecycle</h3>
-<table><thead><tr>
-<th>Lifecycle Stage</th>
-<th>AI Feature</th>
-<th>Engagement Impact (Iteration 11)</th>
-</tr></thead><tbody>
-<tr>
-<td><strong>Attract</strong></td>
-<td>Recommender System (personalised + social discovery)</td>
-<td>Social filtering adds a new discovery path: "your friends are going." This is more compelling than algorithmic recommendations alone — social proof from trusted connections drives attendance.</td>
-</tr>
-<tr>
-<td><strong>Engage</strong></td>
-<td>Intelligent Agent (Fair Price Indicator with tooltip)</td>
-<td>Tooltip moves from "trust through transparency" to "trust through explanation." Customers understand <em>why</em> a price is fair, not just <em>what</em> the price is.</td>
-</tr>
-<tr>
-<td><strong>Purchase</strong></td>
-<td>Intelligent Agent (Queue) + Social (Go Together)</td>
-<td>Group booking reduces coordination friction. "Go Together" transforms the purchase from individual to collaborative — increasing ticket volume per event.</td>
-</tr>
-<tr>
-<td><strong>Retain</strong></td>
-<td>Recommender System (post-event recaps + "Your Year in Live") + Chatbot/Agent (ARIA)</td>
-<td>The loyalty loop is now closed. Post-event recaps within 24 hours catch customers at peak emotional connection. "Your Year in Live" drives annual re-engagement and organic social sharing.</td>
-</tr>
-</tbody></table>
-<h3>Where Engagement Improvement Is Strongest and Weakest</h3>
-<p><strong>Strongest:</strong> The <strong>Retain</strong> stage. Iteration 10 had zero post-event engagement. Iteration 11 has post-event recaps, "See similar events" recommendations, rating prompts, and "Your Year in Live." This is the most dramatic improvement — from nothing to a complete loyalty loop.</p>
-<p><strong>Second strongest:</strong> The <strong>Attract</strong> stage. Social discovery ("friends are going") adds an entirely new engagement pathway that didn't exist in Iteration 10. Social proof from trusted connections is more compelling than algorithmic recommendations.</p>
-<p><strong>Weakest (but improved):</strong> The <strong>Attend</strong> stage. The app still primarily serves as a digital ticket holder during the event itself. Live event features (setlist tracking, venue information, real-time social features at the venue) remain unexplored. This is an area for future iteration.</p>
-<hr>
-<h2>SECTION 5 — REGULATORY &amp; ETHICAL REVIEW</h2>
-<h3>EU AI Act Compliance</h3>
-<p>All Iteration 10 compliance retained (Article 50 disclosures on all 3 original AI features). New for Iteration 11:</p>
-<ul>
-<li>✅ <strong>Social Discovery &amp; "Your Year in Live" Engine</strong> (Recommender System) includes AI disclosure: "Friend recommendations powered by AI based on your connections and attendance."</li>
-<li>✅ "Your Year in Live" includes disclosure: "Your recap is generated from your attendance history. [Manage your data]"</li>
-<li>✅ Social recommendations include disclosure: "Friend activity shown with their consent. [Manage privacy]"</li>
-</ul>
-<p><strong>Verdict:</strong> Compliant. All four AI features have Article 50 disclosures at point of interaction.</p>
-<h3>GDPR Compliance</h3>
-<p>All Iteration 10 compliance retained. New for Iteration 11:</p>
-<ul>
-<li>✅ <strong>Social features require explicit opt-in.</strong> Three granular toggles (share attendance, show friends, allow group invitations) default to OFF in onboarding and Settings.</li>
-<li>✅ <strong>Mutual consent for friend data.</strong> Both parties must opt in for friend activity to be visible. Saruman's guidance implemented.</li>
-<li>✅ <strong>Data management accessible.</strong> "Manage privacy" and "Manage your data" links are present on social and retrospective features.</li>
-<li>⚠️ <strong>Data retention limits still need definition.</strong> Saruman recommended 24-month retention with annual archival/deletion prompts. This must be specified in production privacy policy before launch.</li>
-</ul>
-<p><strong>Verdict:</strong> Substantially compliant. Data retention limits must be formalised before production deployment.</p>
-<h3>Asimov's Three Laws (Adapted)</h3>
-<p><strong>Law 1 — Does the system protect customers from harm?</strong></p>
-<ul>
-<li>✅ Financial: All-in pricing + Fair Price tooltip context</li>
-<li>✅ Emotional: Post-event engagement reduces the sense of being treated as a transaction</li>
-<li>✅ Privacy: Social features are opt-in with granular controls</li>
-<li>✅ Social pressure: "Go Together" is invitation-based, not pressure-based. Users see friend activity only if both consent.</li>
-</ul>
-<p><strong>Law 2 — Is human oversight maintained?</strong></p>
-<ul>
-<li>✅ ARIA offers human escalation at every point</li>
-<li>✅ All AI features are advisory (recommendations, price context) not decisional</li>
-<li>✅ Social features have user control (toggles, not default-on)</li>
-</ul>
-<p><strong>Law 3 — Is the system's integrity protected?</strong></p>
-<ul>
-<li>✅ Build Manifest honestly documents simulated vs. built features</li>
-<li>✅ Pippin's messaging does not overclaim social capabilities</li>
-</ul>
-<h3>Overall Ethical Verdict</h3>
-<p>This solution continues to serve customers. The social features are designed with privacy-first principles (opt-in, mutual consent, granular controls). "Your Year in Live" celebrates the customer's experience rather than exploiting their data. The Fair Price tooltip builds trust through explanation rather than obscuring pricing logic.</p>
-<p>The ethical bar for social features is higher than for individual features — there is inherent tension between social engagement (showing friend activity) and privacy (not sharing attendance without consent). Galadriel's design resolves this correctly: mutual opt-in, granular controls, default OFF. This is the right approach.</p>
-<hr>
-<h2>SECTION 6 — COMMERCIAL ASSESSMENT</h2>
-<h3>Incremental Value Over Iteration 10</h3>
-<table><thead><tr>
-<th>Feature</th>
-<th>Expected Incremental Impact</th>
-<th>Confidence</th>
-</tr></thead><tbody>
-<tr>
-<td>"Your Year in Live" → organic social sharing</td>
-<td>+15–25% organic app installs during December campaign</td>
-<td>MEDIUM — benchmark: Spotify Wrapped drives measurable install spikes</td>
-</tr>
-<tr>
-<td>Social features → increased group booking</td>
-<td>+10–15% tickets sold through social coordination</td>
-<td>MEDIUM — group bookings have higher per-event ticket volume</td>
-</tr>
-<tr>
-<td>Post-event recaps → return visit frequency</td>
-<td>+20–30% return visits within 7 days of event</td>
-<td>MEDIUM — based on post-event email engagement benchmarks</td>
-</tr>
-<tr>
-<td>Fair Price tooltip → reduced price-related abandonment</td>
-<td>+5–8% checkout completion (incremental to all-in pricing)</td>
-<td>MEDIUM — contextual price justification reduces uncertainty</td>
-</tr>
-</tbody></table>
-<h3>Updated Implementation Priority</h3>
-<ol>
-<li><strong>All-in pricing</strong> (Iteration 10 — MEDIUM effort, HIGH impact, regulatory imperative)</li>
-<li><strong>ARIA support assistant</strong> (Iteration 10 — LARGE effort, HIGH impact)</li>
-<li><strong>Queue transparency + price guarantee</strong> (Iteration 10 — MEDIUM effort, HIGH impact)</li>
-<li><strong>Fair Price tooltip</strong> (Iteration 11 — SMALL effort, MEDIUM impact — incremental to pricing)</li>
-<li><strong>Post-event recaps</strong> (Iteration 11 — SMALL effort, MEDIUM impact — drives retention)</li>
-<li><strong>"Your Year in Live"</strong> (Iteration 11 — MEDIUM effort, HIGH engagement impact — December launch target)</li>
-<li><strong>Personalised discovery</strong> (Iteration 10 — LARGE effort, HIGH engagement impact)</li>
-<li><strong>Social features</strong> (Iteration 11 — LARGE effort, MEDIUM-HIGH impact — requires contacts API)</li>
+<hr />
+<h2 id="1-what-mithril-consulting-is-recommending">1. WHAT MITHRIL
+CONSULTING IS RECOMMENDING</h2>
+<p>Ticketmaster has a structural product problem: across the customer
+lifecycle (Discovery → Purchase → Pre-event → Attend → Post-event →
+Re-engagement), there is currently no continuous identity, status,
+mastery, or community signal. Every fan re-enters the funnel at zero.
+The platform activates only the two most ethically risky gamification
+drives (scarcity at sale moments, loss-avoidance via cart timers) — both
+<em>at</em> the customer rather than <em>for</em> them — while leaving
+the five sustainable engagement drives (Meaning, Accomplishment,
+Creativity, Ownership, Social) entirely dormant. This is the inverse of
+every successful consumer engagement architecture in adjacent categories
+(Starbucks Rewards, Duolingo, Sephora Beauty Insider, Spotify Wrapped,
+Manchester United, Ultra Music Festival Passport).</p>
+<p>Iteration 12 introduces the <strong>Fan Loyalty Engine</strong> as
+the visible product surface that closes that gap. It is a recognition
+architecture — not a points programme, not a rewards programme, not a
+paid priority queue. It consists of four interconnected components: a
+persistent <strong>Fan Profile</strong>; a four-tier <strong>Fan
+Status</strong> ladder (Newcomer / Regular / Devoted / Lifer); a growing
+<strong>Fan Artefact</strong> collection (commemorative tickets,
+milestone badges, Year in Live cards); and personalised <strong>Fan
+Surfaces</strong> at eight specific journey moments where the trust
+deficit is greatest and where gamification mechanics can address it
+without manipulation.</p>
+<p>The architectural premise is bound by three commitments that the
+Iteration 12 prototype implements as working UI, not as marketing
+copy:</p>
+<ol type="1">
+<li><strong>Status is gained, never lost.</strong> No downgrade UI
+anywhere. Lapsed fans are welcomed back, never threatened.</li>
+<li><strong>The Fan Presale qualifies on real attendance
+history.</strong> No paid priority queue, no manufactured
+countdown.</li>
+<li><strong>AI personalisation is honest about what it does and does not
+use.</strong> Every personalised surface carries a "Why am I seeing
+this?" affordance; the explanation states what data is used <em>and</em>
+what data is not (the prohibition on vulnerability targeting is stated
+explicitly per EU AI Act Article 5).</li>
 </ol>
-<hr>
-<h2>SECTION 7 — RISKS &amp; MITIGATIONS</h2>
-<p>Iteration 10 risks retained. New risks:</p>
-<table><thead><tr>
-<th>#</th>
-<th>Risk</th>
-<th>Probability</th>
-<th>Impact</th>
-<th>Mitigation</th>
-</tr></thead><tbody>
+<p>The recommendation to Ticketmaster's senior leadership: take the
+Iteration 12 design forward as the basis for the next product release.
+The Fan Loyalty Engine is the structural change that the customer-trust
+position has needed for several quarters; the prototype demonstrates
+that it can be implemented within the constraints that the regulatory,
+ethical, and commercial environment now imposes.</p>
+<hr />
+<h2
+id="2-strategic-rationale--why-an-agentic-pipeline-produced-this-result">2.
+STRATEGIC RATIONALE — WHY AN AGENTIC PIPELINE PRODUCED THIS RESULT</h2>
+<p>The work that produced this recommendation could not have been
+produced by a single AI system or a single individual consultant. It
+crossed four fundamentally different reasoning modes — forensic evidence
+synthesis, human-centred design, engineering build, and trust-restoring
+communication — under a quality-and-ethics gate. This is precisely the
+scenario in which an agentic organisation outperforms both a
+single-model approach and a traditional consulting team.</p>
+<p><strong>Why a single AI system would have failed.</strong> A single
+model asked to "design a gamification layer for Ticketmaster" would have
+generalised across the four reasoning modes and diluted each. It would
+have produced a research summary that read as a design document, a
+design that read as a build specification, communication that read as
+research framing. The specialisation that an agentic pipeline imposes —
+Saruman <em>only</em> researches, Galadriel <em>only</em> designs, Gimli
+<em>only</em> builds, Pippin <em>only</em> communicates — preserves the
+depth of judgement that each mode demands.</p>
+<p><strong>Why a traditional consulting team would have been too
+slow.</strong> The same five specialists working as a traditional team
+would have produced equivalent quality at 10–20× the cost and 5–10× the
+elapsed time, with no ability to iterate the entire deliverable in days.
+The Iteration 12 work was completed in a single working day from
+research brief to executive summary; a traditional engagement would have
+completed it in 4–8 weeks.</p>
+<p><strong>Why the gate matters.</strong> The four review points
+(Saruman → me → Galadriel → me → Gimli → me → Pippin → me) caught and
+corrected three concrete issues that would have compounded otherwise:
+(a) at Review 1, I confirmed Saruman had stayed within the Researcher's
+lane and not selected Core Drives — protecting Galadriel's design
+discretion; (b) at Review 2, I confirmed the Octalysis Design Rationale
+table was complete and bound — giving Gimli a contract to build to; (c)
+at Review 3, I verified Gimli had built CD8 (Loss Avoidance) into
+nothing — protecting Pippin's framing position. Without the gate, these
+errors would have propagated and the Iteration 12 work would not have
+held its ethical line.</p>
+<p><strong>HBR ("Obelisk") parallel.</strong> The pipeline architecture
+mirrors the multi-agent consulting models being analysed in Harvard
+Business Review's recent work on agentic organisations: specialised
+agents with clear handoff contracts and a named orchestrator. The
+Iteration 12 deliverable is a working instance of that architecture
+against a real client problem.</p>
+<hr />
+<h2 id="3-what-each-agent-contributed--the-pipeline-in-one-page">3. WHAT
+EACH AGENT CONTRIBUTED — THE PIPELINE IN ONE PAGE</h2>
+<table>
+<thead>
 <tr>
-<td>6</td>
-<td><strong>Social features create privacy backlash</strong> — users uncomfortable with attendance being shared</td>
-<td>MEDIUM</td>
-<td>HIGH</td>
-<td>Default OFF. Mutual consent required. Prominent privacy controls. Position as opt-in benefit, not default behaviour.</td>
+<th>Agent</th>
+<th>Contribution</th>
+<th>Critical decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Saruman (Research)</strong></td>
+<td>Introduced the Octalysis Framework as the strategic lens; identified
+Problem 10 (purely transactional engagement architecture); flagged eight
+gamification opportunities (G1–G8) with the trust deficit each
+addresses; produced the gamification competitive landscape and the Black
+Hat ethical risk register</td>
+<td>Held the role boundary: did not select Core Drives, did not specify
+mechanics. Left the design canvas for Galadriel.</td>
 </tr>
 <tr>
-<td>7</td>
-<td><strong>"Your Year in Live" data accuracy</strong> — incorrect event counts or missing events undermine trust in the feature</td>
-<td>LOW</td>
-<td>MEDIUM</td>
-<td>Data validation before generating retrospective. Clear "Something wrong? Let us know" link.</td>
+<td><strong>Aragorn (Review 1)</strong></td>
+<td>Approved Saruman's brief; confirmed multi-agent justification was
+now embedded; bound Galadriel to the disclosability test as the binding
+ethical position</td>
+<td>Refused to let the brief overstep into design</td>
 </tr>
 <tr>
-<td>8</td>
-<td><strong>Group booking increases support complexity</strong> — coordination failures generate new support tickets</td>
-<td>MEDIUM</td>
-<td>MEDIUM</td>
-<td>ARIA handles group booking queries. Clear fallback: each person's ticket works independently even if group coordination fails.</td>
+<td><strong>Galadriel (Design)</strong></td>
+<td>Consolidated Iteration 11's social and post-event features into a
+coherent Fan Loyalty Engine architecture; designed the Fan Profile +
+four-tier Fan Status ladder + Fan Artefacts; mapped Octalysis Core
+Drives onto each of G1–G8; produced the Octalysis Design Rationale
+table</td>
+<td>Held the ethical line: 13 design concepts, all leading with White
+Hat; <strong>CD8 used in zero design concepts</strong>; status only
+gained, never lost</td>
 </tr>
 <tr>
-<td>9</td>
-<td><strong>Social features drive comparison anxiety</strong> — users seeing friends attend events they can't afford</td>
-<td>LOW</td>
-<td>MEDIUM</td>
-<td>No price display in friend activity cards. Focus on shared experiences, not comparative consumption.</td>
-</tr>
-</tbody></table>
-<hr>
-<h2>SECTION 8 — KPIs &amp; SUCCESS METRICS</h2>
-<h3>Customer Metrics</h3>
-<table><thead><tr>
-<th>Metric</th>
-<th>Baseline</th>
-<th>Target</th>
-<th>Timeframe</th>
-<th>Status</th>
-</tr></thead><tbody>
-<tr>
-<td>App Store Rating</td>
-<td>4.8 (iOS) / 1.4 (ComplaintsBoard)</td>
-<td>3.0+ (review platforms)</td>
-<td>12 months</td>
-<td>VERIFIED</td>
+<td><strong>Aragorn (Review 2)</strong></td>
+<td>Approved Galadriel's spec; confirmed the Octalysis Design Rationale
+table was Gimli's binding contract; named the seven non-negotiables for
+the build</td>
+<td>Refused to let the design extend gamification beyond G1–G8</td>
 </tr>
 <tr>
-<td>NPS</td>
-<td>ESTIMATED -15 to -25</td>
-<td>Neutral (0)</td>
-<td>12 months</td>
-<td>ESTIMATED</td>
+<td><strong>Gimli (Build)</strong></td>
+<td>Extended the Iteration 11 prototype with three new screens (Fan
+Presale, Pre-Event Hub, Show Memory); rebuilt the Profile screen as the
+Fan Profile with four collapsible sections; added the tier badge
+component used across the app; built the lapsed-fan welcome-back card
+with zero loss-avoidance copy</td>
+<td>Built the Fan Presale countdown as a real ticking timer; built the
+Show Memory mood input as private-by-default; built every gamification
+mechanic as working interactive UI rather than static placeholder</td>
 </tr>
 <tr>
-<td>Post-Event Recommendation CTR</td>
-<td>N/A</td>
-<td>15%</td>
-<td>6 months</td>
-<td>N/A</td>
-</tr>
-</tbody></table>
-<h3>Business Metrics</h3>
-<table><thead><tr>
-<th>Metric</th>
-<th>Baseline</th>
-<th>Target</th>
-<th>Timeframe</th>
-<th>Status</th>
-</tr></thead><tbody>
-<tr>
-<td>Checkout Completion Rate</td>
-<td>ESTIMATED 55–65%</td>
-<td>75%+</td>
-<td>6 months</td>
-<td>ESTIMATED</td>
+<td><strong>Aragorn (Review 3)</strong></td>
+<td>Approved Gimli's prototype; confirmed all seven Iteration 12
+non-negotiables held; named the framing constraints that Pippin's
+communication had to honour</td>
+<td>Refused to let any feature flagged DEFERRED be communicated as if
+shipped</td>
 </tr>
 <tr>
-<td>Group Booking Rate</td>
-<td>N/A</td>
-<td>10% of bookings via "Go Together"</td>
-<td>6 months</td>
-<td>N/A</td>
+<td><strong>Pippin (Communicate)</strong></td>
+<td>Produced the Go-to-Market Package built around the core message
+"Ticketmaster remembers"; wrote the trust-rebuilding narrative that
+names the actual problems; produced finished UX copy for every Iteration
+12 surface; wrote Campaign 2 ("Why Am I Seeing This?") to treat EU AI
+Act Art. 50 transparency as a feature in its own right</td>
+<td>Held the binding language constraint: no "streak / lose / expire /
+FOMO" in any loyalty copy; no "points programme" framing anywhere</td>
 </tr>
 <tr>
-<td>Customer Churn Rate</td>
-<td>Unknown</td>
-<td>-20% reduction</td>
-<td>12 months</td>
-<td>Requires baseline</td>
+<td><strong>Aragorn (Review 4)</strong></td>
+<td>Approved Pippin's package; confirmed every binding constraint held;
+closed the iteration</td>
+<td>Verified the chain held end-to-end</td>
 </tr>
-</tbody></table>
-<h3>Engagement Metrics</h3>
-<table><thead><tr>
-<th>Metric</th>
-<th>Baseline</th>
-<th>Target</th>
-<th>Timeframe</th>
-<th>Status</th>
-</tr></thead><tbody>
-<tr>
-<td>Social Feature Opt-In</td>
-<td>N/A</td>
-<td>25% at 3 months</td>
-<td>3 months</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>"Your Year in Live" View Rate</td>
-<td>N/A</td>
-<td>60% of eligible users</td>
-<td>December</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>"Your Year in Live" Share Rate</td>
-<td>N/A</td>
-<td>25% of viewers</td>
-<td>December</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>AI Feature Adoption</td>
-<td>N/A</td>
-<td>40% at 3 months</td>
-<td>3 months</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>Return Visit Frequency</td>
-<td>Unknown</td>
-<td>+25–35% increase</td>
-<td>6 months</td>
-<td>Requires baseline</td>
-</tr>
-</tbody></table>
-<hr>
-<h2>SECTION 9 — REFLECTION</h2>
-<h3>1. What worked well in this pipeline run?</h3>
-<p><strong>Cross-iteration improvement.</strong> The quality gate architecture enabled directed, specific improvement. My Iteration 10 review identified 9 gaps. Saruman addressed the research gaps (social media, post-event, privacy). Galadriel designed solutions for each. Gimli built them. Pippin communicated them. No gap was lost, and no agent had to guess what to improve — my review provided the brief.</p>
-<p><strong>Role discipline across two iterations.</strong> Even with the added complexity of building on Iteration 10, no agent bled into another's territory. Saruman didn't design social features. Galadriel didn't write marketing campaigns. Gimli didn't add features Galadriel didn't specify. Pippin didn't promise what Gimli didn't build. The boundaries held.</p>
-<p><strong>Client feedback integration.</strong> The presentation improvements (info panel, real images, journey navigation) were fed into the pipeline through Galadriel's Notes for Gimli and successfully implemented. The pipeline can absorb external feedback without disrupting the agent sequence.</p>
-<h3>2. What was weaker than expected — and why?</h3>
-<p><strong>The Attend stage remains underdeveloped.</strong> Despite improvements to pre-event (group coordination) and post-event (recaps, retrospective), the actual event attendance experience is still just a digital ticket. Live venue features (setlist tracking, venue navigation, real-time social at the event) would complete the lifecycle but were beyond scope.</p>
-<p><strong>Social features are simulated.</strong> The friend data, group booking states, and social proof are all pre-set in the prototype. While this demonstrates the concept convincingly, the production implementation (contacts API, mutual consent verification, real-time updates) is substantially more complex than the prototype suggests. Pippin's messaging correctly caveats this.</p>
-<h3>3. What surprised you about multi-agent collaboration?</h3>
-<p><strong>Iterative improvement is the real power of the architecture.</strong> A single pipeline run produces good work. Two iterations — where the second builds on specific feedback from the first — produce significantly better work. The quality gate isn't just a filter; it's a feedback loop that makes each iteration more targeted and more coherent.</p>
-<p><strong>The pipeline handled increased scope without losing coherence.</strong> Going from 7 screens to 10, from 3 AI features to 4, and from 3 campaigns to 4 could have fragmented the work. It didn't — because each agent built on the previous agent's context and my review provided a clear improvement brief.</p>
-<h3>4. What would you improve with more time or another iteration?</h3>
+</tbody>
+</table>
+<hr />
+<h2 id="4-strategic-assessment--does-this-deliver-value">4. STRATEGIC
+ASSESSMENT — DOES THIS DELIVER VALUE?</h2>
+<p><strong>Yes, on three load-bearing tests:</strong></p>
+<h3 id="41-the-architectural-test--does-it-solve-a-real-problem">4.1 The
+architectural test — does it solve a real problem?</h3>
+<p>The diagnosis is sound: Ticketmaster currently activates only the two
+highest-risk gamification drives (scarcity, loss-avoidance) and uses
+both <em>at</em> the customer rather than <em>for</em> them. The five
+sustainable drives are dormant. This is structurally backwards relative
+to every successful consumer engagement programme in adjacent
+categories. The Fan Loyalty Engine inverts this: White Hat foundation
+(recognition, mastery, ownership, community), Black Hat used sparingly
+and truthfully (presale countdowns; nowhere else). The architectural
+premise is correct.</p>
+<h3
+id="42-the-trust-test--does-it-deepen-or-damage-the-customer-relationship">4.2
+The trust test — does it deepen or damage the customer
+relationship?</h3>
+<p>Iteration 12 was the highest-risk single iteration in this engagement
+because gamification on top of a damaged trust position is the move most
+likely to compound the brand harm. The pipeline held the line: status is
+gained, never lost; the Fan Presale qualifies on real history; the Show
+Memory is private by default; AI personalisation is honest about what it
+does and does not use. The Black Hat ethical risk register that Saruman
+established at the research stage and Galadriel built into the design is
+now visible in the prototype. The work deepens trust; it does not damage
+it.</p>
+<h3 id="43-the-commercial-test--is-it-likely-to-generate-value">4.3 The
+commercial test — is it likely to generate value?</h3>
+<p><strong>Mid-eight-figure GBP order-of-magnitude recoverable annual
+revenue if 10% of currently-churning customers are retained by the
+introduction of a credible motivational engagement layer</strong>
+(Saruman §4 Problem 10 estimate; low-to-moderate confidence; industry
+composites, not Ticketmaster proprietary). The five KPIs Pippin has
+recommended are the right tests of this hypothesis — particularly KPI 5
+(lapsed-fan reactivation against a discount-led control), which builds
+in a specific test of whether the ethical commitment costs revenue.</p>
+<p>The commercial recommendation: invest in the Fan Loyalty Engine as
+the next product release; instrument the five KPIs from launch; review
+the lapsed-fan reactivation result at 90 days as the load-bearing
+decision point on whether the ethical commitment is also commercially
+viable. Mithril's confidence is high that it will be — but the test must
+be run.</p>
+<hr />
+<h2 id="5-regulatory--ethical-review">5. REGULATORY &amp; ETHICAL
+REVIEW</h2>
+<h3
+id="51-eu-ai-act-article-50--transparency-for-ai-personalisation-rag-green">5.1
+EU AI Act Article 50 — Transparency for AI personalisation (RAG:
+GREEN)</h3>
+<p>Every personalised surface in the Iteration 12 prototype carries a
+"Why am I seeing this?" affordance and a plain-language disclosure of
+what data is used. The Fan Profile Privacy &amp; Data section is the
+single source of truth for loyalty-engine consents. Ticketmaster is
+positioned ahead of the regulatory floor.</p>
+<h3 id="52-eu-ai-act-article-5--prohibited-practices-rag-green">5.2 EU
+AI Act Article 5 — Prohibited practices (RAG: GREEN)</h3>
+<p>The AI Feature 5 specification (Fan Loyalty Engine) explicitly
+prohibits vulnerability-targeting logic. The engine has no inputs that
+signal user financial, emotional, or attentional state, and the design
+specification in Galadriel's §8 binds the implementation to that
+prohibition. Gimli's build does not contain any time-sensitive nudges
+that key off such signals. The disclosability test that Saruman
+established (§8.1) is the operational rule the design and build
+held.</p>
+<h3
+id="53-uk-cma--dmcc-act-2024--online-choice-architecture-rag-green">5.3
+UK CMA / DMCC Act 2024 — Online choice architecture (RAG: GREEN)</h3>
+<p>The CMA-disfavoured patterns (false urgency, fake low-stock
+indicators, drip pricing, default opt-ins, confirmshaming) are absent
+from the Iteration 12 build. The Fan Presale countdown is real; the Fan
+Status downgrade does not exist; pricing transparency is preserved from
+Iteration 11; the Privacy &amp; Data toggles default to OFF for social
+features and ON for personalised recommendations (with an immediate
+one-tap path to disable).</p>
+<h3 id="54-gdpr--articles-6-7-17-22-rag-green">5.4 GDPR — Articles 6, 7,
+17, 22 (RAG: GREEN)</h3>
 <ul>
-<li><strong>Live venue experience.</strong> The Attend stage needs features: setlist tracking, venue map/navigation, "I'm here" social features, live crowd energy indicators.</li>
-<li><strong>Deeper ARIA intelligence.</strong> Move from pattern-matching to genuine NLP with context retention across sessions.</li>
-<li><strong>User testing.</strong> Both iterations are untested with real Ticketmaster customers. Usability testing would validate assumptions.</li>
-<li><strong>Accessibility testing.</strong> Real-device testing with screen readers and assistive technology.</li>
-<li><strong>Data retention policy.</strong> Formal specification of retention limits, archival, and deletion processes.</li>
+<li><strong>Art. 6 (lawful basis):</strong> explicit consent surfaces in
+onboarding and Privacy &amp; Data</li>
+<li><strong>Art. 7 (consent quality):</strong> granular, withdrawable,
+equally prominent to the personalised features they enable</li>
+<li><strong>Art. 17 (right to deletion):</strong> one-tap entry to
+delete-fan-history flow with 30-day completion window</li>
+<li><strong>Art. 22 (automated decision-making):</strong> ARIA's
+human-escalation pathway preserved; the Fan Loyalty Engine does not
+produce decisions with legal or significant effect on users</li>
 </ul>
-<h3>5. What are the limits and possibilities of an agentic organisation like this?</h3>
-<p><strong>Possibilities (expanded from Iteration 10):</strong> An agentic pipeline with quality gates can produce iterative, cumulative improvement that no single agent or single-pass process can match. The quality gate creates a feedback loop: each iteration is better because it knows exactly what to fix. Over 11 iterations, this pipeline has evolved from basic research through to a polished, presentation-ready prototype with social features, post-event engagement, and a trust-rebuilding strategy — each step building on the last.</p>
-<p><strong>Limits (refined):</strong> The pipeline optimises for coherence and incremental improvement. It is less effective at radical reimagining — each iteration builds on the previous one rather than questioning it. The agent architecture also depends on clear role boundaries; as feature complexity increases (social features touching research, design, build, and communications simultaneously), maintaining clean handoffs requires more explicit coordination. The quality gate absorbs this complexity, but it cannot eliminate it.</p>
-<p><strong>The fundamental insight from 11 iterations:</strong> An agentic organisation's greatest strength is not what any single agent can produce. It is the compounding effect of structured collaboration: research informing design, design constraining build, build grounding communications, and management reviewing everything — repeatedly, iteratively, and with memory.</p>
-<hr>
-<h2>SECTION 10 — RECOMMENDATIONS</h2>
-<h3>Recommendation 1: Implement All-In Pricing with Fair Price Tooltip (Priority 1)</h3>
-<p><strong>What:</strong> All-in pricing from first display + tappable Fair Price badge showing contextual explanation.</p>
-<p><strong>Why:</strong> #1 complaint, FTC compliance, and now enhanced with price context that builds deeper trust. SMALL incremental effort over the base pricing change.</p>
-<p><strong>Effort:</strong> MEDIUM (pricing) + SMALL (tooltip)</p>
-<h3>Recommendation 2: Deploy ARIA with Expanded Capabilities (Priority 2)</h3>
-<p><strong>What:</strong> ARIA with 6 query types (orders, transfers, accounts, refunds, accessibility, human escalation) and human escalation with context transfer.</p>
-<p><strong>Why:</strong> Addresses #3 complaint. Expanded from Iteration 10 to include refund and accessibility queries — the two most common complex support needs.</p>
-<p><strong>Effort:</strong> LARGE</p>
-<h3>Recommendation 3: Launch "Your Year in Live" for December 2026 (Priority 3)</h3>
-<p><strong>What:</strong> Annual retrospective feature — events attended, top artist, favourite venue, shareable card.</p>
-<p><strong>Why:</strong> First-mover opportunity in ticketing. Spotify Wrapped proves the model (200M users, 64% retention improvement). Ticketmaster has the richest attendance dataset in live entertainment.</p>
-<p><strong>Effort:</strong> MEDIUM — requires data pipeline from ticket purchases to personalised content generation + shareable image rendering.</p>
-<h3>Recommendation 4: Add Post-Event Recaps Immediately (Priority 4)</h3>
-<p><strong>What:</strong> Within 24 hours of event attendance, show recap card with "Rate," "See similar events," and "Share" prompts.</p>
-<p><strong>Why:</strong> Closes the loyalty loop. SMALL effort, MEDIUM impact. Can be implemented before "Your Year in Live" and starts building the habit of post-event app engagement.</p>
-<p><strong>Effort:</strong> SMALL</p>
-<h3>Recommendation 5: Build Social Features as Phase 2 (Priority 5)</h3>
-<p><strong>What:</strong> Friend activity, "Go Together" group booking, social discovery, privacy controls.</p>
-<p><strong>Why:</strong> Live events are social; the app should be too. But social features require contacts API integration, mutual consent verification, and careful privacy implementation. Deploy after trust features are established.</p>
-<p><strong>Effort:</strong> LARGE</p>
-<hr>
-<h2>ARAGORN'S VERDICT</h2>
-<p>This pipeline continues to create real value — and it creates more value precisely because it builds on what came before.</p>
-<p>Iteration 10 established the trust foundation: honest pricing, genuine support, fair queues. Iteration 11 builds the engagement layer: social connection, post-event loyalty, and the celebration of live experiences. Together, they represent a complete transformation strategy — from a platform customers endure to one they choose.</p>
-<p>The strongest evidence of the pipeline's value is the cross-iteration coherence. Every feature in Iteration 11 traces back to a specific gap identified in my Iteration 10 review. Every gap traces back to Saruman's research. Every design traces back to evidence. Every build is documented honestly. Every campaign promises only what was built. This chain — research → design → build → communicate → review → improve — is the core value of the agentic architecture.</p>
-<p>Three recommendations matter most:</p>
-<p><strong>First:</strong> Implement all-in pricing immediately. It is a legal imperative, a trust imperative, and the foundation for everything else.</p>
-<p><strong>Second:</strong> Launch "Your Year in Live" for December 2026. No competitor has it. Spotify proved the model. Ticketmaster has the data. This is a genuine opportunity to transform the brand's relationship with customers from transactional to emotional.</p>
-<p><strong>Third:</strong> Do not launch social features until pricing and support are fixed. Social features on a platform customers don't trust will feel invasive, not helpful. Trust first, then community.</p>
-<p>The line that should guide Ticketmaster's strategy remains: <em>"We're not asking you to trust us. We're asking you to check."</em></p>
-<p>If the pricing is honest, the support is real, and the experience is worth sharing — customers will check. And they'll come back.</p>
-<hr>
-<p><em>Mithril Consulting — Insight. Action. Impact.</em></p>
-<p><em>Aragorn, Managing Consultant | 14 March 2026</em></p>
+<h3
+id="55-the-single-ethical-commitment-that-is-the-test-of-the-whole-iteration">5.5
+The single ethical commitment that is the test of the whole
+iteration</h3>
+<p>"Status is gained, never lost." This is implemented in the design (no
+downgrade UI anywhere), in the build (Gimli held it), in the
+communication (Pippin made it visible in five places). If Ticketmaster
+honours it in production, Iteration 12 will be remembered as the
+iteration where the platform's ethical position changed. If Ticketmaster
+breaks it in production by introducing a downgrade mechanic later, the
+Iteration 12 work was wasted. The commitment is the iteration.</p>
+<hr />
+<h2 id="6-what-ticketmaster-should-do-next">6. WHAT TICKETMASTER SHOULD
+DO NEXT</h2>
+<h3 id="immediate-within-30-days">Immediate (within 30 days)</h3>
+<ul>
+<li><strong>Endorse the design at the executive level.</strong> The Fan
+Loyalty Engine is the next product release; commercial sponsorship is
+required.</li>
+<li><strong>Confirm tier thresholds</strong> (Newcomer / Regular /
+Devoted / Lifer) against the actual customer-base distribution. The
+illustrative numbers Galadriel used (0–1 / 2–5 / 6–14 / 15+/50 lifetime)
+are sensible anchors but need calibration.</li>
+<li><strong>Confirm KPI baselines</strong> (KPI 3 Fan Presale conversion
+baseline; KPI 5 lapsed-fan reactivation baseline). Pippin's targets
+cannot be fully validated without these.</li>
+</ul>
+<h3 id="short-term-3090-days">Short-term (30–90 days)</h3>
+<ul>
+<li><strong>Build production version of the Fan Profile</strong> as the
+foundation; everything else reads from it</li>
+<li><strong>Build the Show Memory surface</strong> as the
+highest-leverage post-event moment (G7)</li>
+<li><strong>Build the Fan Presale flow</strong> with real verified-fan
+eligibility tied to attendance graph (G2)</li>
+<li><strong>Instrument the five KPIs</strong> from day one of production
+launch</li>
+<li><strong>Brief the legal and trust press</strong> with Pippin's
+Campaign 2 ("Why Am I Seeing This?") materials before any product
+communication; the regulatory framing should land before the consumer
+framing</li>
+</ul>
+<h3 id="medium-term-90180-days">Medium-term (90–180 days)</h3>
+<ul>
+<li><strong>First formal review at 90 days</strong> post-launch: read
+KPI 1 (Fan Profile activation), KPI 2 (Why?-tap-through), KPI 4 (Show
+Memory engagement)</li>
+<li><strong>Read KPI 3 (Fan Presale conversion uplift) and KPI 5
+(lapsed-fan reactivation against discount-led control)</strong> at 90
+days; this is the load-bearing commercial test</li>
+<li><strong>Decide on Iteration 13 scope</strong> based on field data,
+not pipeline assumptions</li>
+<li><strong>Resist any internal pressure to introduce CD8 (Loss
+Avoidance) mechanics</strong> "for engagement." This is the failure mode
+the Iteration 12 design exists to prevent. If a downgrade mechanic is
+introduced later, the ethical position on which Iteration 12 was built
+is broken.</li>
+</ul>
+<h3 id="longer-term-180-days">Longer-term (180+ days)</h3>
+<ul>
+<li><strong>Production roll-out of the deferred items</strong> Gimli
+flagged: live referral attribution, image-based share-card generation,
+multi-year Year in Live archive UI, lapsed-fan dynamic
+recommendations</li>
+<li><strong>Extend the Octalysis Design Rationale table</strong> to
+cover any new gamification surfaces; treat the table as a permanent
+governance artefact, not a one-iteration deliverable</li>
+<li><strong>Quarterly ethical review</strong> of the Fan Loyalty Engine:
+confirm no downgrade mechanics, no CD8 introductions, no
+vulnerability-targeting logic. Aragorn's recommendation: this review
+should be co-signed by Trust &amp; Safety, Legal, and Product</li>
+</ul>
+<hr />
+<h2 id="7-the-single-line-argument">7. THE SINGLE-LINE ARGUMENT</h2>
+<p>Ticketmaster currently treats every fan as a transaction. After
+Iteration 12, the platform remembers them. That structural change —
+implemented as a Fan Profile, a Fan Status, a Show Memory, and the
+binding ethical commitment that status is gained but never lost — is the
+basis on which the customer-trust position can begin to be rebuilt. The
+design is ready, the prototype is built, the communication is written,
+the regulatory posture is sound. The recommendation to senior
+leadership: ship it.</p>
+<hr />
+<h2 id="8-appendix--documents-produced-in-this-iteration">8. APPENDIX —
+DOCUMENTS PRODUCED IN THIS ITERATION</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Document</th>
+<th>Author</th>
+<th>Length</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td>Saruman Research Brief</td>
+<td>Saruman</td>
+<td>~360 lines new material</td>
+<td>Approved</td>
+</tr>
+<tr>
+<td>01a</td>
+<td>Aragorn Review 1 of Saruman</td>
+<td>Aragorn</td>
+<td>—</td>
+<td>Approved</td>
+</tr>
+<tr>
+<td>02</td>
+<td>Galadriel Design Specification</td>
+<td>Galadriel</td>
+<td>full Iteration 12 spec</td>
+<td>Approved</td>
+</tr>
+<tr>
+<td>02a</td>
+<td>Aragorn Review 2 of Galadriel</td>
+<td>Aragorn</td>
+<td>—</td>
+<td>Approved</td>
+</tr>
+<tr>
+<td>03</td>
+<td>Gimli Working Prototype Documentation</td>
+<td>Gimli</td>
+<td>full build manifest</td>
+<td>Approved</td>
+</tr>
+<tr>
+<td>03 (HTML)</td>
+<td>Iteration 12 Working Prototype</td>
+<td>Gimli</td>
+<td>3,487 lines</td>
+<td>Demonstrable</td>
+</tr>
+<tr>
+<td>03a</td>
+<td>Aragorn Review 3 of Gimli</td>
+<td>Aragorn</td>
+<td>—</td>
+<td>Approved</td>
+</tr>
+<tr>
+<td>04</td>
+<td>Pippin Go-to-Market Package</td>
+<td>Pippin</td>
+<td>full GTM package</td>
+<td>Approved</td>
+</tr>
+<tr>
+<td>04a</td>
+<td>Aragorn Review 4 of Pippin</td>
+<td>Aragorn</td>
+<td>—</td>
+<td>Approved</td>
+</tr>
+<tr>
+<td>05</td>
+<td>This Executive Summary</td>
+<td>Aragorn</td>
+<td>—</td>
+<td>Final deliverable</td>
+</tr>
+</tbody>
+</table>
+<p>All documents in <code>Output/Iteration 12/</code>. Iteration 12
+pipeline complete.</p>
+<p><em>Aragorn — Managing Consultant, Mithril Consulting</em>
+<em>"Guiding every agent toward the goal."</em></p>
+<p style="text-align:center;font-size:0.8rem;color:#585f72;margin-top:2rem;padding-bottom:1rem;">Last edited: 29 April 2026</p>
 </div>
-<p style="text-align:center;font-size:0.8rem;color:#585f72;margin-top:2rem;padding-bottom:1rem;">Last edited: 18 March 2026</p>
 </body>
 </html>

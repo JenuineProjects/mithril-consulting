@@ -1,0 +1,3487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mithril Consulting x Ticketmaster | Iteration 12 — Fan Loyalty Engine</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+/* ===================== CSS CUSTOM PROPERTIES ===================== */
+:root {
+  --bg-page: #1a1a2e;
+  --bg-phone: #0d1117;
+  --bg-card: #161b22;
+  --text-primary: #f0f6fc;
+  --text-secondary: #8b949e;
+  --accent-blue: #026cdf;
+  --accent-green: #2ea043;
+  --accent-orange: #d29922;
+  --border: #30363d;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ===================== RESET ===================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 30px;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===================== INFO PANEL (LEFT) ===================== */
+.info-panel {
+  position: sticky;
+  top: 20px;
+  width: 380px;
+  flex-shrink: 0;
+  background: #12121e;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  color: var(--text-primary);
+}
+.info-panel h1 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+.info-panel .subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+.info-panel h2 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+.feature-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.feature-tag {
+  font-size: 11px;
+  padding: 4px 10px;
+  background: rgba(2,108,223,0.15);
+  color: var(--accent-blue);
+  border-radius: 12px;
+  border: 1px solid rgba(2,108,223,0.3);
+}
+.demo-instructions {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+.demo-instructions li {
+  margin-bottom: 4px;
+  margin-left: 16px;
+}
+.journey-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+.journey-btn:hover {
+  border-color: var(--accent-blue);
+  background: rgba(2,108,223,0.1);
+}
+.journey-btn span {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+/* ===================== PHONE FRAME (RIGHT) ===================== */
+.phone-wrap {
+  flex-shrink: 0;
+}
+.phone-frame {
+  width: 375px;
+  height: 812px;
+  background: #000;
+  border: 2px solid #333;
+  border-radius: 44px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  overflow: hidden;
+  padding: 12px;
+}
+.notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 34px;
+  background: #000;
+  border-radius: 17px;
+  z-index: 1000;
+}
+.home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 134px;
+  height: 5px;
+  background: #666;
+  border-radius: 3px;
+  z-index: 1000;
+}
+.viewport {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-phone);
+  border-radius: 34px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ===================== SCREENS ===================== */
+.screen {
+  display: none;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  flex-direction: column;
+  overflow: hidden;
+}
+.screen.active { display: flex; }
+.tm-logo-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  padding: 38px 16px 0;
+  display: flex;
+  align-items: center;
+  z-index: 500;
+  background: var(--bg-phone);
+}
+.tm-logo-bar img {
+  height: 16px;
+}
+.screen-header {
+  padding: 56px 16px 12px;
+  flex-shrink: 0;
+}
+.screen-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 16px 90px;
+  -webkit-overflow-scrolling: touch;
+}
+.screen-scroll::-webkit-scrollbar { display: none; }
+
+/* ===================== BOTTOM NAV ===================== */
+.bottom-nav {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 72px;
+  background: rgba(13,17,23,0.95);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px 8px;
+  z-index: 500;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  font-size: 10px;
+  font-family: var(--font);
+  transition: color 0.2s;
+}
+.nav-item.active { color: var(--accent-blue); }
+.nav-item i { width: 22px; height: 22px; }
+
+/* ===================== COMMON UI ===================== */
+.ai-disclosure {
+  font-size: 11px;
+  color: var(--text-secondary);
+  background: rgba(2,108,223,0.08);
+  border: 1px solid rgba(2,108,223,0.2);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.ai-disclosure a { color: var(--accent-blue); text-decoration: none; }
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  cursor: pointer;
+}
+.search-bar i { color: var(--text-secondary); width: 18px; height: 18px; }
+.search-bar span { color: var(--text-secondary); font-size: 14px; }
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  margin-top: 6px;
+}
+.horiz-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 14px;
+  margin-bottom: 4px;
+  scroll-snap-type: x mandatory;
+}
+.horiz-scroll::-webkit-scrollbar { display: none; }
+.event-card {
+  flex-shrink: 0;
+  width: 200px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: transform 0.2s;
+}
+.event-card:hover { transform: translateY(-2px); }
+.event-card img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  display: block;
+}
+.event-card-body { padding: 10px; }
+.event-card-body .name { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.event-card-body .venue { font-size: 11px; color: var(--text-secondary); margin-bottom: 6px; }
+.event-card-body .price-row { display: flex; align-items: center; gap: 6px; }
+.event-card-body .price { font-size: 13px; font-weight: 700; color: var(--accent-green); }
+.fair-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+}
+.fair-badge.great-value { background: rgba(46,160,67,0.2); color: var(--accent-green); border: 1px solid rgba(46,160,67,0.4); }
+.fair-badge.fair-price { background: rgba(2,108,223,0.2); color: var(--accent-blue); border: 1px solid rgba(2,108,223,0.4); }
+.fair-badge.premium { background: rgba(210,153,34,0.2); color: var(--accent-orange); border: 1px solid rgba(210,153,34,0.4); }
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: var(--accent-blue);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font);
+  text-align: center;
+  transition: opacity 0.2s;
+}
+.btn-primary:hover { opacity: 0.9; }
+.btn-green {
+  background: var(--accent-green);
+}
+.btn-outline {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  color: var(--accent-blue);
+  border: 2px solid var(--accent-blue);
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font);
+  text-align: center;
+}
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: var(--accent-blue);
+  font-size: 14px;
+  cursor: pointer;
+  font-family: var(--font);
+  padding: 0;
+  margin-bottom: 8px;
+}
+.back-btn i { width: 18px; height: 18px; }
+
+/* ===================== TOOLTIP ===================== */
+.tooltip-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.5);
+  align-items: center;
+  justify-content: center;
+}
+.tooltip-overlay.show { display: flex; }
+.tooltip-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  max-width: 300px;
+  text-align: center;
+}
+.tooltip-box h3 { font-size: 15px; margin-bottom: 8px; }
+.tooltip-box p { font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
+.tooltip-close {
+  padding: 8px 20px;
+  background: var(--accent-blue);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--font);
+  font-size: 13px;
+}
+
+/* ===================== MODAL ===================== */
+.modal-overlay {
+  display: none;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 800;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.show { display: flex; }
+.modal-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 20px;
+  width: 100%;
+  max-width: 310px;
+}
+.modal-content h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; text-align: center; }
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+}
+.breakdown-row.total {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 15px;
+  border-bottom: none;
+  padding-top: 12px;
+}
+
+/* ===================== FRIEND CARD ===================== */
+.friend-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+.friend-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.friend-card .text { font-size: 13px; }
+.friend-card .text span { color: var(--accent-blue); font-weight: 600; }
+
+/* ===================== SEAT SELECTION ===================== */
+.stage-graphic {
+  background: linear-gradient(135deg, #1c2333, #161b22);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.stage-label {
+  background: var(--accent-blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 30px;
+  border-radius: 20px 20px 0 0;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.stage-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+.stage-section {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 4px;
+  font-size: 9px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+.seat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.seat-card.selected { border-color: var(--accent-blue); background: rgba(2,108,223,0.08); }
+.seat-card .seat-name { font-size: 14px; font-weight: 700; }
+.seat-card .seat-detail { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+.seat-card .seat-price { font-size: 14px; font-weight: 700; color: var(--accent-green); margin-top: 6px; }
+
+/* ===================== QUEUE ===================== */
+.queue-box {
+  text-align: center;
+  padding: 20px 0;
+}
+.queue-pos {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--accent-blue);
+}
+.queue-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+.progress-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  margin: 16px 0;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--accent-blue);
+  border-radius: 4px;
+  transition: width 1s;
+}
+.guarantee-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(46,160,67,0.1);
+  border: 1px solid rgba(46,160,67,0.3);
+  border-radius: 10px;
+  padding: 12px;
+  margin: 12px 0;
+}
+.guarantee-badge i { color: var(--accent-green); flex-shrink: 0; }
+.guarantee-badge span { font-size: 12px; color: var(--accent-green); }
+
+/* ===================== PAYMENT ===================== */
+.order-summary {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.order-summary .os-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 4px 0;
+  color: var(--text-secondary);
+}
+.order-summary .os-row.total { font-weight: 700; color: var(--text-primary); font-size: 16px; padding-top: 10px; border-top: 1px solid var(--border); margin-top: 8px; }
+.form-group {
+  margin-bottom: 12px;
+}
+.form-group label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 4px;
+}
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: var(--font);
+  outline: none;
+}
+.form-group input:focus { border-color: var(--accent-blue); }
+.form-row { display: flex; gap: 10px; }
+.form-row .form-group { flex: 1; }
+
+/* ===================== CONFIRMATION ===================== */
+.confirm-check {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto 16px;
+}
+.confirm-check i { color: #fff; width: 32px; height: 32px; }
+.confirm-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+.ticket-card-confirm {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.ticket-card-confirm .tc-name { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.ticket-card-confirm .tc-detail { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+.qr-placeholder {
+  width: 120px;
+  height: 120px;
+  background: #fff;
+  border-radius: 8px;
+  margin: 14px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qr-placeholder svg { width: 90px; height: 90px; }
+.confirm-actions { display: flex; flex-direction: column; gap: 8px; }
+
+/* ===================== ARIA CHAT ===================== */
+.aria-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 50px 16px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.aria-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-green);
+}
+.aria-title { font-size: 17px; font-weight: 700; }
+.chat-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px 140px;
+}
+.chat-area::-webkit-scrollbar { display: none; }
+.chat-bubble {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.chat-bubble.aria {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.chat-bubble.user {
+  background: var(--accent-blue);
+  color: #fff;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+}
+.quick-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.chip {
+  padding: 7px 12px;
+  background: rgba(2,108,223,0.12);
+  border: 1px solid rgba(2,108,223,0.3);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--accent-blue);
+  cursor: pointer;
+  font-family: var(--font);
+  transition: background 0.2s;
+}
+.chip:hover { background: rgba(2,108,223,0.25); }
+.chat-input-bar {
+  position: absolute;
+  bottom: 72px;
+  left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--bg-phone);
+  border-top: 1px solid var(--border);
+}
+.chat-input-bar input {
+  flex: 1;
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: var(--font);
+  outline: none;
+}
+.chat-send {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.chat-send i { color: #fff; width: 16px; height: 16px; }
+
+/* ===================== MY TICKETS ===================== */
+.tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-family: var(--font);
+}
+.tab.active { color: var(--accent-blue); border-bottom-color: var(--accent-blue); }
+.ticket-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+.ticket-item .ti-name { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+.ticket-item .ti-detail { font-size: 11px; color: var(--text-secondary); margin-bottom: 3px; }
+.ticket-item .countdown { font-size: 12px; color: var(--accent-orange); margin-top: 6px; }
+.ticket-btn {
+  margin-top: 8px;
+  padding: 8px;
+  width: 100%;
+  background: var(--accent-blue);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font);
+}
+.year-card {
+  background: linear-gradient(135deg, #1c2333, #0d1117);
+  border: 1px solid var(--accent-blue);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  margin-top: 12px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.year-card:hover { transform: translateY(-2px); }
+.year-card h3 { font-size: 16px; margin-bottom: 4px; }
+.year-card p { font-size: 12px; color: var(--text-secondary); }
+
+/* ===================== YEAR IN LIVE OVERLAY ===================== */
+.year-overlay {
+  display: none;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--bg-phone);
+  z-index: 900;
+  flex-direction: column;
+}
+.year-overlay.show { display: flex; }
+.year-card-view {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+.year-card-view .yc { display: none; }
+.year-card-view .yc.active { display: block; }
+.yc h2 { font-size: 24px; font-weight: 800; margin-bottom: 12px; }
+.yc p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+.yc .big-number { font-size: 64px; font-weight: 800; color: var(--accent-blue); display: block; margin: 12px 0; }
+.yc .big-artist { font-size: 28px; font-weight: 800; color: var(--accent-orange); display: block; margin: 8px 0; }
+.year-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 16px;
+}
+.year-nav button {
+  padding: 10px 22px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font);
+}
+.year-nav button.done-btn { background: var(--accent-blue); border-color: var(--accent-blue); }
+.year-dots { display: flex; gap: 6px; }
+.year-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+}
+.year-dots .dot.active { background: var(--accent-blue); }
+.share-btn {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 10px 24px;
+  background: var(--accent-blue);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font);
+}
+
+/* ===================== ONBOARDING OVERLAY ===================== */
+.onboarding-overlay {
+  display: none;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--bg-phone);
+  z-index: 950;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px 30px;
+  text-align: center;
+}
+.onboarding-overlay.show { display: flex; }
+.ob-step { display: none; width: 100%; }
+.ob-step.active { display: block; }
+.ob-step h2 { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+.ob-step p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; }
+.ob-icon { margin-bottom: 16px; }
+.ob-icon i { color: var(--accent-blue); width: 48px; height: 48px; }
+.genre-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.genre-chip {
+  padding: 10px 18px;
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  font-family: var(--font);
+  transition: all 0.2s;
+}
+.genre-chip.selected {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+  color: #fff;
+}
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.toggle-row .label { font-size: 13px; flex: 1; }
+.toggle-row .sublabel { font-size: 11px; color: var(--text-secondary); }
+.toggle-switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.toggle-switch.on { background: var(--accent-green); }
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+}
+.toggle-switch.on::after { transform: translateX(20px); }
+.trust-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+  margin-bottom: 14px;
+}
+.trust-item i { color: var(--accent-green); flex-shrink: 0; width: 22px; height: 22px; margin-top: 2px; }
+.trust-item .trust-text .tt-title { font-size: 13px; font-weight: 600; }
+.trust-item .trust-text .tt-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+.ob-dots {
+  display: flex;
+  gap: 8px;
+  margin: 20px 0 16px;
+  justify-content: center;
+}
+.ob-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+}
+.ob-dots .dot.active { background: var(--accent-blue); }
+.ob-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.ob-skip {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  font-family: var(--font);
+  padding: 8px;
+}
+
+/* ===================== SEARCH SCREEN ===================== */
+.search-input-full {
+  width: 100%;
+  padding: 12px 14px;
+  padding-left: 36px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: var(--font);
+  outline: none;
+  margin-bottom: 16px;
+}
+.category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.cat-chip {
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  font-family: var(--font);
+}
+.popular-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.popular-item i { color: var(--text-secondary); width: 16px; height: 16px; }
+
+/* ===================== PROFILE ===================== */
+.profile-header {
+  text-align: center;
+  padding: 10px 0 16px;
+}
+.avatar-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 auto 10px;
+}
+.profile-header .prof-name { font-size: 17px; font-weight: 700; }
+.profile-header .prof-email { font-size: 12px; color: var(--text-secondary); }
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  font-size: 14px;
+}
+.menu-item i { color: var(--text-secondary); width: 20px; height: 20px; }
+.menu-item .mi-arrow { margin-left: auto; color: var(--text-secondary); }
+
+/* ===================== QR MODAL ===================== */
+.qr-modal {
+  display: none;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 800;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 30px;
+}
+.qr-modal.show { display: flex; }
+.qr-modal .qr-big {
+  width: 200px;
+  height: 200px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.qr-modal .qr-info { text-align: center; font-size: 14px; margin-bottom: 16px; }
+.qr-modal .qr-sub { text-align: center; font-size: 12px; color: var(--text-secondary); margin-bottom: 20px; }
+
+/* ===================== HUMAN AGENT CARD ===================== */
+.human-agent-card {
+  background: rgba(46,160,67,0.1);
+  border: 1px solid rgba(46,160,67,0.3);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0;
+}
+.ha-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.ha-info .ha-name { font-size: 13px; font-weight: 700; }
+.ha-info .ha-role { font-size: 11px; color: var(--accent-green); }
+
+/* ===================== ITERATION 12: FAN LOYALTY ENGINE ===================== */
+
+/* Tier badge — the recognition layer (CD2 + CD4) */
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tier-badge.newcomer { background: rgba(139,148,158,0.15); color: #8b949e; border: 1px solid rgba(139,148,158,0.4); }
+.tier-badge.regular { background: rgba(46,160,67,0.15); color: var(--accent-green); border: 1px solid rgba(46,160,67,0.4); }
+.tier-badge.devoted { background: rgba(2,108,223,0.15); color: var(--accent-blue); border: 1px solid rgba(2,108,223,0.4); }
+.tier-badge.lifer { background: linear-gradient(135deg, rgba(210,153,34,0.25), rgba(2,108,223,0.25)); color: #ffd24d; border: 1px solid rgba(210,153,34,0.5); }
+.tier-badge i { width: 11px; height: 11px; }
+
+/* Why am I seeing this? — EU AI Act Art. 50 affordance */
+.why-affordance {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  margin-left: 6px;
+  font-style: italic;
+  text-decoration: underline dotted;
+}
+.why-affordance:hover { color: var(--accent-blue); }
+.section-title-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 10px;
+  margin-top: 6px;
+}
+.section-title-row h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Fan Profile screen */
+.fan-profile-hero {
+  text-align: center;
+  padding: 14px 0 18px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.fan-profile-hero .avatar-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-blue), #7c3aed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0 auto 10px;
+}
+.fan-profile-hero .fan-name { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+.fan-profile-hero .fan-tagline { font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; }
+.fan-profile-hero .tier-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+.fan-profile-hero .tier-row .meta {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.fp-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.fp-section-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+}
+.fp-section-head i.lead { color: var(--accent-blue); width: 18px; height: 18px; }
+.fp-section-head .arrow { margin-left: auto; color: var(--text-secondary); width: 18px; height: 18px; transition: transform 0.2s; }
+.fp-section.open .fp-section-head .arrow { transform: rotate(90deg); }
+.fp-section-body {
+  display: none;
+  padding: 0 14px 14px;
+  font-size: 13px;
+}
+.fp-section.open .fp-section-body { display: block; }
+.fp-show-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+}
+.fp-show-row:first-child { border-top: none; }
+.fp-show-row .show-name { font-size: 13px; font-weight: 600; }
+.fp-show-row .show-meta { font-size: 11px; color: var(--text-secondary); }
+.fp-show-row .show-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: var(--bg-phone);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+.fp-show-row .show-icon i { color: var(--accent-blue); width: 16px; height: 16px; }
+.fp-tier-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+.fp-tier-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--bg-phone);
+  border: 1px solid var(--border);
+}
+.fp-tier-row.current { border-color: var(--accent-blue); background: rgba(2,108,223,0.08); }
+.fp-tier-row .name { font-size: 12px; font-weight: 700; flex: 1; }
+.fp-tier-row .threshold { font-size: 11px; color: var(--text-secondary); }
+.fp-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--accent-blue);
+  cursor: pointer;
+  text-decoration: none;
+}
+.fp-artefact {
+  display: inline-block;
+  width: 70px;
+  text-align: center;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  vertical-align: top;
+}
+.fp-artefact .art-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1c2333, var(--bg-card));
+  border: 1px solid var(--accent-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 4px;
+}
+.fp-artefact .art-icon i { color: var(--accent-orange); width: 24px; height: 24px; }
+.fp-artefact .art-label { font-size: 10px; color: var(--text-secondary); line-height: 1.3; }
+.fp-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+}
+.fp-toggle-row:first-child { border-top: none; }
+.fp-toggle-row .label { font-size: 13px; font-weight: 600; flex: 1; }
+.fp-toggle-row .sub { font-size: 11px; color: var(--text-secondary); }
+.fp-danger {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: rgba(248,81,73,0.08);
+  border: 1px solid rgba(248,81,73,0.3);
+  border-radius: 8px;
+  color: #f85149;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* Welcome-back lapsed-fan card (G8) — White Hat only, NO loss-avoidance copy */
+.welcome-back-card {
+  background: linear-gradient(135deg, rgba(46,160,67,0.12), rgba(2,108,223,0.08));
+  border: 1px solid rgba(46,160,67,0.3);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+.welcome-back-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.welcome-back-card h4 i { color: var(--accent-green); width: 16px; height: 16px; }
+.welcome-back-card p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+/* Fan Presale (G2) */
+.presale-hero {
+  position: relative;
+  height: 180px;
+  margin: 0 -16px 16px;
+  overflow: hidden;
+}
+.presale-hero img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.presale-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 80px;
+  background: linear-gradient(transparent, var(--bg-phone));
+}
+.presale-eligibility {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.presale-eligibility .icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: rgba(46,160,67,0.15);
+  border: 1px solid rgba(46,160,67,0.4);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.presale-eligibility .icon i { color: var(--accent-green); width: 18px; height: 18px; }
+.presale-eligibility .content { flex: 1; }
+.presale-eligibility .label { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+.presale-eligibility .verified-line { font-size: 14px; font-weight: 700; }
+.presale-eligibility .qualifies { font-size: 12px; color: var(--accent-green); margin-top: 4px; }
+
+.countdown-card {
+  background: linear-gradient(135deg, #1c2333, var(--bg-card));
+  border: 1px solid var(--accent-blue);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.countdown-card .countdown-label { font-size: 11px; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.countdown-card .countdown-time {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.countdown-card .ct-block {
+  background: rgba(2,108,223,0.15);
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-width: 50px;
+}
+.countdown-card .ct-num { font-size: 22px; font-weight: 800; color: var(--accent-blue); display: block; }
+.countdown-card .ct-unit { font-size: 9px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+.countdown-card .countdown-absolute { font-size: 12px; color: var(--text-secondary); margin-top: 6px; }
+
+/* Pre-Event Hub (G5) */
+.hub-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+.hub-card .hc-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.hub-card .hc-head i { color: var(--accent-blue); width: 16px; height: 16px; }
+.hub-card .hc-cd {
+  margin-left: auto;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(46,160,67,0.15);
+  color: var(--accent-green);
+  border: 1px solid rgba(46,160,67,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.hub-card .hc-cd.cd-mixed { background: rgba(124,58,237,0.15); color: #a78bfa; border-color: rgba(124,58,237,0.4); }
+
+/* Setlist wishlist */
+.setlist-track {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: var(--bg-phone);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.setlist-track.added { border-color: var(--accent-green); background: rgba(46,160,67,0.08); }
+.setlist-track .track-name { font-size: 12px; flex: 1; }
+.setlist-track .track-add {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+}
+.setlist-track .track-add i { width: 14px; height: 14px; color: var(--text-secondary); }
+.setlist-track.added .track-add { background: var(--accent-green); border-color: var(--accent-green); }
+.setlist-track.added .track-add i { color: #fff; }
+
+/* Content drops */
+.drop-card {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--bg-phone);
+  border: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.drop-card .drop-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: rgba(124,58,237,0.15);
+  border: 1px solid rgba(124,58,237,0.4);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.drop-card .drop-icon i { color: #a78bfa; width: 16px; height: 16px; }
+.drop-card .drop-content { flex: 1; }
+.drop-card .drop-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.drop-card .drop-meta { font-size: 11px; color: var(--text-secondary); }
+
+/* Show Memory (G7) */
+.commem-ticket {
+  background: linear-gradient(135deg, #1c2333, var(--bg-card));
+  border: 1px solid var(--accent-blue);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.commem-ticket::before {
+  content: 'ATTENDED';
+  position: absolute;
+  top: 12px; right: -28px;
+  background: var(--accent-green);
+  color: #fff;
+  padding: 4px 32px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  transform: rotate(45deg);
+}
+.commem-ticket .ct-name { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+.commem-ticket .ct-meta { font-size: 12px; color: var(--text-secondary); margin-bottom: 12px; }
+.commem-ticket .ct-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 12px 0;
+  position: relative;
+}
+.commem-ticket .ct-attended-by { font-size: 11px; color: var(--text-secondary); margin-top: 8px; }
+.commem-ticket .ct-tier-line { font-size: 12px; color: var(--accent-blue); margin-top: 4px; font-weight: 600; }
+
+.mood-input {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+.mood-input .mood-q { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.mood-input .mood-private { font-size: 10px; color: var(--text-secondary); margin-bottom: 12px; font-style: italic; }
+.mood-stars {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.mood-star {
+  cursor: pointer;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+}
+.mood-star i { color: var(--text-secondary); width: 24px; height: 24px; transition: color 0.2s; }
+.mood-star.selected i, .mood-star.hover i { color: var(--accent-orange); }
+.mood-saved {
+  display: none;
+  font-size: 12px;
+  color: var(--accent-green);
+  margin-top: 6px;
+}
+.mood-saved.show { display: block; }
+
+.show-memory-rec {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.show-memory-rec img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
+.show-memory-rec .rec-content { flex: 1; }
+.show-memory-rec .rec-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.show-memory-rec .rec-meta { font-size: 11px; color: var(--text-secondary); margin-bottom: 4px; }
+.show-memory-rec .rec-price { font-size: 12px; color: var(--accent-green); font-weight: 700; }
+
+/* Tier micro-feedback on Confirmation (G4) */
+.tier-progress {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(2,108,223,0.08);
+  border: 1px solid rgba(2,108,223,0.25);
+  border-radius: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tier-progress i { color: var(--accent-blue); width: 16px; height: 16px; flex-shrink: 0; }
+.tier-progress strong { color: var(--text-primary); }
+
+/* G1 Why-am-I-seeing-this modal explanation */
+.why-modal-content { text-align: left; }
+.why-modal-content h4 { font-size: 13px; margin-bottom: 6px; margin-top: 10px; color: var(--accent-blue); }
+.why-modal-content p { font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 6px; }
+
+/* ===================== MOBILE RESPONSIVE ===================== */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    gap: 20px;
+  }
+  .info-panel {
+    position: static;
+    width: 100%;
+    max-width: 400px;
+    flex-shrink: unset;
+  }
+  .phone-frame {
+    width: calc(100vw - 32px);
+    max-width: 375px;
+    height: auto;
+    aspect-ratio: 375 / 812;
+    flex-shrink: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== INFO PANEL ==================== -->
+<div class="info-panel">
+  <img src="data:image/png;base64,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" alt="Ticketmaster" style="width:200px;margin-bottom:12px;">
+  <h1>Mithril Consulting<br>Prototype &middot; Iteration 12</h1>
+  <div class="subtitle">Insight. Action. Impact. &middot; Fan Loyalty Engine (Octalysis Framework)</div>
+
+  <h2>Features</h2>
+  <div class="feature-tags">
+    <span class="feature-tag">Fan Profile</span>
+    <span class="feature-tag">Fan Status Tiers</span>
+    <span class="feature-tag">Fan Presale</span>
+    <span class="feature-tag">Pre-Event Hub</span>
+    <span class="feature-tag">Show Memory</span>
+    <span class="feature-tag">Commemorative Tickets</span>
+    <span class="feature-tag">Why Am I Seeing This?</span>
+    <span class="feature-tag">All-In Pricing</span>
+    <span class="feature-tag">Fair Price Badges</span>
+    <span class="feature-tag">ARIA Assistant</span>
+    <span class="feature-tag">Social Discovery</span>
+    <span class="feature-tag">Year in Live</span>
+    <span class="feature-tag">AI Disclosure</span>
+    <span class="feature-tag">Human Escalation</span>
+  </div>
+
+  <h2>What's New in Iteration 12</h2>
+  <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;margin-bottom:8px;">
+    The Octalysis Framework (Yu-kai Chou) is now applied across eight sanctioned journey moments. White Hat drives lead — recognition, mastery, ownership, community. Black Hat drives appear sparingly and truthfully. <strong>No loss-avoidance mechanics anywhere.</strong>
+  </div>
+
+  <h2>How to Demo</h2>
+  <ul class="demo-instructions">
+    <li>Open Profile to see Fan Status, My Shows, My Artefacts</li>
+    <li>Tap "How do tiers work?" for the transparent explanation</li>
+    <li>Tap a "Why am I seeing this?" link on Home</li>
+    <li>Tap "Hozier" event &rarr; the Fan Presale screen surfaces (G2)</li>
+    <li>From My Tickets &rarr; Upcoming &rarr; tap an event for the Pre-Event Hub (G5)</li>
+    <li>From My Tickets &rarr; Past &rarr; tap a show for Show Memory (G7)</li>
+    <li>Try ARIA quick-action chips with human escalation</li>
+  </ul>
+
+  <h2>Journeys</h2>
+  <button class="journey-btn" onclick="startJourney('discovery')">
+    Discovery to Purchase
+    <span>Home &rarr; Event &rarr; Seats &rarr; Queue &rarr; Pay &rarr; Confirm (with commemorative ticket)</span>
+  </button>
+  <button class="journey-btn" onclick="startJourney('loyalty')">
+    Fan Loyalty Engine (G1, G2, G8)
+    <span>Profile &rarr; Fan Status &rarr; Fan Presale &rarr; Welcome-back card</span>
+  </button>
+  <button class="journey-btn" onclick="startJourney('preEvent')">
+    Pre-Event Hub (G5)
+    <span>My Tickets &rarr; Upcoming &rarr; Setlist wishlist + Friends going + Content drops</span>
+  </button>
+  <button class="journey-btn" onclick="startJourney('showMemory')">
+    Show Memory (G7)
+    <span>My Tickets &rarr; Past &rarr; Mood &rarr; Recommendations &rarr; Share</span>
+  </button>
+  <button class="journey-btn" onclick="startJourney('aria')">
+    ARIA Assistant
+    <span>AI chat with quick actions and human escalation</span>
+  </button>
+  <button class="journey-btn" onclick="startJourney('tickets')">
+    Year in Live (G8)
+    <span>Multi-year archive accessible from Fan Profile</span>
+  </button>
+</div>
+
+<!-- ==================== PHONE FRAME ==================== -->
+<div class="phone-wrap">
+<div class="phone-frame">
+  <div class="notch"></div>
+  <div class="home-indicator"></div>
+  <div class="viewport" id="viewport">
+
+    <!-- ========== TICKETMASTER LOGO BAR (persistent across all screens) ========== -->
+    <div class="tm-logo-bar">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAvQAAACOCAMAAABpJGyqAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAAspQTFRFAAAAuc32wNP3KGjk////3uj7y9v4OnTmXY3rqML0/f7/+vz+lLTxcpztQHjnx9j4ytr4PHXmeKDukLHxscj1V4nqOXPmzt356/H8IGLjb5rtmLbyJWXjpb/0YpHrrsb12+b6LGrklbTydJ3tGFjf8/f9Gl7hHWDia5fsu8/29fj+PnfnSX/ov9L3RHzn5Oz8dp/uRXzolrXyKmnkeaHuydn4/v7/xdf4gKbviKvwUobpo77z7vP9P3jnU4bppL/z7/T9PXbm2OT6jq/xQnrnt8z2YI/r9vn+YZDrssn19/n+Rn3ol7by5e38Vojqe6Luk7Px8fX9FlziH2Hjbpnt/P3/zdz5wNL3zNv5VYjqH2HjtMr1W4zqLWvkfaTvLmzltcv25u787fL9ImPjWovqZJLr3ef7Z5TsXo7rkbLx1eL6J2fktsv2uM32NnHm1OH6fqTvgabvN3LmbJjsn7vzor3zaJXsM2/l2eT6JmbkXI3qnbrzX4/rxNb4ZZPsSH/oj7DxNXHlWYrqQXrncJrtWIrqGFzj6vD8GV3hToPpMG3lO3XmvND2TIHod5/uMW7lSoDoHWDiT4PpS4How9X3FVrffKPuZpTsaZbsK2rk6O/85+780d/5f6XvEGDfQ3vnm7jy0+D5z935ob3zVIfpcZvtg6jv0N75xtf4dZ7uTYLpnLny4+v7ja/x0uD59Pf+IWPjnrvziq3wi63w8vb9r8b1GF3iyNn4rMT0oLzz7PL9qsP0sMf1vtH3iazw4On7h6vwus72hKjvqcL03Of7wtT3c53t2uX6UITpp8H03+n7R37os8n1G17jq8T08PX9NHDl4uv76fD8mrjyUYXpOHPm4er7mbfyMm/lrcX1I2TjJGXjhanw1uL6vdD3eqHuKWjkY5HrwdT3bZjtjK7whqrwL2zlQXnnapbskrLx1+P6IWPjpsD0gqfvkZbnpQAAAO50Uk5TAP///////////////////////////////+D/////////////IP+AoP///////////////////////////////////////////////////////1DA////////0P////////////////////////////////////////////////////////9A/3D//////////7D///8w//////////8Q///////////////////////w//////9g/////////////////////////////5D//////////////////////////////////////////7WXvlIAACdwSURBVHic7V17gE3V9z/X46uEhNRIItMMeURU3o9GU4jyqChDKBTRV3opUaZCeRam8vrm/ZbXVAoJKUYoj6GYVFLfvt/6Vr/e+N17Xnfv9Vn73H3njhl1z+cP7t333nPPnLvO3muv9VmfFTB8+IgzBAr6BHz4yG/4Ru8j7uAbvY+4g2/0PuIOvtH7iDv4Ru8j7uAbvY+4g2/0PuIOvtH7iDv4Ru8j7uAbvY+4g2/0PuIOvtH7iDv4Ru8j7uAbvY+4g2/0PuIOvtH7iDv4Ru8j7uAbvY+4w1/A6AP0HE8WyGn4+NvgzDf6wvQUA38UyHn4+Nsg743+H3QiLvxbTMc7608yUPSXmI7nI+6R90Zf/Hf5ebH/i+14JX4lA2f/GNsBfcQ78tzoS/1MBs75X2wHLP0TGSj5XWwH9BHvyHOjL/MDGTj3P7Ed8BziHf2D3lU+fESHPDf6ct+TgfP+HdPxyv+XDJT9Oqbj+fCR50Z/4bdk4PyvYjpehW/IwAVfxnQ8Hz7y2ugrHicD5ehAlLiY3jMVjsZ2QB9xj7w2eggwXvRZbAes/AUZuPhIbAf0EffIa6O/lM7Dl3wa0/ESc8hAlUMxHS9PkHSwoM/gjMJf7nLkzuiTA4HAPvaVC2isJnlvrr7BQc0DZKD6RzEdL3bU/qlkYFcBn8MZhLqBEz/FNq/lP3Jh9PWCFr/TqPc++2Jep6Ya7CADV70X2wFjQ6NAYJthNHy3IM/hDEKzQGCzYTTdUNDnESWiNfryVc/eZD5o/jb3cquNZKDQ79zb9HEdvaBXb43tgLlH4qU765l/tJ8pCCExMRB4M/Tgr3c5ojL6toFApvO4zUruHTetIQM3rsjFSQnosIoMtF8W2wFziU6B7GrL7ccdFxXIKZxJSAg0Pelcjs4LCvRUcgF9o++6uepm4emt87g33bGQDHSZk4uTCgMioDV2x3S83CEt8PsS4WntnQVwDmcQepz6VZx5/nqXQ9PokxoR402byb6v16tk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" alt="Ticketmaster">
+    </div>
+
+    <!-- ========== SCREEN: HOME ========== -->
+    <div class="screen active" id="screen-home">
+      <div class="screen-header">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-size:14px;color:var(--text-secondary);margin-bottom:2px;">Good evening,</div>
+            <div style="font-size:22px;font-weight:800;">Sarah</div>
+          </div>
+          <span class="tier-badge devoted" onclick="navigateTo('profile')" style="cursor:pointer;">
+            <i data-lucide="award"></i> Devoted &middot; 8
+          </span>
+        </div>
+      </div>
+      <div class="screen-scroll">
+        <div class="search-bar" onclick="navigateTo('search')">
+          <i data-lucide="search"></i>
+          <span>Search events, artists, venues...</span>
+        </div>
+
+        <div class="ai-disclosure">
+          <i data-lucide="sparkles" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>
+          Recommendations powered by AI based on your activity. <a href="#" onclick="event.preventDefault();document.getElementById('ai-modal').classList.add('show')">Learn more</a>
+        </div>
+
+        <div class="section-title-row">
+          <h3>Because you went to Hozier</h3>
+          <span class="why-affordance" onclick="showWhy('past-attendance')">why?</span>
+        </div>
+        <div class="horiz-scroll">
+          <div class="event-card" onclick="openEvent('hozier')">
+            <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&h=200&fit=crop" alt="Hozier">
+            <div class="event-card-body">
+              <div class="name">Hozier</div>
+              <div class="venue">3Arena, Dublin &middot; 15 Jul</div>
+              <div class="price-row"><span class="price">&euro;89.50</span><span class="fair-badge great-value" onclick="event.stopPropagation();showTooltip('great-value')">Great Value</span></div>
+            </div>
+          </div>
+          <div class="event-card" onclick="openEvent('edsheeran')">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=200&fit=crop" alt="Ed Sheeran">
+            <div class="event-card-body">
+              <div class="name">Ed Sheeran</div>
+              <div class="venue">Croke Park, Dublin &middot; 22 Aug</div>
+              <div class="price-row"><span class="price">&euro;112.00</span><span class="fair-badge fair-price" onclick="event.stopPropagation();showTooltip('fair-price')">Fair Price</span></div>
+            </div>
+          </div>
+          <div class="event-card" onclick="openEvent('beyonce')">
+            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop" alt="Beyonce">
+            <div class="event-card-body">
+              <div class="name">Beyonc&eacute;</div>
+              <div class="venue">Aviva Stadium &middot; 5 Sep</div>
+              <div class="price-row"><span class="price">&euro;185.00</span><span class="fair-badge premium" onclick="event.stopPropagation();showTooltip('premium')">Premium</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title-row">
+          <h3>Friends are going</h3>
+          <span class="why-affordance" onclick="showWhy('friends')">why?</span>
+        </div>
+        <div class="horiz-scroll">
+          <div class="event-card" onclick="openEvent('taylor')">
+            <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&h=200&fit=crop" alt="Taylor Swift">
+            <div class="event-card-body">
+              <div class="name">Taylor Swift &mdash; Eras Tour</div>
+              <div class="venue">Aviva Stadium &middot; 10 Jun</div>
+              <div class="price-row"><span class="price">&euro;195.50</span><span class="fair-badge premium" onclick="event.stopPropagation();showTooltip('premium')">Premium</span></div>
+            </div>
+          </div>
+          <div class="event-card" onclick="openEvent('coldplay')">
+            <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=400&h=200&fit=crop" alt="Coldplay">
+            <div class="event-card-body">
+              <div class="name">Coldplay</div>
+              <div class="venue">Croke Park, Dublin &middot; 28 Aug</div>
+              <div class="price-row"><span class="price">&euro;135.00</span><span class="fair-badge fair-price" onclick="event.stopPropagation();showTooltip('fair-price')">Fair Price</span></div>
+            </div>
+          </div>
+          <div class="event-card" onclick="openEvent('dualipa')">
+            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=200&fit=crop" alt="Dua Lipa">
+            <div class="event-card-body">
+              <div class="name">Dua Lipa</div>
+              <div class="venue">3Arena, Dublin &middot; 3 Oct</div>
+              <div class="price-row"><span class="price">&euro;98.00</span><span class="fair-badge great-value" onclick="event.stopPropagation();showTooltip('great-value')">Great Value</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title-row">
+          <h3>Fits your fan profile</h3>
+          <span class="why-affordance" onclick="showWhy('profile-fit')">why?</span>
+        </div>
+        <div style="font-size:10px;color:var(--text-secondary);margin-bottom:8px;font-style:italic;">Friend activity shown with consent</div>
+        <div class="friend-card">
+          <div class="friend-avatar">E</div>
+          <div class="text"><span>Emma</span> is going to <span>Oasis</span></div>
+        </div>
+        <div class="friend-card">
+          <div class="friend-avatar" style="background:var(--accent-green);">J</div>
+          <div class="text"><span>James</span> is going to <span>Coldplay</span></div>
+        </div>
+        <div class="friend-card">
+          <div class="friend-avatar" style="background:var(--accent-orange);">L</div>
+          <div class="text"><span>Laura</span> is going to <span>Taylor Swift</span></div>
+        </div>
+
+        <div class="section-title-row">
+          <h3>New in Dublin</h3>
+          <span class="why-affordance" onclick="showWhy('city')">why?</span>
+        </div>
+        <div class="horiz-scroll">
+          <div class="event-card" onclick="openEvent('oasis')">
+            <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&h=200&fit=crop" alt="Oasis">
+            <div class="event-card-body">
+              <div class="name">Oasis</div>
+              <div class="venue">Croke Park &middot; 16 Aug</div>
+              <div class="price-row"><span class="price">&euro;175.00</span><span class="fair-badge premium" onclick="event.stopPropagation();showTooltip('premium')">Premium</span></div>
+            </div>
+          </div>
+          <div class="event-card" onclick="openEvent('weeknd')">
+            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=200&fit=crop" alt="The Weeknd">
+            <div class="event-card-body">
+              <div class="name">The Weeknd</div>
+              <div class="venue">3Arena &middot; 20 Nov</div>
+              <div class="price-row"><span class="price">&euro;125.00</span><span class="fair-badge fair-price" onclick="event.stopPropagation();showTooltip('fair-price')">Fair Price</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="bottom-nav" id="main-nav">
+        <button class="nav-item active" onclick="navigateTo('home')"><i data-lucide="home"></i>Home</button>
+        <button class="nav-item" onclick="navigateTo('search')"><i data-lucide="search"></i>Search</button>
+        <button class="nav-item" onclick="navigateTo('tickets')"><i data-lucide="ticket"></i>My Tickets</button>
+        <button class="nav-item" onclick="navigateTo('aria')"><i data-lucide="message-circle"></i>ARIA</button>
+        <button class="nav-item" onclick="navigateTo('profile')"><i data-lucide="user"></i>Profile</button>
+      </div>
+    </div>
+
+    <!-- ========== SCREEN: EVENT DETAIL ========== -->
+    <div class="screen" id="screen-event">
+      <div class="screen-scroll" style="padding-top:0;">
+        <div id="event-hero" style="width:100%;height:200px;position:relative;">
+          <img id="event-hero-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <button class="back-btn" style="position:absolute;top:50px;left:16px;background:rgba(0,0,0,0.5);padding:6px 10px;border-radius:8px;color:#fff;" onclick="goBack()"><i data-lucide="arrow-left"></i> Back</button>
+        </div>
+        <div style="padding:16px;">
+          <h2 id="event-title" style="font-size:22px;font-weight:800;margin-bottom:8px;"></h2>
+          <div id="event-date" style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-secondary);margin-bottom:4px;"><i data-lucide="calendar" style="width:14px;height:14px;"></i><span></span></div>
+          <div id="event-venue" style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-secondary);margin-bottom:16px;"><i data-lucide="map-pin" style="width:14px;height:14px;"></i><span></span></div>
+
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div id="event-price-label" style="font-size:28px;font-weight:800;color:var(--accent-green);"></div>
+                <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">all-in &middot; includes all fees</div>
+              </div>
+              <span id="event-badge" class="fair-badge" onclick="showTooltip(this.dataset.tier)" data-tier=""></span>
+            </div>
+            <a href="#" onclick="event.preventDefault();showPriceBreakdown()" style="font-size:12px;color:var(--accent-blue);text-decoration:none;display:block;margin-top:10px;">View Price Breakdown &rarr;</a>
+          </div>
+
+          <div class="ai-disclosure">
+            <i data-lucide="info" style="width:12px;height:12px;vertical-align:middle;margin-right:4px;"></i>
+            Fair Price tier determined by AI analysis of historical pricing, demand, and comparable events.
+          </div>
+
+          <div id="event-description" style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px;"></div>
+
+          <div id="event-social" style="display:none;font-size:13px;margin-bottom:16px;">
+            <i data-lucide="users" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;color:var(--accent-blue);"></i>
+            <span id="event-social-text"></span>
+          </div>
+
+          <!-- Fan Presale banner (G2) — shown only for artists with verified fan history -->
+          <div id="event-fan-presale" style="display:none;background:linear-gradient(135deg, rgba(2,108,223,0.15), rgba(124,58,237,0.1));border:1px solid var(--accent-blue);border-radius:12px;padding:14px;margin-bottom:14px;cursor:pointer;" onclick="navigateTo('presale')">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <i data-lucide="award" style="width:16px;height:16px;color:var(--accent-blue);"></i>
+              <strong style="font-size:13px;">Fan Presale available for you</strong>
+            </div>
+            <p style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;line-height:1.5;">You've seen this artist 3 times. You qualify for the Fan Presale.</p>
+            <span style="font-size:12px;color:var(--accent-blue);font-weight:600;">Open Fan Presale &rarr;</span>
+          </div>
+
+          <div class="section-title">Similar Events</div>
+          <div class="horiz-scroll" id="similar-events"></div>
+
+          <div style="display:flex;gap:10px;margin-top:8px;padding-bottom:20px;">
+            <button class="btn-primary" style="flex:1;" onclick="navigateTo('seats')">Find Tickets</button>
+            <button class="btn-outline" style="flex:1;" onclick="showTooltip('go-together')">Go Together</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SCREEN: SEAT SELECTION ========== -->
+    <div class="screen" id="screen-seats">
+      <div class="screen-header">
+        <button class="back-btn" onclick="goBack()"><i data-lucide="arrow-left"></i> Back</button>
+        <div style="font-size:16px;font-weight:700;" id="seats-title">Select Your Seats</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">All prices include fees &middot; Price guaranteed at selection</div>
+      </div>
+      <div class="screen-scroll">
+        <div class="stage-graphic">
+          <div class="stage-label">STAGE</div>
+          <div class="stage-sections">
+            <div class="stage-section">SEC A<br>Floor</div>
+            <div class="stage-section">SEC B<br>Floor</div>
+            <div class="stage-section">SEC C<br>Floor</div>
+            <div class="stage-section">SEC D<br>Lower</div>
+            <div class="stage-section">SEC E<br>Lower</div>
+            <div class="stage-section">SEC F<br>Lower</div>
+            <div class="stage-section">SEC G<br>Upper</div>
+            <div class="stage-section">SEC H<br>Upper</div>
+            <div class="stage-section">SEC I<br>Upper</div>
+          </div>
+        </div>
+
+        <div class="seat-card" onclick="selectSeat(this, 'Floor Standing A', 89.50)" data-price="89.50">
+          <div class="seat-name">Floor Standing A</div>
+          <div class="seat-detail">General Admission &middot; Great view</div>
+          <div class="seat-price">&euro;89.50</div>
+        </div>
+        <div class="seat-card" onclick="selectSeat(this, 'Lower Tier D', 72.00)" data-price="72.00">
+          <div class="seat-name">Lower Tier D</div>
+          <div class="seat-detail">Seated &middot; Row 12-24</div>
+          <div class="seat-price">&euro;72.00</div>
+        </div>
+        <div class="seat-card" onclick="selectSeat(this, 'Lower Tier E', 68.00)" data-price="68.00">
+          <div class="seat-name">Lower Tier E</div>
+          <div class="seat-detail">Seated &middot; Row 15-30</div>
+          <div class="seat-price">&euro;68.00</div>
+        </div>
+        <div class="seat-card" onclick="selectSeat(this, 'Upper Tier G', 45.00)" data-price="45.00">
+          <div class="seat-name">Upper Tier G</div>
+          <div class="seat-detail">Seated &middot; Elevated view</div>
+          <div class="seat-price">&euro;45.00</div>
+        </div>
+
+        <button class="btn-primary" id="checkout-btn" style="margin-top:12px;opacity:0.5;pointer-events:none;" onclick="navigateTo('queue')">Select a section to continue</button>
+      </div>
+    </div>
+
+    <!-- ========== SCREEN: QUEUE ========== -->
+    <div class="screen" id="screen-queue">
+      <div class="screen-header">
+        <button class="back-btn" onclick="goBack()"><i data-lucide="arrow-left"></i> Back</button>
+        <div style="font-size:16px;font-weight:700;">You're in the Queue</div>
+      </div>
+      <div class="screen-scroll" id="queue-waiting">
+        <div class="queue-box">
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:4px;">Your Position</div>
+          <div class="queue-pos">#4,521</div>
+          <div class="queue-label">Estimated wait: 12 minutes</div>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width:35%;"></div>
+        </div>
+        <div class="guarantee-badge">
+          <i data-lucide="shield-check" style="width:20px;height:20px;"></i>
+          <span>Price locked at time of queue entry. You'll pay exactly what was shown.</span>
+        </div>
+        <button class="btn-outline" style="margin-top:12px;" id="notify-btn" onclick="toggleNotify()">
+          <i data-lucide="bell" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>
+          Notify me when it's my turn
+        </button>
+        <button class="btn-primary" style="margin-top:10px;background:#7c3aed;" onclick="skipQueue()">
+          <i data-lucide="fast-forward" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>
+          Skip Queue (Demo Only)
+        </button>
+        <div style="margin-top:16px;text-align:center;">
+          <div class="ai-disclosure">
+            <i data-lucide="message-circle" style="width:12px;height:12px;vertical-align:middle;margin-right:4px;"></i>
+            Need help while you wait? <a href="#" onclick="event.preventDefault();navigateTo('aria')">Chat with ARIA</a>
+          </div>
+        </div>
+      </div>
+      <div class="screen-scroll" id="queue-ready" style="display:none;text-align:center;padding-top:40px;">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--accent-green);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+          <i data-lucide="check" style="width:32px;height:32px;color:#fff;"></i>
+        </div>
+        <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;">It's Your Turn!</h2>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:20px;">Your tickets are reserved for the next 10 minutes.</p>
+        <div class="guarantee-badge">
+          <i data-lucide="shield-check" style="width:20px;height:20px;"></i>
+          <span>Price guaranteed: the price shown is the price you pay.</span>
+        </div>
+        <button class="btn-primary" style="margin-top:16px;" onclick="navigateTo('payment')">Proceed to Payment</button>
+      </div>
+    </div>
+
+    <!-- ========== SCREEN: PAYMENT ========== -->
+    <div class="screen" id="screen-payment">
+      <div class="screen-header">
+        <button class="back-btn" onclick="goBack()"><i data-lucide="arrow-left"></i> Back</button>
+        <div style="font-size:16px;font-weight:700;">Payment</div>
+      </div>
+      <div class="screen-scroll">
+        <div class="order-summary">
+          <div style="font-size:14px;font-weight:700;margin-bottom:8px;">Order Summary</div>
+          <div class="os-row"><span>Event</span><span id="pay-event">Hozier</span></div>
+          <div class="os-row"><span>Section</span><span id="pay-section">Floor Standing A</span></div>
+          <div class="os-row"><span>Date</span><span id="pay-date">15 Jul 2026</span></div>
+          <div class="os-row"><span>Venue</span><span id="pay-venue">3Arena, Dublin</span></div>
+          <div class="os-row total"><span>Total (all-in)</span><span id="pay-total">&euro;89.50</span></div>
+        </div>
+
+        <div style="font-size:14px;font-weight:700;margin-bottom:12px;">Payment Details</div>
+        <div class="form-group">
+          <label>Card Number</label>
+          <input type="text" value="4242 4242 4242 4242" readonly>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Expiry</label>
+            <input type="text" value="12/28" readonly>
+          </div>
+          <div class="form-group">
+            <label>CVV</label>
+            <input type="text" value="123" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Name on Card</label>
+          <input type="text" value="Sarah O'Brien" readonly>
+        </div>
+
+        <button class="btn-primary btn-green" style="margin-top:8px;" onclick="navigateTo('confirmation')">
+          Pay <span id="pay-btn-total">&euro;89.50</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ========== SCREEN: CONFIRMATION ========== -->
+    <div class="screen" id="screen-confirmation">
+      <div class="screen-scroll" style="padding-top:50px;text-align:center;">
+        <div class="confirm-check"><i data-lucide="check"></i></div>
+        <div class="confirm-title">You're going!</div>
+        <div class="ticket-card-confirm">
+          <div class="tc-name" id="conf-event">Hozier</div>
+          <div class="tc-detail" id="conf-date">15 Jul 2026 &middot; 20:00</div>
+          <div class="tc-detail" id="conf-venue">3Arena, Dublin</div>
+          <div class="tc-detail" id="conf-section">Floor Standing A</div>
+          <div class="qr-placeholder">
+            <svg viewBox="0 0 100 100" fill="none">
+              <rect x="5" y="5" width="25" height="25" fill="#000"/>
+              <rect x="10" y="10" width="15" height="15" fill="#fff"/>
+              <rect x="13" y="13" width="9" height="9" fill="#000"/>
+              <rect x="70" y="5" width="25" height="25" fill="#000"/>
+              <rect x="75" y="10" width="15" height="15" fill="#fff"/>
+              <rect x="78" y="13" width="9" height="9" fill="#000"/>
+              <rect x="5" y="70" width="25" height="25" fill="#000"/>
+              <rect x="10" y="75" width="15" height="15" fill="#fff"/>
+              <rect x="13" y="78" width="9" height="9" fill="#000"/>
+              <rect x="35" y="5" width="5" height="5" fill="#000"/>
+              <rect x="45" y="5" width="5" height="5" fill="#000"/>
+              <rect x="55" y="5" width="5" height="5" fill="#000"/>
+              <rect x="35" y="15" width="5" height="5" fill="#000"/>
+              <rect x="50" y="15" width="5" height="5" fill="#000"/>
+              <rect x="35" y="35" width="5" height="5" fill="#000"/>
+              <rect x="45" y="40" width="5" height="5" fill="#000"/>
+              <rect x="55" y="35" width="5" height="5" fill="#000"/>
+              <rect x="70" y="40" width="5" height="5" fill="#000"/>
+              <rect x="80" y="45" width="5" height="5" fill="#000"/>
+              <rect x="40" y="50" width="5" height="5" fill="#000"/>
+              <rect x="55" y="55" width="5" height="5" fill="#000"/>
+              <rect x="70" y="55" width="5" height="5" fill="#000"/>
+              <rect x="80" y="60" width="5" height="5" fill="#000"/>
+              <rect x="40" y="70" width="5" height="5" fill="#000"/>
+              <rect x="50" y="75" width="5" height="5" fill="#000"/>
+              <rect x="60" y="70" width="5" height="5" fill="#000"/>
+              <rect x="70" y="80" width="5" height="5" fill="#000"/>
+              <rect x="80" y="75" width="5" height="5" fill="#000"/>
+              <rect x="90" y="85" width="5" height="5" fill="#000"/>
+            </svg>
+          </div>
+        </div>
+        <!-- Tier micro-feedback (CD2 + CD4) — shown only to the user, never as pressure -->
+        <div class="tier-progress">
+          <i data-lucide="award"></i>
+          <div style="text-align:left;">
+            Show <strong>#9 this year</strong> &middot; Devoted &middot; Keep going to <strong>Lifer</strong> at 15 shows
+          </div>
+        </div>
+
+        <div class="confirm-actions" style="margin-top:14px;">
+          <button class="btn-primary" onclick="showTooltip('save-commem')">
+            <i data-lucide="bookmark" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>
+            Save commemorative ticket
+          </button>
+          <button class="btn-outline" onclick="navigateTo('tickets')">My Tickets</button>
+          <button class="btn-outline" onclick="showTooltip('calendar')">Add to Calendar</button>
+          <button class="btn-outline" onclick="showTooltip('invite')">Invite Friends</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SCREEN: ARIA ========== -->
+    <div class="screen" id="screen-aria">
+      <div class="aria-header">
+        <div class="aria-dot"></div>
+        <div class="aria-title">ARIA</div>
+        <div style="flex:1;"></div>
+        <div style="font-size:11px;color:var(--accent-green);">Online</div>
+      </div>
+      <div class="chat-area" id="chat-area">
+        <div class="ai-disclosure" style="margin-bottom:12px;">
+          <i data-lucide="info" style="width:12px;height:12px;vertical-align:middle;margin-right:4px;"></i>
+          You're chatting with ARIA, Ticketmaster's AI assistant. A human agent is always available.
+        </div>
+        <div class="chat-bubble aria">Hi Sarah! I'm ARIA, your Ticketmaster assistant. How can I help you today?</div>
+        <div class="quick-chips" id="quick-chips">
+          <span class="chip" onclick="ariaChip('order-status')">Order Status</span>
+          <span class="chip" onclick="ariaChip('transfer')">Transfer Ticket</span>
+          <span class="chip" onclick="ariaChip('account')">Account Help</span>
+          <span class="chip" onclick="ariaChip('refund')">Refund Help</span>
+          <span class="chip" onclick="ariaChip('accessibility')">Accessibility Info</span>
+          <span class="chip" onclick="ariaChip('human')">Talk to Human</span>
+        </div>
+      </div>
+      <div class="chat-input-bar">
+        <input type="text" placeholder="Type a message..." id="chat-input" onkeydown="if(event.key==='Enter')sendChatMessage()">
+        <button class="chat-send" onclick="sendChatMessage()"><i data-lucide="send"></i></button>
+      </div>
+      <div class="bottom-nav">
+        <button class="nav-item" onclick="navigateTo('home')"><i data-lucide="home"></i>Home</button>
+        <button class="nav-item" onclick="navigateTo('search')"><i data-lucide="search"></i>Search</button>
+        <button class="nav-item" onclick="navigateTo('tickets')"><i data-lucide="ticket"></i>My Tickets</button>
+        <button class="nav-item active" onclick="navigateTo('aria')"><i data-lucide="message-circle"></i>ARIA</button>
+        <button class="nav-item" onclick="navigateTo('profile')"><i data-lucide="user"></i>Profile</button>
+      </div>
+    </div>
+
+    <!-- ========== SCREEN: MY TICKETS ========== -->
+    <div class="screen" id="screen-tickets">
+      <div class="screen-header">
+        <div style="font-size:20px;font-weight:800;">My Tickets</div>
+      </div>
+      <div class="screen-scroll">
+        <div class="tabs">
+          <button class="tab active" onclick="switchTab('upcoming',this)">Upcoming</button>
+          <button class="tab" onclick="switchTab('past',this)">Past</button>
+        </div>
+        <div id="tab-upcoming">
+          <!-- Welcome-back lapsed-fan card (G8 — White Hat only, NO loss-avoidance copy) -->
+          <div class="welcome-back-card">
+            <h4><i data-lucide="heart"></i> We've missed you</h4>
+            <p>Three artists you've followed are touring near you in the next eight weeks. Welcome back when you're ready &mdash; your fan history and tier are exactly where you left them.</p>
+            <button class="btn-outline" style="padding:8px;font-size:12px;" onclick="navigateTo('home')">See what's on</button>
+          </div>
+
+          <div class="ticket-item">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+              <div class="ti-name" style="margin:0;">Hozier</div>
+              <span class="tier-badge devoted" style="font-size:9px;padding:2px 6px;"><i data-lucide="award"></i> Devoted</span>
+            </div>
+            <div class="ti-detail">15 Jul 2026 &middot; 20:00</div>
+            <div class="ti-detail">3Arena, Dublin &middot; Floor Standing A</div>
+            <div class="countdown"><i data-lucide="clock" style="width:12px;height:12px;vertical-align:middle;margin-right:3px;"></i>122 days to go</div>
+            <div style="display:flex;gap:6px;margin-top:10px;">
+              <button class="ticket-btn" style="flex:1;" onclick="showQRModal()">Show QR</button>
+              <button class="ticket-btn" style="flex:1;background:var(--accent-green);" onclick="navigateTo('preevent')">Pre-Event Hub</button>
+            </div>
+          </div>
+        </div>
+        <div id="tab-past" style="display:none;">
+          <p style="font-size:11px;color:var(--text-secondary);margin-bottom:10px;font-style:italic;">Tap any past show to open its Show Memory.</p>
+          <div class="ticket-item" onclick="openShowMemory('hozier-past')" style="cursor:pointer;">
+            <div class="ti-name">Hozier &mdash; Unreal Unearth Tour</div>
+            <div class="ti-detail">12 Sep 2025 &middot; 3Arena, Dublin</div>
+            <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:12px;color:var(--accent-orange);">Open Show Memory &rarr;</span>
+              <span class="tier-badge devoted" style="font-size:9px;padding:2px 6px;"><i data-lucide="bookmark"></i> Saved</span>
+            </div>
+          </div>
+          <div class="ticket-item" onclick="openShowMemory('dermot')" style="cursor:pointer;">
+            <div class="ti-name">Dermot Kennedy</div>
+            <div class="ti-detail">28 Jun 2025 &middot; Malahide Castle</div>
+            <div style="margin-top:8px;">
+              <span style="font-size:12px;color:var(--accent-orange);">Open Show Memory &rarr;</span>
+            </div>
+          </div>
+          <div class="ai-disclosure" style="margin-top:8px;">
+            <i data-lucide="sparkles" style="width:12px;height:12px;vertical-align:middle;margin-right:4px;"></i>
+            Recommendations based on your past events. <a href="#" onclick="event.preventDefault();document.getElementById('ai-modal').classList.add('show')">Learn more</a>
+          </div>
+        </div>
+
+        <div class="year-card" onclick="openYearInLive()">
+          <h3>Your Year in Live 2026</h3>
+          <p>See your live event highlights &rarr;</p>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <button class="nav-item" onclick="navigateTo('home')"><i data-lucide="home"></i>Home</button>
+        <button class="nav-item" onclick="navigateTo('search')"><i data-lucide="search"></i>Search</button>
+        <button class="nav-item active" onclick="navigateTo('tickets')"><i data-lucide="ticket"></i>My Tickets</button>
+        <button class="nav-item" onclick="navigateTo('aria')"><i data-lucide="message-circle"></i>ARIA</button>
+        <button class="nav-item" onclick="navigateTo('profile')"><i data-lucide="user"></i>Profile</button>
+      </div>
+    </div>
+
+    <!-- ========== SCREEN: SEARCH ========== -->
+    <div class="screen" id="screen-search">
+      <div class="screen-header">
+        <div style="font-size:20px;font-weight:800;margin-bottom:12px;">Search</div>
+        <div style="position:relative;">
+          <i data-lucide="search" style="position:absolute;left:12px;top:12px;width:16px;height:16px;color:var(--text-secondary);"></i>
+          <input class="search-input-full" type="text" placeholder="Search events, artists, venues...">
+        </div>
+      </div>
+      <div class="screen-scroll">
+        <div class="section-title" style="font-size:14px;">Categories</div>
+        <div class="category-chips">
+          <span class="cat-chip">Music</span>
+          <span class="cat-chip">Sports</span>
+          <span class="cat-chip">Theatre</span>
+          <span class="cat-chip">Comedy</span>
+          <span class="cat-chip">Family</span>
+          <span class="cat-chip">Festivals</span>
+        </div>
+        <div class="section-title" style="font-size:14px;">Popular Searches</div>
+        <div class="popular-item" onclick="openEvent('taylor')"><i data-lucide="trending-up"></i> Taylor Swift</div>
+        <div class="popular-item" onclick="openEvent('oasis')"><i data-lucide="trending-up"></i> Oasis</div>
+        <div class="popular-item" onclick="openEvent('coldplay')"><i data-lucide="trending-up"></i> Coldplay</div>
+        <div class="popular-item" onclick="openEvent('beyonce')"><i data-lucide="trending-up"></i> Beyonc&eacute;</div>
+        <div class="popular-item" onclick="openEvent('hozier')"><i data-lucide="trending-up"></i> Hozier</div>
+        <div class="popular-item" onclick="openEvent('dualipa')"><i data-lucide="trending-up"></i> Dua Lipa</div>
+        <div class="popular-item" onclick="openEvent('weeknd')"><i data-lucide="trending-up"></i> The Weeknd</div>
+        <div class="popular-item" onclick="openEvent('edsheeran')"><i data-lucide="trending-up"></i> Ed Sheeran</div>
+      </div>
+      <div class="bottom-nav">
+        <button class="nav-item" onclick="navigateTo('home')"><i data-lucide="home"></i>Home</button>
+        <button class="nav-item active" onclick="navigateTo('search')"><i data-lucide="search"></i>Search</button>
+        <button class="nav-item" onclick="navigateTo('tickets')"><i data-lucide="ticket"></i>My Tickets</button>
+        <button class="nav-item" onclick="navigateTo('aria')"><i data-lucide="message-circle"></i>ARIA</button>
+        <button class="nav-item" onclick="navigateTo('profile')"><i data-lucide="user"></i>Profile</button>
+      </div>
+    </div>
+
+    <!-- ========== SCREEN: FAN PROFILE (Iteration 12 — G2/G4/G7/G8 foundation) ========== -->
+    <div class="screen" id="screen-profile">
+      <div class="screen-header">
+        <div style="font-size:20px;font-weight:800;">Fan Profile</div>
+      </div>
+      <div class="screen-scroll">
+        <div class="fan-profile-hero">
+          <div class="avatar-circle">S</div>
+          <div class="fan-name">Sarah O'Brien</div>
+          <div class="fan-tagline">Indie + folk &middot; Dublin</div>
+          <div class="tier-row">
+            <span class="tier-badge devoted"><i data-lucide="award"></i> Devoted</span>
+            <span class="meta">8 shows this year &middot; 23 lifetime</span>
+          </div>
+        </div>
+
+        <div class="ai-disclosure">
+          <i data-lucide="shield-check" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>
+          Your Fan Profile is yours. Status is gained, never lost. Manage your data anytime below.
+        </div>
+
+        <!-- My Status -->
+        <div class="fp-section open" id="fp-status">
+          <div class="fp-section-head" onclick="toggleFp('fp-status')">
+            <i data-lucide="award" class="lead"></i> My Status
+            <i data-lucide="chevron-right" class="arrow"></i>
+          </div>
+          <div class="fp-section-body">
+            <div class="fp-tier-table">
+              <div class="fp-tier-row"><span class="name">Newcomer</span><span class="threshold">0–1 shows</span></div>
+              <div class="fp-tier-row"><span class="name">Regular</span><span class="threshold">2–5 shows / year</span></div>
+              <div class="fp-tier-row current"><span class="name">Devoted &middot; You are here</span><span class="threshold">6–14 shows</span></div>
+              <div class="fp-tier-row"><span class="name">Lifer</span><span class="threshold">15+ / 50 lifetime</span></div>
+            </div>
+            <a class="fp-link" onclick="showWhy('tiers')">How do tiers work?</a>
+          </div>
+        </div>
+
+        <!-- My Shows -->
+        <div class="fp-section" id="fp-shows">
+          <div class="fp-section-head" onclick="toggleFp('fp-shows')">
+            <i data-lucide="calendar-check" class="lead"></i> My Shows (8 this year)
+            <i data-lucide="chevron-right" class="arrow"></i>
+          </div>
+          <div class="fp-section-body">
+            <div class="fp-show-row" onclick="openShowMemory('hozier-past')">
+              <div class="show-icon"><i data-lucide="music"></i></div>
+              <div style="flex:1;">
+                <div class="show-name">Hozier &mdash; Unreal Unearth Tour</div>
+                <div class="show-meta">12 Sep 2025 &middot; 3Arena</div>
+              </div>
+              <i data-lucide="chevron-right" style="color:var(--text-secondary);width:16px;height:16px;"></i>
+            </div>
+            <div class="fp-show-row" onclick="openShowMemory('dermot')">
+              <div class="show-icon"><i data-lucide="music"></i></div>
+              <div style="flex:1;">
+                <div class="show-name">Dermot Kennedy</div>
+                <div class="show-meta">28 Jun 2025 &middot; Malahide Castle</div>
+              </div>
+              <i data-lucide="chevron-right" style="color:var(--text-secondary);width:16px;height:16px;"></i>
+            </div>
+            <div class="fp-show-row">
+              <div class="show-icon"><i data-lucide="music"></i></div>
+              <div style="flex:1;">
+                <div class="show-name">Hozier &mdash; Wasteland, Baby! Tour</div>
+                <div class="show-meta">14 Mar 2024 &middot; Olympia Theatre</div>
+              </div>
+              <i data-lucide="chevron-right" style="color:var(--text-secondary);width:16px;height:16px;"></i>
+            </div>
+            <div class="fp-show-row">
+              <div class="show-icon"><i data-lucide="music"></i></div>
+              <div style="flex:1;">
+                <div class="show-name">Florence + The Machine</div>
+                <div class="show-meta">22 Nov 2024 &middot; 3Arena</div>
+              </div>
+              <i data-lucide="chevron-right" style="color:var(--text-secondary);width:16px;height:16px;"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- My Artefacts -->
+        <div class="fp-section" id="fp-artefacts">
+          <div class="fp-section-head" onclick="toggleFp('fp-artefacts')">
+            <i data-lucide="trophy" class="lead"></i> My Artefacts
+            <i data-lucide="chevron-right" class="arrow"></i>
+          </div>
+          <div class="fp-section-body">
+            <div class="fp-artefact">
+              <div class="art-icon"><i data-lucide="ticket"></i></div>
+              <div class="art-label">Your 1st show</div>
+            </div>
+            <div class="fp-artefact">
+              <div class="art-icon"><i data-lucide="map-pin"></i></div>
+              <div class="art-label">3Arena regular</div>
+            </div>
+            <div class="fp-artefact">
+              <div class="art-icon"><i data-lucide="repeat"></i></div>
+              <div class="art-label">Hozier x3</div>
+            </div>
+            <div class="fp-artefact" onclick="openYearInLive()" style="cursor:pointer;">
+              <div class="art-icon"><i data-lucide="calendar"></i></div>
+              <div class="art-label">Year in Live 2025</div>
+            </div>
+            <div class="fp-artefact" onclick="openYearInLive()" style="cursor:pointer;">
+              <div class="art-icon" style="border-color:var(--accent-orange);"><i data-lucide="calendar"></i></div>
+              <div class="art-label">Year in Live 2026</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy & Data -->
+        <div class="fp-section" id="fp-privacy">
+          <div class="fp-section-head" onclick="toggleFp('fp-privacy')">
+            <i data-lucide="shield" class="lead"></i> Privacy &amp; Data
+            <i data-lucide="chevron-right" class="arrow"></i>
+          </div>
+          <div class="fp-section-body">
+            <div class="fp-toggle-row">
+              <div>
+                <div class="label">Personalised recommendations</div>
+                <div class="sub">Use your attendance to suggest events</div>
+              </div>
+              <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="fp-toggle-row">
+              <div>
+                <div class="label">Share my attendance with friends</div>
+                <div class="sub">Let friends see events you're attending</div>
+              </div>
+              <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="fp-toggle-row">
+              <div>
+                <div class="label">Show me friends' activity</div>
+                <div class="sub">See which events your friends are going to</div>
+              </div>
+              <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="fp-toggle-row">
+              <div>
+                <div class="label">Allow group invites</div>
+                <div class="sub">Friends can invite you to events</div>
+              </div>
+              <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <a class="fp-link" onclick="showWhy('export')">Export my fan history</a>
+            <div class="fp-danger" onclick="showTooltip('delete-data')">Delete my fan profile and attendance history</div>
+            <p style="font-size:10px;color:var(--text-secondary);margin-top:8px;line-height:1.5;">EU AI Act Art. 50 &middot; GDPR Art. 6, 7, 17. The Fan Loyalty Engine never targets vulnerability — no nudges are timed to financial, emotional, or attentional state.</p>
+          </div>
+        </div>
+
+        <!-- Account & Onboarding -->
+        <div class="menu-item" onclick="showOnboarding()" style="margin-top:14px;"><i data-lucide="rotate-ccw"></i> Restart Onboarding <i data-lucide="chevron-right" class="mi-arrow"></i></div>
+        <div class="menu-item"><i data-lucide="help-circle"></i> Help &amp; Support <i data-lucide="chevron-right" class="mi-arrow"></i></div>
+        <div class="menu-item" style="color:#f85149;"><i data-lucide="log-out" style="color:#f85149;"></i> Sign Out <i data-lucide="chevron-right" class="mi-arrow"></i></div>
+
+      </div>
+      <div class="bottom-nav">
+        <button class="nav-item" onclick="navigateTo('home')"><i data-lucide="home"></i>Home</button>
+        <button class="nav-item" onclick="navigateTo('search')"><i data-lucide="search"></i>Search</button>
+        <button class="nav-item" onclick="navigateTo('tickets')"><i data-lucide="ticket"></i>My Tickets</button>
+        <button class="nav-item" onclick="navigateTo('aria')"><i data-lucide="message-circle"></i>ARIA</button>
+        <button class="nav-item active" onclick="navigateTo('profile')"><i data-lucide="user"></i>Profile</button>
+      </div>
+    </div>
+
+    <!-- ========== SCREEN: FAN PRESALE (Iteration 12 — G2) ========== -->
+    <div class="screen" id="screen-presale">
+      <div class="screen-scroll" style="padding-top:0;">
+        <div class="presale-hero">
+          <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&h=400&fit=crop" alt="Hozier presale">
+          <button class="back-btn" style="position:absolute;top:50px;left:16px;background:rgba(0,0,0,0.5);padding:6px 10px;border-radius:8px;color:#fff;z-index:5;" onclick="goBack()"><i data-lucide="arrow-left"></i> Back</button>
+        </div>
+        <div style="padding:0 16px;">
+          <div style="font-size:12px;color:var(--accent-orange);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Fan Presale</div>
+          <h2 style="font-size:22px;font-weight:800;margin-bottom:6px;">Hozier &mdash; 2027 Tour</h2>
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">3Arena, Dublin &middot; Multiple dates</div>
+
+          <!-- Eligibility (CD2 Accomplishment + CD4 Ownership) -->
+          <div class="presale-eligibility">
+            <div class="icon"><i data-lucide="check"></i></div>
+            <div class="content">
+              <div class="label">Verified through your fan history</div>
+              <div class="verified-line">You've seen Hozier 3 times.</div>
+              <div class="qualifies">You qualify for the Fan Presale.</div>
+            </div>
+          </div>
+
+          <!-- Countdown (CD6 Scarcity — used truthfully because presale window is genuinely time-bounded) -->
+          <div class="countdown-card">
+            <div class="countdown-label">Fan Presale opens in</div>
+            <div class="countdown-time" id="presale-countdown">
+              <div class="ct-block"><span class="ct-num" id="ct-days">2</span><span class="ct-unit">Days</span></div>
+              <div class="ct-block"><span class="ct-num" id="ct-hours">04</span><span class="ct-unit">Hours</span></div>
+              <div class="ct-block"><span class="ct-num" id="ct-mins">37</span><span class="ct-unit">Mins</span></div>
+              <div class="ct-block"><span class="ct-num" id="ct-secs">12</span><span class="ct-unit">Secs</span></div>
+            </div>
+            <div class="countdown-absolute">Tuesday 5 May 09:00 IST</div>
+          </div>
+
+          <button class="btn-primary" onclick="showTooltip('presale-reminder')" style="margin-bottom:8px;">
+            <i data-lucide="bell" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>
+            Set reminder
+          </button>
+          <button class="btn-outline" onclick="showWhy('presale')" style="margin-bottom:14px;">
+            How does Fan Presale work?
+          </button>
+
+          <div class="ai-disclosure">
+            <i data-lucide="info" style="width:12px;height:12px;vertical-align:middle;margin-right:4px;"></i>
+            Eligibility determined by your verified attendance history with this artist. EU AI Act Art. 50 &middot; <a href="#" onclick="event.preventDefault();showWhy('presale')">Why am I eligible?</a>
+          </div>
+
+          <div style="font-size:11px;color:var(--text-secondary);font-style:italic;margin-top:8px;padding-bottom:20px;">
+            Fan Presale recognises your history with this artist. Eligibility is real, the countdown is real. There is no priority queue you can buy your way into.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SCREEN: PRE-EVENT HUB (Iteration 12 — G5) ========== -->
+    <div class="screen" id="screen-preevent">
+      <div class="screen-header">
+        <button class="back-btn" onclick="goBack()"><i data-lucide="arrow-left"></i> Back</button>
+        <div style="font-size:18px;font-weight:800;">Pre-Event Hub</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">Hozier &middot; 15 Jul 2026 &middot; 3Arena</div>
+      </div>
+      <div class="screen-scroll">
+
+        <div class="ai-disclosure" style="margin-bottom:14px;">
+          <i data-lucide="sparkles" style="width:12px;height:12px;vertical-align:middle;margin-right:4px;"></i>
+          Personalised content for your show. Friend activity shown only with their consent. EU AI Act Art. 50.
+        </div>
+
+        <!-- Setlist Wishlist (CD3 — Golden Corner; White Hat) -->
+        <div class="hub-card">
+          <div class="hc-head">
+            <i data-lucide="list-music"></i> Your setlist wishlist
+            <span class="hc-cd">CD3 &middot; Creativity</span>
+          </div>
+          <p style="font-size:11px;color:var(--text-secondary);margin-bottom:10px;">Tap tracks you'd love to hear. Visible only to you.</p>
+          <div class="setlist-track" onclick="this.classList.toggle('added')">
+            <span class="track-name">Take Me to Church</span>
+            <div class="track-add"><i data-lucide="plus"></i></div>
+          </div>
+          <div class="setlist-track added" onclick="this.classList.toggle('added')">
+            <span class="track-name">Cherry Wine</span>
+            <div class="track-add"><i data-lucide="check"></i></div>
+          </div>
+          <div class="setlist-track" onclick="this.classList.toggle('added')">
+            <span class="track-name">Movement</span>
+            <div class="track-add"><i data-lucide="plus"></i></div>
+          </div>
+          <div class="setlist-track added" onclick="this.classList.toggle('added')">
+            <span class="track-name">Eat Your Young</span>
+            <div class="track-add"><i data-lucide="check"></i></div>
+          </div>
+          <div class="setlist-track" onclick="this.classList.toggle('added')">
+            <span class="track-name">Too Sweet</span>
+            <div class="track-add"><i data-lucide="plus"></i></div>
+          </div>
+        </div>
+
+        <!-- Venue Logistics (CD2 — productive preparation) -->
+        <div class="hub-card">
+          <div class="hc-head">
+            <i data-lucide="map-pin"></i> Venue &amp; logistics
+            <span class="hc-cd">CD2 &middot; Accomplishment</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">
+            <div><strong>Doors:</strong> 19:00 &middot; show 20:00</div>
+            <div><strong>3Arena, North Wall Quay, Dublin 1</strong></div>
+            <div><strong>Public transport:</strong> Luas Red Line &mdash; The Point stop (1 min walk)</div>
+            <div><strong>Accessibility:</strong> step-free access; companion tickets at matching prices</div>
+          </div>
+        </div>
+
+        <!-- Friends going (CD5 — opt-in social) -->
+        <div class="hub-card">
+          <div class="hc-head">
+            <i data-lucide="users"></i> Friends going
+            <span class="hc-cd">CD5 &middot; Social</span>
+          </div>
+          <div class="friend-card" style="margin:0 0 8px 0;">
+            <div class="friend-avatar">E</div>
+            <div class="text"><span>Emma</span> &middot; Floor Standing A</div>
+          </div>
+          <div class="friend-card" style="margin:0 0 8px 0;">
+            <div class="friend-avatar" style="background:var(--accent-green);">J</div>
+            <div class="text"><span>James</span> &middot; Lower Tier D</div>
+          </div>
+          <button class="btn-outline" style="padding:10px;font-size:13px;" onclick="navigateTo('aria')">
+            <i data-lucide="message-circle" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>
+            Open group chat with ARIA
+          </button>
+        </div>
+
+        <!-- Content drops (CD7 — used as delight, never as loot) -->
+        <div class="hub-card">
+          <div class="hc-head">
+            <i data-lucide="sparkles"></i> From the artist
+            <span class="hc-cd cd-mixed">CD7 &middot; Delight</span>
+          </div>
+          <div class="drop-card">
+            <div class="drop-icon"><i data-lucide="play-circle"></i></div>
+            <div class="drop-content">
+              <div class="drop-title">New live recording: Cherry Wine (Acoustic)</div>
+              <div class="drop-meta">Released for fans 3 days ago</div>
+            </div>
+          </div>
+          <div class="drop-card">
+            <div class="drop-icon"><i data-lucide="image"></i></div>
+            <div class="drop-content">
+              <div class="drop-title">Behind the scenes &mdash; rehearsal photos</div>
+              <div class="drop-meta">Updated weekly until showtime</div>
+            </div>
+          </div>
+          <div class="drop-card">
+            <div class="drop-icon"><i data-lucide="help-circle"></i></div>
+            <div class="drop-content">
+              <div class="drop-title">Mystery support act &mdash; revealed on the night</div>
+              <div class="drop-meta">Stay tuned</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Invite a friend (CD5 + CD2 — Ticket Fairy precedent; recognition not discount-led) -->
+        <div class="hub-card">
+          <div class="hc-head">
+            <i data-lucide="user-plus"></i> Invite a friend
+            <span class="hc-cd">CD5 &middot; Social</span>
+          </div>
+          <p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;line-height:1.5;">
+            Bring a fellow fan. If they get a ticket, you both get a small thank-you on your Fan Profile &mdash; recognition, not pressure.
+          </p>
+          <button class="btn-primary" onclick="showTooltip('invite')" style="padding:10px;font-size:13px;">Share invite link</button>
+        </div>
+
+      </div>
+      <div class="bottom-nav">
+        <button class="nav-item" onclick="navigateTo('home')"><i data-lucide="home"></i>Home</button>
+        <button class="nav-item" onclick="navigateTo('search')"><i data-lucide="search"></i>Search</button>
+        <button class="nav-item active" onclick="navigateTo('tickets')"><i data-lucide="ticket"></i>My Tickets</button>
+        <button class="nav-item" onclick="navigateTo('aria')"><i data-lucide="message-circle"></i>ARIA</button>
+        <button class="nav-item" onclick="navigateTo('profile')"><i data-lucide="user"></i>Profile</button>
+      </div>
+    </div>
+
+    <!-- ========== SCREEN: SHOW MEMORY (Iteration 12 — G7) ========== -->
+    <div class="screen" id="screen-showmemory">
+      <div class="screen-header">
+        <button class="back-btn" onclick="goBack()"><i data-lucide="arrow-left"></i> Back</button>
+        <div style="font-size:18px;font-weight:800;">Show Memory</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;" id="sm-meta">12 Sep 2025 &middot; 3 days ago</div>
+      </div>
+      <div class="screen-scroll">
+
+        <!-- Commemorative ticket artefact (CD4 + CD1 + CD2) -->
+        <div class="commem-ticket">
+          <div class="ct-name" id="sm-event-name">Hozier &mdash; Unreal Unearth Tour</div>
+          <div class="ct-meta" id="sm-event-meta">3Arena, Dublin &middot; Floor Standing A</div>
+          <div class="qr-placeholder" style="width:90px;height:90px;margin:12px auto;">
+            <svg viewBox="0 0 100 100" fill="none" style="width:70px;height:70px;">
+              <rect x="5" y="5" width="25" height="25" fill="#000"/>
+              <rect x="10" y="10" width="15" height="15" fill="#fff"/>
+              <rect x="13" y="13" width="9" height="9" fill="#000"/>
+              <rect x="70" y="5" width="25" height="25" fill="#000"/>
+              <rect x="75" y="10" width="15" height="15" fill="#fff"/>
+              <rect x="78" y="13" width="9" height="9" fill="#000"/>
+              <rect x="5" y="70" width="25" height="25" fill="#000"/>
+              <rect x="10" y="75" width="15" height="15" fill="#fff"/>
+              <rect x="13" y="78" width="9" height="9" fill="#000"/>
+              <rect x="35" y="35" width="5" height="5" fill="#000"/>
+              <rect x="55" y="55" width="5" height="5" fill="#000"/>
+              <rect x="70" y="40" width="5" height="5" fill="#000"/>
+              <rect x="50" y="75" width="5" height="5" fill="#000"/>
+            </svg>
+          </div>
+          <div class="ct-divider"></div>
+          <div class="ct-attended-by">Attended by Sarah O'Brien</div>
+          <div class="ct-tier-line">Show #23 &middot; Devoted fan</div>
+        </div>
+
+        <!-- Mood input (private by default) -->
+        <div class="mood-input">
+          <div class="mood-q">How was it?</div>
+          <div class="mood-private">Private by default. Shared only if you choose.</div>
+          <div class="mood-stars" id="mood-stars">
+            <div class="mood-star" data-rating="1" onclick="setMood(1)"><i data-lucide="star"></i></div>
+            <div class="mood-star" data-rating="2" onclick="setMood(2)"><i data-lucide="star"></i></div>
+            <div class="mood-star" data-rating="3" onclick="setMood(3)"><i data-lucide="star"></i></div>
+            <div class="mood-star" data-rating="4" onclick="setMood(4)"><i data-lucide="star"></i></div>
+            <div class="mood-star" data-rating="5" onclick="setMood(5)"><i data-lucide="star"></i></div>
+          </div>
+          <div class="mood-saved" id="mood-saved"><i data-lucide="check" style="width:12px;height:12px;vertical-align:middle;"></i> Saved privately to your fan profile</div>
+        </div>
+
+        <!-- Friends who were also there (opt-in) -->
+        <div style="margin-bottom:14px;">
+          <div style="font-size:13px;font-weight:700;margin-bottom:8px;">Friends who were also there</div>
+          <div class="friend-card" style="margin-bottom:6px;">
+            <div class="friend-avatar">E</div>
+            <div class="text"><span>Emma</span> was there too</div>
+          </div>
+          <div class="friend-card" style="margin-bottom:0;">
+            <div class="friend-avatar" style="background:var(--accent-orange);">L</div>
+            <div class="text"><span>Laura</span> was there too</div>
+          </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;">You might love</div>
+        <div class="show-memory-rec" onclick="openEvent('dualipa')">
+          <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=200&h=200&fit=crop" alt="Coldplay">
+          <div class="rec-content">
+            <div class="rec-name">Coldplay</div>
+            <div class="rec-meta">Croke Park &middot; 28 Aug</div>
+            <div class="rec-price">&euro;135.00</div>
+          </div>
+        </div>
+        <div class="show-memory-rec" onclick="openEvent('edsheeran')">
+          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200&h=200&fit=crop" alt="Ed Sheeran">
+          <div class="rec-content">
+            <div class="rec-name">Ed Sheeran</div>
+            <div class="rec-meta">Croke Park &middot; 22 Aug</div>
+            <div class="rec-price">&euro;112.00</div>
+          </div>
+        </div>
+
+        <button class="btn-primary" style="margin-top:14px;" onclick="showTooltip('share-night')">
+          <i data-lucide="share-2" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>
+          Share your night
+        </button>
+
+        <p style="font-size:10px;color:var(--text-secondary);font-style:italic;margin-top:14px;text-align:center;">
+          Show Memories live in your Fan Profile under My Shows. Yours to keep, share, or delete.
+        </p>
+
+      </div>
+      <div class="bottom-nav">
+        <button class="nav-item" onclick="navigateTo('home')"><i data-lucide="home"></i>Home</button>
+        <button class="nav-item" onclick="navigateTo('search')"><i data-lucide="search"></i>Search</button>
+        <button class="nav-item active" onclick="navigateTo('tickets')"><i data-lucide="ticket"></i>My Tickets</button>
+        <button class="nav-item" onclick="navigateTo('aria')"><i data-lucide="message-circle"></i>ARIA</button>
+        <button class="nav-item" onclick="navigateTo('profile')"><i data-lucide="user"></i>Profile</button>
+      </div>
+    </div>
+
+    <!-- ========== AI LEARN MORE MODAL ========== -->
+    <div class="modal-overlay" id="ai-modal">
+      <div class="modal-content">
+        <h3>How AI Powers Your Experience</h3>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px;">Ticketmaster uses AI to personalise your experience. Here's how:</p>
+        <div style="margin-bottom:10px;">
+          <strong style="font-size:13px;color:var(--text-primary);">Event Recommendations</strong>
+          <p style="font-size:12px;color:var(--text-secondary);margin-top:2px;">We suggest events based on your purchase history, browsing activity, and genre preferences. Each recommendation explains why it was chosen.</p>
+        </div>
+        <div style="margin-bottom:10px;">
+          <strong style="font-size:13px;color:var(--text-primary);">Fair Price Indicator</strong>
+          <p style="font-size:12px;color:var(--text-secondary);margin-top:2px;">Our AI compares ticket prices against similar events at the same venue to give you context on value — Great Value, Fair Price, or Premium.</p>
+        </div>
+        <div style="margin-bottom:10px;">
+          <strong style="font-size:13px;color:var(--text-primary);">ARIA Assistant</strong>
+          <p style="font-size:12px;color:var(--text-secondary);margin-top:2px;">ARIA uses AI to understand your questions and provide instant help. A human agent is always available if you prefer.</p>
+        </div>
+        <div style="margin-bottom:14px;">
+          <strong style="font-size:13px;color:var(--text-primary);">Your Control</strong>
+          <p style="font-size:12px;color:var(--text-secondary);margin-top:2px;">You can manage your preferences, privacy settings, and data at any time in Settings → AI & Privacy. We only personalise what you ask us to.</p>
+        </div>
+        <p style="font-size:11px;color:var(--text-muted);margin-bottom:14px;">EU AI Act Article 50: This disclosure is provided in compliance with transparency obligations for AI-powered features.</p>
+        <div><button class="btn-primary" onclick="document.getElementById('ai-modal').classList.remove('show')">Got it</button></div>
+      </div>
+    </div>
+
+    <!-- ========== PRICE BREAKDOWN MODAL ========== -->
+    <div class="modal-overlay" id="price-modal">
+      <div class="modal-content">
+        <h3>Price Breakdown</h3>
+        <div class="breakdown-row"><span>Face Value</span><span id="bd-face">&euro;72.00</span></div>
+        <div class="breakdown-row"><span>Service Fee</span><span id="bd-service">&euro;12.50</span></div>
+        <div class="breakdown-row"><span>Facility Fee</span><span id="bd-facility">&euro;5.00</span></div>
+        <div class="breakdown-row total"><span>Total (all-in)</span><span id="bd-total">&euro;89.50</span></div>
+        <div style="margin-top:12px;">
+          <button class="btn-primary" onclick="closePriceBreakdown()">Got it</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== QR MODAL ========== -->
+    <div class="qr-modal" id="qr-modal">
+      <div class="qr-big">
+        <svg viewBox="0 0 100 100" fill="none" style="width:150px;height:150px;">
+          <rect x="5" y="5" width="25" height="25" fill="#000"/>
+          <rect x="10" y="10" width="15" height="15" fill="#fff"/>
+          <rect x="13" y="13" width="9" height="9" fill="#000"/>
+          <rect x="70" y="5" width="25" height="25" fill="#000"/>
+          <rect x="75" y="10" width="15" height="15" fill="#fff"/>
+          <rect x="78" y="13" width="9" height="9" fill="#000"/>
+          <rect x="5" y="70" width="25" height="25" fill="#000"/>
+          <rect x="10" y="75" width="15" height="15" fill="#fff"/>
+          <rect x="13" y="78" width="9" height="9" fill="#000"/>
+          <rect x="35" y="5" width="5" height="5" fill="#000"/>
+          <rect x="45" y="5" width="5" height="5" fill="#000"/>
+          <rect x="55" y="5" width="5" height="5" fill="#000"/>
+          <rect x="35" y="15" width="5" height="5" fill="#000"/>
+          <rect x="50" y="15" width="5" height="5" fill="#000"/>
+          <rect x="35" y="35" width="5" height="5" fill="#000"/>
+          <rect x="45" y="40" width="5" height="5" fill="#000"/>
+          <rect x="55" y="35" width="5" height="5" fill="#000"/>
+          <rect x="70" y="40" width="5" height="5" fill="#000"/>
+          <rect x="80" y="45" width="5" height="5" fill="#000"/>
+          <rect x="40" y="50" width="5" height="5" fill="#000"/>
+          <rect x="55" y="55" width="5" height="5" fill="#000"/>
+          <rect x="70" y="55" width="5" height="5" fill="#000"/>
+          <rect x="80" y="60" width="5" height="5" fill="#000"/>
+          <rect x="40" y="70" width="5" height="5" fill="#000"/>
+          <rect x="50" y="75" width="5" height="5" fill="#000"/>
+          <rect x="60" y="70" width="5" height="5" fill="#000"/>
+          <rect x="70" y="80" width="5" height="5" fill="#000"/>
+          <rect x="80" y="75" width="5" height="5" fill="#000"/>
+          <rect x="90" y="85" width="5" height="5" fill="#000"/>
+        </svg>
+      </div>
+      <div class="qr-info">Hozier &middot; 15 Jul 2026</div>
+      <div class="qr-sub">3Arena, Dublin &middot; Floor Standing A</div>
+      <button class="btn-primary" style="max-width:200px;" onclick="closeQRModal()">Close</button>
+    </div>
+
+    <!-- ========== YEAR IN LIVE OVERLAY ========== -->
+    <div class="year-overlay" id="year-overlay">
+      <div style="padding:50px 16px 0;display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-size:14px;font-weight:600;">Your Year in Live</div>
+        <button style="background:none;border:none;color:var(--text-secondary);cursor:pointer;font-family:var(--font);font-size:13px;" onclick="closeYearInLive()">Close</button>
+      </div>
+      <div class="year-card-view" id="year-cards">
+        <div class="yc active" id="yc-0">
+          <h2>Your Year in Live 2026</h2>
+          <p>A look back at your live event journey this year.</p>
+        </div>
+        <div class="yc" id="yc-1">
+          <span class="big-number">8</span>
+          <h2>Events Attended</h2>
+          <p>Music: 5 &middot; Comedy: 2 &middot; Theatre: 1</p>
+        </div>
+        <div class="yc" id="yc-2">
+          <span class="big-artist">Hozier</span>
+          <h2>Your Top Artist</h2>
+          <p>You saw Hozier 3 times this year</p>
+        </div>
+        <div class="yc" id="yc-3">
+          <h2>Share Your Year</h2>
+          <p>8 events &middot; 5 artists &middot; 3 venues</p>
+          <p style="margin-top:8px;">Top artist: Hozier (3 shows)<br>Most-visited venue: 3Arena</p>
+          <button class="share-btn" onclick="showTooltip('share')">Share to Stories</button>
+        </div>
+      </div>
+      <div class="year-nav">
+        <button onclick="yearNav(-1)" id="year-prev">Previous</button>
+        <div class="year-dots" id="year-dots">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <button onclick="yearNav(1)" id="year-next">Next</button>
+        <button class="done-btn" onclick="closeYearInLive()" style="display:none;" id="year-done">Done</button>
+      </div>
+    </div>
+
+    <!-- ========== ONBOARDING OVERLAY ========== -->
+    <div class="onboarding-overlay" id="onboarding-overlay">
+      <div class="ob-step active" id="ob-0">
+        <div class="ob-icon"><i data-lucide="ticket"></i></div>
+        <h2>Welcome to Ticketmaster</h2>
+        <p>Your redesigned live event experience with transparent pricing, AI assistance, and social discovery.</p>
+      </div>
+      <div class="ob-step" id="ob-1">
+        <div class="ob-icon"><i data-lucide="heart"></i></div>
+        <h2>Personalise Your Feed</h2>
+        <p>Select your interests so we can recommend events you'll love.</p>
+        <div class="genre-chips">
+          <span class="genre-chip" onclick="this.classList.toggle('selected')">Music</span>
+          <span class="genre-chip" onclick="this.classList.toggle('selected')">Sports</span>
+          <span class="genre-chip" onclick="this.classList.toggle('selected')">Theatre</span>
+          <span class="genre-chip" onclick="this.classList.toggle('selected')">Comedy</span>
+          <span class="genre-chip" onclick="this.classList.toggle('selected')">Family</span>
+          <span class="genre-chip" onclick="this.classList.toggle('selected')">Festivals</span>
+        </div>
+      </div>
+      <div class="ob-step" id="ob-2">
+        <div class="ob-icon"><i data-lucide="users"></i></div>
+        <h2>Connect with Friends</h2>
+        <p>See what events your friends are attending and plan together. All settings default to off &mdash; your choice.</p>
+        <div style="text-align:left;width:100%;padding:0 8px;">
+          <div class="toggle-row">
+            <div>
+              <div class="label">Share my attendance</div>
+              <div class="sublabel">Let friends see events you're attending</div>
+            </div>
+            <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="toggle-row">
+            <div>
+              <div class="label">Show friends' activity</div>
+              <div class="sublabel">See which events your friends are going to</div>
+            </div>
+            <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="toggle-row">
+            <div>
+              <div class="label">Allow group invites</div>
+              <div class="sublabel">Friends can invite you to events</div>
+            </div>
+            <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
+          </div>
+        </div>
+      </div>
+      <div class="ob-step" id="ob-3">
+        <div class="ob-icon"><i data-lucide="shield-check"></i></div>
+        <h2>Our Trust Promise</h2>
+        <p>Here's how we put you first.</p>
+        <div style="text-align:left;width:100%;padding:0 8px;">
+          <div class="trust-item">
+            <i data-lucide="tag"></i>
+            <div class="trust-text">
+              <div class="tt-title">All-In Pricing</div>
+              <div class="tt-desc">Every price you see includes all fees. No surprises at checkout.</div>
+            </div>
+          </div>
+          <div class="trust-item">
+            <i data-lucide="message-circle"></i>
+            <div class="trust-text">
+              <div class="tt-title">ARIA AI Assistant</div>
+              <div class="tt-desc">24/7 help with a one-tap path to a human agent whenever you need one.</div>
+            </div>
+          </div>
+          <div class="trust-item">
+            <i data-lucide="lock"></i>
+            <div class="trust-text">
+              <div class="tt-title">Your Data, Your Control</div>
+              <div class="tt-desc">Full control over your privacy settings. Change anytime in Settings.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ob-dots" id="ob-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="ob-actions">
+        <button class="btn-primary" id="ob-next-btn" onclick="obNext()">Get Started</button>
+        <button class="ob-skip" onclick="closeOnboarding()">Skip</button>
+      </div>
+    </div>
+
+  </div><!-- /viewport -->
+</div><!-- /phone-frame -->
+</div><!-- /phone-wrap -->
+
+<!-- ==================== TOOLTIP OVERLAY ==================== -->
+<div class="tooltip-overlay" id="tooltip-overlay" onclick="closeTooltip()">
+  <div class="tooltip-box" onclick="event.stopPropagation()">
+    <h3 id="tooltip-title"></h3>
+    <p id="tooltip-text"></p>
+    <button class="tooltip-close" onclick="closeTooltip()">Got it</button>
+  </div>
+</div>
+
+<!-- ==================== WHY AM I SEEING THIS MODAL (Iteration 12 — EU AI Act Art. 50) ==================== -->
+<div class="tooltip-overlay" id="why-modal" onclick="closeWhy()">
+  <div class="tooltip-box" onclick="event.stopPropagation()" style="max-width:340px;text-align:left;">
+    <h3 id="why-modal-title" style="text-align:left;margin-bottom:10px;"></h3>
+    <div class="why-modal-content" id="why-modal-body"></div>
+    <div style="text-align:center;margin-top:12px;">
+      <button class="tooltip-close" onclick="closeWhy()">Got it</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===================== EVENT DATA =====================
+const events = {
+  hozier: {
+    name: 'Hozier',
+    date: '15 Jul 2026 · 20:00',
+    venue: '3Arena, Dublin',
+    price: 89.50,
+    face: 72.00, service: 12.50, facility: 5.00,
+    badge: 'great-value', badgeLabel: 'Great Value',
+    img: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&h=200&fit=crop',
+    desc: 'Experience Hozier live in an intimate Dublin performance. Known for his powerful vocals and poetic lyrics, this promises to be an unforgettable night.',
+    social: 'Sarah and 3 friends are going',
+    similar: ['edsheeran','beyonce','coldplay']
+  },
+  taylor: {
+    name: 'Taylor Swift — Eras Tour',
+    date: '10 Jun 2026 · 18:30',
+    venue: 'Aviva Stadium, Dublin',
+    price: 195.50,
+    face: 160.00, service: 25.50, facility: 10.00,
+    badge: 'premium', badgeLabel: 'Premium',
+    img: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&h=200&fit=crop',
+    desc: 'The Eras Tour returns to Dublin. Journey through Taylor\'s musical eras in this spectacular stadium show.',
+    social: 'Laura and 2 friends are going',
+    similar: ['beyonce','dualipa','edsheeran']
+  },
+  oasis: {
+    name: 'Oasis',
+    date: '16 Aug 2026 · 19:00',
+    venue: 'Croke Park, Dublin',
+    price: 175.00,
+    face: 140.00, service: 25.00, facility: 10.00,
+    badge: 'premium', badgeLabel: 'Premium',
+    img: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&h=200&fit=crop',
+    desc: 'The reunion everyone has been waiting for. Oasis return to Croke Park for a legendary night of Britpop.',
+    social: 'Emma is going',
+    similar: ['coldplay','hozier','weeknd']
+  },
+  coldplay: {
+    name: 'Coldplay',
+    date: '28 Aug 2026 · 19:30',
+    venue: 'Croke Park, Dublin',
+    price: 135.00,
+    face: 110.00, service: 18.00, facility: 7.00,
+    badge: 'fair-price', badgeLabel: 'Fair Price',
+    img: 'https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=400&h=200&fit=crop',
+    desc: 'Coldplay\'s Music of the Spheres World Tour. An immersive spectacle of light, sound, and sustainability.',
+    social: 'James and 1 friend are going',
+    similar: ['oasis','edsheeran','hozier']
+  },
+  beyonce: {
+    name: 'Beyoncé',
+    date: '5 Sep 2026 · 19:00',
+    venue: 'Aviva Stadium, Dublin',
+    price: 185.00,
+    face: 150.00, service: 25.00, facility: 10.00,
+    badge: 'premium', badgeLabel: 'Premium',
+    img: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop',
+    desc: 'Queen Bey takes the stage in Dublin. Expect a show-stopping performance with full production.',
+    social: null,
+    similar: ['taylor','dualipa','weeknd']
+  },
+  weeknd: {
+    name: 'The Weeknd',
+    date: '20 Nov 2026 · 20:00',
+    venue: '3Arena, Dublin',
+    price: 125.00,
+    face: 100.00, service: 18.00, facility: 7.00,
+    badge: 'fair-price', badgeLabel: 'Fair Price',
+    img: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=200&fit=crop',
+    desc: 'The Weeknd brings his After Hours Til Dawn tour to Dublin for an electrifying R&B experience.',
+    social: null,
+    similar: ['dualipa','beyonce','edsheeran']
+  },
+  dualipa: {
+    name: 'Dua Lipa',
+    date: '3 Oct 2026 · 20:00',
+    venue: '3Arena, Dublin',
+    price: 98.00,
+    face: 78.00, service: 14.00, facility: 6.00,
+    badge: 'great-value', badgeLabel: 'Great Value',
+    img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=200&fit=crop',
+    desc: 'Dua Lipa performs her biggest hits in an energy-packed Dublin show. Dance the night away.',
+    social: null,
+    similar: ['beyonce','taylor','weeknd']
+  },
+  edsheeran: {
+    name: 'Ed Sheeran',
+    date: '22 Aug 2026 · 19:00',
+    venue: 'Croke Park, Dublin',
+    price: 112.00,
+    face: 90.00, service: 15.00, facility: 7.00,
+    badge: 'fair-price', badgeLabel: 'Fair Price',
+    img: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=200&fit=crop',
+    desc: 'Ed Sheeran\'s Mathematics Tour continues. Just Ed, a guitar, a loop pedal, and 80,000 fans.',
+    social: null,
+    similar: ['hozier','coldplay','dualipa']
+  }
+};
+
+// ===================== STATE =====================
+let currentScreen = 'home';
+let screenHistory = ['home'];
+let currentEvent = null;
+let selectedSeat = null;
+let selectedPrice = 0;
+let yearIndex = 0;
+let obIndex = 0;
+let notifyOn = false;
+
+// ===================== NAVIGATION =====================
+function navigateTo(screen) {
+  if (screen === currentScreen && screen !== 'home') return;
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('screen-' + screen);
+  if (el) {
+    el.classList.add('active');
+    screenHistory.push(screen);
+    currentScreen = screen;
+    updateNav(screen);
+    refreshIcons();
+  }
+}
+
+function goBack() {
+  if (screenHistory.length > 1) {
+    screenHistory.pop();
+    const prev = screenHistory[screenHistory.length - 1];
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const el = document.getElementById('screen-' + prev);
+    if (el) {
+      el.classList.add('active');
+      currentScreen = prev;
+      updateNav(prev);
+      refreshIcons();
+    }
+  }
+}
+
+function updateNav(screen) {
+  // Iteration 12: presale, preevent, showmemory all live within the My Tickets / Profile context
+  const navMap = {
+    home: 0, search: 1, tickets: 2, aria: 3, profile: 4,
+    event: 0, seats: 0, queue: 0, payment: 0, confirmation: 0,
+    presale: 0, preevent: 2, showmemory: 2
+  };
+  document.querySelectorAll('.bottom-nav').forEach(nav => {
+    const items = nav.querySelectorAll('.nav-item');
+    items.forEach((item, i) => {
+      item.classList.remove('active');
+      if (navMap[screen] === i) item.classList.add('active');
+    });
+  });
+}
+
+function refreshIcons() {
+  setTimeout(() => { try { lucide.createIcons(); } catch(e){} }, 50);
+}
+
+// ===================== EVENT DETAIL =====================
+function openEvent(key) {
+  const ev = events[key];
+  if (!ev) return;
+  currentEvent = { key, ...ev };
+
+  document.getElementById('event-hero-img').src = ev.img;
+  document.getElementById('event-hero-img').alt = ev.name;
+  document.getElementById('event-title').textContent = ev.name;
+  document.getElementById('event-date').querySelector('span').textContent = ev.date;
+  document.getElementById('event-venue').querySelector('span').textContent = ev.venue;
+  document.getElementById('event-price-label').innerHTML = '&euro;' + ev.price.toFixed(2);
+
+  const badge = document.getElementById('event-badge');
+  badge.className = 'fair-badge ' + ev.badge;
+  badge.textContent = ev.badgeLabel;
+  badge.dataset.tier = ev.badge;
+
+  document.getElementById('event-description').textContent = ev.desc;
+
+  // Social
+  const socialEl = document.getElementById('event-social');
+  if (ev.social) {
+    socialEl.style.display = 'block';
+    document.getElementById('event-social-text').textContent = ev.social;
+  } else {
+    socialEl.style.display = 'none';
+  }
+
+  // Similar events
+  const simContainer = document.getElementById('similar-events');
+  simContainer.innerHTML = '';
+  (ev.similar || []).forEach(sk => {
+    const se = events[sk];
+    if (!se) return;
+    const card = document.createElement('div');
+    card.className = 'event-card';
+    card.onclick = () => openEvent(sk);
+    card.innerHTML = `<img src="${se.img}" alt="${se.name}"><div class="event-card-body"><div class="name">${se.name}</div><div class="venue">${se.venue}</div><div class="price-row"><span class="price">&euro;${se.price.toFixed(2)}</span></div></div>`;
+    simContainer.appendChild(card);
+  });
+
+  // Update breakdown defaults
+  document.getElementById('bd-face').innerHTML = '&euro;' + ev.face.toFixed(2);
+  document.getElementById('bd-service').innerHTML = '&euro;' + ev.service.toFixed(2);
+  document.getElementById('bd-facility').innerHTML = '&euro;' + ev.facility.toFixed(2);
+  document.getElementById('bd-total').innerHTML = '&euro;' + ev.price.toFixed(2);
+
+  // Update seats title
+  document.getElementById('seats-title').textContent = ev.name + ' — Select Seats';
+
+  // Fan Presale banner — shown for artists in the user's verified fan history (Hozier in this prototype)
+  const fpBanner = document.getElementById('event-fan-presale');
+  if (key === 'hozier') {
+    fpBanner.style.display = 'block';
+  } else {
+    fpBanner.style.display = 'none';
+  }
+
+  navigateTo('event');
+}
+
+// ===================== FAIR PRICE TOOLTIP =====================
+const tooltipData = {
+  'great-value': { title: 'Great Value', text: 'This event is priced below the market average for similar events. Our AI analysis compares historical pricing data, demand signals, and comparable events to determine Fair Price tiers.' },
+  'fair-price': { title: 'Fair Price', text: 'This event is priced in line with the market average. The Fair Price system uses AI to analyse historical data, current demand, and venue costs to provide transparent pricing context.' },
+  'premium': { title: 'Premium', text: 'This event is priced above the market average due to exceptional demand or limited availability. Our AI analysis considers artist popularity, venue capacity, and historical sell-out patterns.' },
+  'go-together': { title: 'Go Together', text: 'Invite friends to join you at this event. They\'ll receive a notification with event details and can purchase tickets in adjacent seats.' },
+  'calendar': { title: 'Added to Calendar', text: 'A calendar event has been created with the event details, venue location, and a reminder set for 2 hours before the show.' },
+  'invite': { title: 'Invite Friends', text: 'Share this event with your friends so you can go together. They\'ll get a link to purchase tickets.' },
+  'rate': { title: 'Rate Your Experience', text: 'Help other fans by sharing your experience. Your rating helps us recommend better events for you and others.' },
+  'share': { title: 'Share to Stories', text: 'Your Year in Live summary will be formatted for sharing on Instagram Stories, with your stats and top events highlighted.' }
+};
+
+function showTooltip(type) {
+  const data = tooltipData[type];
+  if (!data) return;
+  document.getElementById('tooltip-title').textContent = data.title;
+  document.getElementById('tooltip-text').textContent = data.text;
+  document.getElementById('tooltip-overlay').classList.add('show');
+}
+
+function closeTooltip() {
+  document.getElementById('tooltip-overlay').classList.remove('show');
+}
+
+// ===================== PRICE BREAKDOWN =====================
+function showPriceBreakdown() {
+  document.getElementById('price-modal').classList.add('show');
+}
+function closePriceBreakdown() {
+  document.getElementById('price-modal').classList.remove('show');
+}
+
+// ===================== SEAT SELECTION =====================
+function selectSeat(el, name, price) {
+  document.querySelectorAll('.seat-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedSeat = name;
+  selectedPrice = price;
+
+  const btn = document.getElementById('checkout-btn');
+  btn.style.opacity = '1';
+  btn.style.pointerEvents = 'auto';
+  btn.innerHTML = 'Continue &middot; &euro;' + price.toFixed(2);
+
+  // Update payment screen
+  if (currentEvent) {
+    document.getElementById('pay-event').textContent = currentEvent.name;
+    document.getElementById('pay-section').textContent = name;
+    document.getElementById('pay-date').textContent = currentEvent.date;
+    document.getElementById('pay-venue').textContent = currentEvent.venue;
+    document.getElementById('pay-total').innerHTML = '&euro;' + price.toFixed(2);
+    document.getElementById('pay-btn-total').innerHTML = '&euro;' + price.toFixed(2);
+
+    // Confirmation
+    document.getElementById('conf-event').textContent = currentEvent.name;
+    document.getElementById('conf-date').textContent = currentEvent.date;
+    document.getElementById('conf-venue').textContent = currentEvent.venue;
+    document.getElementById('conf-section').textContent = name;
+  }
+}
+
+// ===================== QUEUE =====================
+function toggleNotify() {
+  notifyOn = !notifyOn;
+  const btn = document.getElementById('notify-btn');
+  if (notifyOn) {
+    btn.innerHTML = '<i data-lucide="bell-ring" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> Notifications enabled';
+    btn.style.borderColor = 'var(--accent-green)';
+    btn.style.color = 'var(--accent-green)';
+  } else {
+    btn.innerHTML = '<i data-lucide="bell" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i> Notify me when it\'s my turn';
+    btn.style.borderColor = '';
+    btn.style.color = '';
+  }
+  refreshIcons();
+}
+
+function skipQueue() {
+  document.getElementById('queue-waiting').style.display = 'none';
+  document.getElementById('queue-ready').style.display = 'block';
+  refreshIcons();
+}
+
+// ===================== ARIA CHAT =====================
+const ariaResponses = {
+  'order-status': 'I can see your upcoming order for Hozier on 15 Jul 2026 at 3Arena. Your tickets are confirmed and ready. You can view your QR code in My Tickets anytime.',
+  'transfer': 'To transfer a ticket, go to My Tickets, select the event, and tap "Transfer Ticket." The recipient will receive an email with instructions to accept. Transfers are free and instant.',
+  'account': 'I can help with your account. What would you like to do?\n\n- Update email or password\n- Change notification preferences\n- Manage payment methods\n- Update personal details\n\nJust let me know!',
+  'refund': 'I understand you\'re looking for a refund. Refund eligibility depends on the event\'s policy. For your upcoming Hozier event, the refund window is open until 48 hours before the show. Would you like me to start the process?',
+  'accessibility': 'Ticketmaster is committed to accessibility. Here\'s what we offer:\n\n- Wheelchair-accessible seating\n- Companion tickets at matching prices\n- Accessible parking information\n- Hearing loop availability\n\nFor specific venue info, tell me which event you\'re interested in.',
+  'human': null
+};
+
+function ariaChip(type) {
+  const chipLabels = {
+    'order-status': 'Order Status',
+    'transfer': 'Transfer Ticket',
+    'account': 'Account Help',
+    'refund': 'Refund Help',
+    'accessibility': 'Accessibility Info',
+    'human': 'Talk to Human'
+  };
+
+  addChatBubble(chipLabels[type], 'user');
+
+  if (type === 'human') {
+    setTimeout(() => {
+      addChatBubble('Of course, Sarah. I\'m connecting you with a human agent now. You\'ll be speaking with someone in just a moment.', 'aria');
+      setTimeout(() => {
+        const card = document.createElement('div');
+        card.className = 'human-agent-card';
+        card.innerHTML = `<div class="ha-avatar">C</div><div class="ha-info"><div class="ha-name">Ciara Murphy</div><div class="ha-role">Customer Support Agent &middot; Online</div></div>`;
+        document.getElementById('chat-area').appendChild(card);
+        setTimeout(() => {
+          addChatBubble('Hi Sarah! I\'m Ciara from Ticketmaster support. I can see your conversation with ARIA. How can I help you today?', 'aria');
+          scrollChat();
+        }, 600);
+        scrollChat();
+        refreshIcons();
+      }, 800);
+    }, 500);
+    return;
+  }
+
+  const response = ariaResponses[type];
+  if (response) {
+    setTimeout(() => {
+      addChatBubble(response, 'aria');
+      scrollChat();
+    }, 500);
+  }
+}
+
+function addChatBubble(text, sender) {
+  const bubble = document.createElement('div');
+  bubble.className = 'chat-bubble ' + sender;
+  bubble.textContent = text;
+  // Insert before chat input (at end of chat area)
+  document.getElementById('chat-area').appendChild(bubble);
+  scrollChat();
+}
+
+function scrollChat() {
+  const area = document.getElementById('chat-area');
+  area.scrollTop = area.scrollHeight;
+}
+
+function sendChatMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  addChatBubble(text, 'user');
+  input.value = '';
+  setTimeout(() => {
+    addChatBubble('Thanks for your message, Sarah. Let me look into that for you. Is there anything specific I can help with? You can also tap one of the quick actions above.', 'aria');
+    scrollChat();
+  }, 600);
+}
+
+// ===================== MY TICKETS TABS =====================
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-upcoming').style.display = tab === 'upcoming' ? 'block' : 'none';
+  document.getElementById('tab-past').style.display = tab === 'past' ? 'block' : 'none';
+}
+
+// ===================== QR MODAL =====================
+function showQRModal() {
+  document.getElementById('qr-modal').classList.add('show');
+}
+function closeQRModal() {
+  document.getElementById('qr-modal').classList.remove('show');
+}
+
+// ===================== YEAR IN LIVE =====================
+function openYearInLive() {
+  yearIndex = 0;
+  updateYearView();
+  document.getElementById('year-overlay').classList.add('show');
+  refreshIcons();
+}
+
+function closeYearInLive() {
+  document.getElementById('year-overlay').classList.remove('show');
+}
+
+function yearNav(dir) {
+  yearIndex = Math.max(0, Math.min(3, yearIndex + dir));
+  updateYearView();
+}
+
+function updateYearView() {
+  document.querySelectorAll('.yc').forEach(c => c.classList.remove('active'));
+  const card = document.getElementById('yc-' + yearIndex);
+  if (card) card.classList.add('active');
+
+  // Dots
+  document.querySelectorAll('#year-dots .dot').forEach((d, i) => {
+    d.classList.toggle('active', i === yearIndex);
+  });
+
+  // Nav buttons
+  document.getElementById('year-prev').style.display = yearIndex === 0 ? 'none' : 'inline-block';
+  document.getElementById('year-next').style.display = yearIndex === 3 ? 'none' : 'inline-block';
+  document.getElementById('year-done').style.display = yearIndex === 3 ? 'inline-block' : 'none';
+}
+
+// ===================== ONBOARDING =====================
+function showOnboarding() {
+  obIndex = 0;
+  updateObView();
+  document.getElementById('onboarding-overlay').classList.add('show');
+  refreshIcons();
+}
+
+function closeOnboarding() {
+  document.getElementById('onboarding-overlay').classList.remove('show');
+}
+
+function obNext() {
+  if (obIndex < 3) {
+    obIndex++;
+    updateObView();
+  } else {
+    closeOnboarding();
+  }
+}
+
+function updateObView() {
+  document.querySelectorAll('.ob-step').forEach(s => s.classList.remove('active'));
+  const step = document.getElementById('ob-' + obIndex);
+  if (step) step.classList.add('active');
+
+  document.querySelectorAll('#ob-dots .dot').forEach((d, i) => {
+    d.classList.toggle('active', i === obIndex);
+  });
+
+  const btn = document.getElementById('ob-next-btn');
+  const labels = ['Get Started', 'Continue', 'Continue', 'Start Exploring'];
+  btn.textContent = labels[obIndex];
+
+  refreshIcons();
+}
+
+// ===================== JOURNEY BUTTONS =====================
+function startJourney(type) {
+  screenHistory = ['home'];
+  if (type === 'discovery') {
+    openEvent('hozier');
+  } else if (type === 'aria') {
+    navigateTo('aria');
+  } else if (type === 'tickets') {
+    navigateTo('tickets');
+  } else if (type === 'loyalty') {
+    navigateTo('profile');
+  } else if (type === 'preEvent') {
+    navigateTo('preevent');
+  } else if (type === 'showMemory') {
+    openShowMemory('hozier-past');
+  }
+}
+
+// ===================== ITERATION 12: FAN LOYALTY ENGINE =====================
+
+// Fan Profile collapsible sections
+function toggleFp(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.toggle('open');
+    refreshIcons();
+  }
+}
+
+// "Why am I seeing this?" — EU AI Act Art. 50 explainability
+const whyData = {
+  'past-attendance': {
+    title: 'Why am I seeing this?',
+    body: '<h4>Recommendations from your attendance</h4><p>You attended Hozier on 12 Sep 2025 and Hozier on 14 Mar 2024. The events shown here are by similar artists (folk, indie, soulful vocals) at venues you have attended before.</p><h4>What we do not use</h4><p>We do not use your financial state, location at any moment in time, or any signal that infers vulnerability. The Fan Loyalty Engine is prohibited from timing recommendations to exploit any such signal.</p><h4>You are in control</h4><p>You can turn personalised recommendations off in Profile &rarr; Privacy &amp; Data.</p>'
+  },
+  'friends': {
+    title: 'Why am I seeing this?',
+    body: '<h4>Friends-going section</h4><p>This section shows events your friends have explicitly opted to share. We use only what they have chosen to make visible to you.</p><h4>Both sides need consent</h4><p>For you to see your friends, both you and they need the relevant social toggle on in Profile &rarr; Privacy &amp; Data.</p>'
+  },
+  'profile-fit': {
+    title: 'Why am I seeing this?',
+    body: '<h4>Fan-profile fit</h4><p>The events here match the fan profile you built during onboarding (genres, artists, preferred venues) and your subsequent attendance. The fit score is recomputed weekly.</p><h4>You are in control</h4><p>Update your interests anytime in Profile &rarr; My Status, or restart onboarding to start fresh.</p>'
+  },
+  'city': {
+    title: 'Why am I seeing this?',
+    body: '<h4>New in your city</h4><p>This section shows events that have just gone on sale in Dublin, irrespective of personalisation. Useful for discovery beyond your usual genres.</p>'
+  },
+  'tiers': {
+    title: 'How do tiers work?',
+    body: '<h4>Four tiers, recognition-based</h4><p>Newcomer (0&ndash;1 shows), Regular (2&ndash;5 shows / year), Devoted (6&ndash;14 shows), Lifer (15+ shows / year or 50+ lifetime).</p><h4>Status is gained, never lost</h4><p>If you attend less in a given year, your tier display changes to a welcome-back annotation visible only to you. We never use loss-aversion threats. Your lifetime status is preserved.</p><h4>What unlocks at each tier</h4><p><strong>Regular:</strong> personalised pre-event content. <strong>Devoted:</strong> Fan Presale eligibility for relevant artists. <strong>Lifer:</strong> highest priority Fan Presale, lifetime Year in Live archive, founding-fan invitations where artists offer them.</p>'
+  },
+  'presale': {
+    title: 'How does Fan Presale work?',
+    body: '<h4>Eligibility based on real history</h4><p>You qualify for an artist&apos;s Fan Presale because you have a verified attendance history with that artist. There is no priority queue you can buy into.</p><h4>The presale window is real</h4><p>The countdown reflects an actual presale window. When it expires, the presale opens. There is no manufactured urgency.</p><h4>What this is not</h4><p>This is not a paid loyalty programme. There is no fee to be eligible. It is recognition for being a fan.</p>'
+  },
+  'export': {
+    title: 'Export your fan history',
+    body: '<p>You can export your full attendance history, fan-profile data, and saved Show Memories at any time as a portable file (CSV + JSON).</p><p>This is a GDPR Article 20 right (data portability). Tap Confirm in production to download.</p>'
+  }
+};
+function showWhy(key) {
+  const data = whyData[key];
+  if (!data) return;
+  const overlay = document.getElementById('why-modal');
+  document.getElementById('why-modal-title').textContent = data.title;
+  document.getElementById('why-modal-body').innerHTML = data.body;
+  overlay.classList.add('show');
+}
+function closeWhy() {
+  document.getElementById('why-modal').classList.remove('show');
+}
+
+// Show Memory (G7) — open with mood reset
+const showMemoryData = {
+  'hozier-past': {
+    name: 'Hozier &mdash; Unreal Unearth Tour',
+    meta: '3Arena, Dublin &middot; Floor Standing A',
+    metaTop: '12 Sep 2025 &middot; 7 months ago'
+  },
+  'dermot': {
+    name: 'Dermot Kennedy',
+    meta: 'Malahide Castle &middot; General Admission',
+    metaTop: '28 Jun 2025 &middot; 10 months ago'
+  }
+};
+function openShowMemory(key) {
+  const data = showMemoryData[key] || showMemoryData['hozier-past'];
+  document.getElementById('sm-event-name').innerHTML = data.name;
+  document.getElementById('sm-event-meta').innerHTML = data.meta;
+  document.getElementById('sm-meta').innerHTML = data.metaTop;
+  // Reset mood
+  document.querySelectorAll('#mood-stars .mood-star').forEach(s => s.classList.remove('selected'));
+  document.getElementById('mood-saved').classList.remove('show');
+  navigateTo('showmemory');
+}
+function setMood(rating) {
+  document.querySelectorAll('#mood-stars .mood-star').forEach((s, i) => {
+    s.classList.toggle('selected', (i + 1) <= rating);
+  });
+  document.getElementById('mood-saved').classList.add('show');
+  refreshIcons();
+}
+
+// Presale countdown — real ticking timer (CD6 used truthfully)
+let presaleSecsLeft = (2 * 24 * 60 * 60) + (4 * 60 * 60) + (37 * 60) + 12;
+function tickPresale() {
+  if (presaleSecsLeft <= 0) return;
+  presaleSecsLeft--;
+  const d = Math.floor(presaleSecsLeft / 86400);
+  const h = Math.floor((presaleSecsLeft % 86400) / 3600);
+  const m = Math.floor((presaleSecsLeft % 3600) / 60);
+  const s = presaleSecsLeft % 60;
+  const dEl = document.getElementById('ct-days');
+  const hEl = document.getElementById('ct-hours');
+  const mEl = document.getElementById('ct-mins');
+  const sEl = document.getElementById('ct-secs');
+  if (dEl) dEl.textContent = d;
+  if (hEl) hEl.textContent = String(h).padStart(2, '0');
+  if (mEl) mEl.textContent = String(m).padStart(2, '0');
+  if (sEl) sEl.textContent = String(s).padStart(2, '0');
+}
+setInterval(tickPresale, 1000);
+
+// Tooltips for new actions
+const newTooltips = {
+  'save-commem': { title: 'Saved to your collection', text: 'Your commemorative ticket is now saved in Profile &rarr; My Artefacts. It will be stamped "ATTENDED" after the show.' },
+  'presale-reminder': { title: 'Reminder set', text: 'You will be notified 1 hour before the Fan Presale opens. The presale window is real &mdash; this notification will arrive at the actual time.' },
+  'share-night': { title: 'Share your night', text: 'A tasteful, branded recap card has been generated. You can share it to Stories, send to friends, or save the image. Your private mood rating is not included unless you opt in.' },
+  'delete-data': { title: 'Delete fan profile', text: 'In production, this opens a confirmation flow. Once confirmed, your fan profile, attendance history, social graph, and personalisation data are deleted within 30 days (GDPR Art. 17).' }
+};
+Object.assign(tooltipData, newTooltips);
+
+// ===================== INIT =====================
+document.addEventListener('DOMContentLoaded', () => {
+  try { lucide.createIcons(); } catch(e) {}
+  // Show onboarding on first load
+  showOnboarding();
+});
+</script>
+</body>
+</html>

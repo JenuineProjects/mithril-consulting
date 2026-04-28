@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pippin Go-to-Market Package — Iteration 11 | Mithril Consulting</title>
+<title>Pippin Go-to-Market Package — Iteration 12 | Mithril Consulting</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,324 +30,587 @@ hr { border: none; border-top: 1px solid #1e2038; margin: 2rem 0; }
 .divider { width: 60px; height: 3px; background: linear-gradient(90deg, #4a8eff, #7c5cff); border-radius: 2px; margin: 1.5rem 0; }
 a { color: #4a8eff; }
 code { background: #161628; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.88em; color: #b8c4d8; }
+pre { background: #0c0c1a; border: 1px solid #1e2038; border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
+pre code { background: none; padding: 0; color: #b8c4d8; font-size: 0.85rem; line-height: 1.6; }
 </style>
 </head>
 <body>
 <div class="container">
 <a href="../index.html" class="back-link">&larr; Back to Portfolio</a>
 <div class="divider"></div>
-<h1>Pippin's Go-to-Market Package — Iteration 11</h1>
+<h1 id="pippins-go-to-market-package--iteration-12">Pippin's
+Go-to-Market Package — Iteration 12</h1>
 <blockquote>
-Mithril Consulting | Client: Ticketmaster<br>
-Agent: Pippin (Lead Communicator)<br>
-Slogan: <em>"Make them understand. Make them care."</em><br>
-Date: 14 March 2026<br>
-Note: Builds on Iteration 10 — adds messaging for social features, "Your Year in Live," Fair Price tooltip, and post-event engagement.<br>
+<p>Mithril Consulting | Client: Ticketmaster Agent: Pippin (Lead
+Communicator) Slogan: <em>"Make them understand. Make them care."</em>
+Date: 28 April 2026 Document type: <strong>Delta Memo</strong> — extends
+the Iteration 11 GTM with the language and framing for the Octalysis Fan
+Loyalty Engine. Iteration 11's pricing, queue, ARIA, and Year in Live
+messaging is preserved.</p>
 </blockquote>
-<hr>
-<h2>1. HANDOFF ACKNOWLEDGMENT</h2>
-<p>I have received Gimli's enhanced prototype, approved by Aragorn with the strongest new stories identified as: Fair Price tooltip (trust through explanation), "Your Year in Live" (engagement innovation), friend activity + group booking (social layer), and post-event recaps (loyalty loop).</p>
-<p><strong>What Gimli built:</strong> 10 interactive screens with real Unsplash images, info panel with journey guides, 3 clear customer journeys, and all Iteration 10 features retained plus: Fair Price tappable tooltip, confirmation screen with "Invite Friends," post-event recap cards, "Your Year in Live" retrospective, friend activity, group booking, social privacy controls, and expanded ARIA.</p>
-<p><strong>Build Manifest shapes my messaging:</strong></p>
+<hr />
+<h2 id="1-handoff-acknowledgment">1. HANDOFF ACKNOWLEDGMENT</h2>
+<p>I have received Gimli's Iteration 12 prototype and Aragorn's Review 3
+approval. The Iteration 11 prototype is preserved unchanged; the
+Iteration 12 additions are: Fan Profile, Fan Status (Newcomer / Regular
+/ Devoted / Lifer), Fan Presale, Pre-Event Hub, Show Memory,
+commemorative ticket artefact, lapsed-fan welcome-back card, and the
+four Home sections each with a "Why am I seeing this?" affordance. CD8
+(Loss Avoidance) is built into nothing.</p>
+<p>Gimli's build manifest is my source of truth. I will only communicate
+what is in it as <strong>BUILT</strong> or <strong>SIMPLIFIED</strong> —
+never as DEFERRED.</p>
+<p>The brief from Aragorn is unusually pointed for a Communicator
+handoff:</p>
 <ul>
-<li><strong>17 built to spec</strong> — I can communicate these with full confidence</li>
-<li><strong>8 simplified</strong> — I can reference these honestly, noting they demonstrate the concept</li>
-<li><strong>7 deferred</strong> — I will not communicate these as existing capabilities</li>
+<li>Frame gamification as <strong>fan investment</strong>, never
+manipulation.</li>
+<li>Make the <strong>"status is gained, never lost"</strong> promise
+visible in every line of copy.</li>
+<li>Disclose AI personalisation honestly — the "Why am I seeing this?"
+affordance is a feature, not a footnote.</li>
+<li>Words I am not allowed to use: <em>streak, lose, expire, miss out,
+FOMO,</em> or any equivalent in any copy referencing the loyalty
+engine.</li>
+<li>The Fan Loyalty Engine is <strong>not</strong> a points programme,
+<strong>not</strong> a rewards programme, <strong>not</strong> a paid
+priority queue. It is a <strong>recognition architecture</strong>.</li>
 </ul>
-<p><strong>Key deferred items I must not overclaim:</strong></p>
-<ul>
-<li>Monthly summary (deferred — post-event recap + annual are built)</li>
-<li>Real social graph (simulated friend data)</li>
-<li>Shareable image export (visual-only — actual Stories sharing requires production infrastructure)</li>
-<li>Real-time group booking updates (simulated with pre-set states)</li>
-</ul>
-<hr>
-<h2>2. MESSAGING FRAMEWORK</h2>
-<h3>Core Message</h3>
-<p><strong>"The price you see is the price you pay. The friends you go with make it better. And the memories stay with you all year."</strong></p>
-<p>This extends the Iteration 10 message (trust through pricing) with the two new pillars: social connection and lasting engagement. It tells customers the app isn't just honest — it's built for how people actually experience live events: together, and with memories worth keeping.</p>
-<h3>Key Proof Points</h3>
-<ol>
-<li><strong>All-in pricing with Fair Price context.</strong> Every price includes all fees. Tap the Fair Price badge to see why it's rated "Great Value" or "Premium" — with a plain-English explanation comparing to similar events. Not just transparent — <em>contextual</em>. (BUILT TO SPEC)</li>
-<li><strong>"Your Year in Live."</strong> At the end of the year, see your story: events attended, top artist, favourite venue, shareable card. Your live music year, celebrated. (BUILT TO SPEC — shareable card visual is built; actual Stories export requires production implementation)</li>
-<li><strong>Go together.</strong> See which friends are going to events. Invite friends from the confirmation screen. Coordinate group bookings. Live events are social — the app should be too. (BUILT TO SPEC — friend data is simulated in prototype; production requires contacts integration)</li>
-<li><strong>ARIA + human agents.</strong> Instant help for orders, refunds, transfers, accessibility info. One tap to a real human who has your full conversation. (BUILT TO SPEC)</li>
-<li><strong>Queue price guarantee.</strong> Price locked when you join. No dynamic pricing while you wait. (BUILT TO SPEC)</li>
+<p>This is the binding language constraint for Iteration 12. Every
+section below holds it.</p>
+<hr />
+<h2 id="2-messaging-framework">2. MESSAGING FRAMEWORK</h2>
+<h3 id="core-message">Core message</h3>
+<p><strong>"Ticketmaster remembers."</strong></p>
+<p>The platform that has handled millions of fans as one-time buyers now
+recognises them as the fans they are. Every show you go to becomes part
+of your fan history. Every show you go to next is offered with that
+history in mind. You are no longer interchangeable.</p>
+<p>This is the single sentence that captures the structural change
+Iteration 12 makes: from a transactional architecture (every fan
+re-entered at zero) to a relationship architecture (every fan recognised
+continuously). It is also defensible — it is true the moment a customer
+opens the new Fan Profile.</p>
+<h3 id="key-proof-points-each-demonstrably-built-in-the-prototype">Key
+proof points (each demonstrably built in the prototype)</h3>
+<ol type="1">
+<li><strong>Fan Profile</strong> — Open the app and your show history,
+your tier, your artefacts are right there. Tap "How do tiers work?" and
+the rules are plain. (Built — <code>Fan Profile screen</code>.)</li>
+<li><strong>Fan Presale</strong> — When an artist you've followed
+announces a tour, you qualify. Real history, real countdown, real
+eligibility. No paid priority queue. (Built —
+<code>Fan Presale screen</code> with real ticking countdown.)</li>
+<li><strong>Show Memory</strong> — After every show, a private space to
+mark what it meant to you. Yours to keep, share, or delete. We never see
+what you do not choose to share. (Built —
+<code>Show Memory screen</code> with private-by-default mood
+input.)</li>
+<li><strong>Status is gained, never lost</strong> — If you attend less
+in a given year, your tier display does not punish you. Your lifetime
+status is preserved. We welcome you back, we never threaten you. (Built
+— lapsed-fan welcome-back card; tier ladder with no downgrade UI.)</li>
 </ol>
-<h3>Tone of Voice</h3>
-<p>Retained from Iteration 10: Direct, warm, honest. Sound like a friend, not a corporation. Specific over vague.</p>
-<p><strong>New for Iteration 11:</strong> The social and post-event features allow a warmer, more celebratory tone. Ticketmaster can now talk about <em>moments</em> and <em>memories</em>, not just transactions. But only where the features back it up.</p>
-<h3>What NOT to Say</h3>
+<h3 id="tone-of-voice--how-ticketmaster-should-sound-now">Tone of voice
+— how Ticketmaster should sound now</h3>
 <ul>
-<li>Do not promise live Stories/TikTok sharing — the shareable card is visual-only in the prototype</li>
-<li>Do not claim real-time group coordination — group booking uses pre-set states</li>
-<li>Do not imply a live social network — friend data requires contacts integration</li>
-<li>Do not promise monthly summaries — deferred</li>
-<li>All Iteration 10 restrictions still apply (no claiming features as "completely rebuilt," etc.)</li>
+<li><strong>Quiet, not breathless.</strong> The tone of a brand that
+knows it has work to do, not a brand that is mid-victory-lap.</li>
+<li><strong>Specific, not promotional.</strong> "Your show history is in
+your Fan Profile" beats "Discover the new way to be a fan."</li>
+<li><strong>First-person fan, second-person platform.</strong> "We
+remember you" beats "Get rewarded for being loyal."</li>
+<li><strong>Earned, not entitled.</strong> Acknowledge that trust must
+be re-earned. Avoid language that suggests Ticketmaster has already
+arrived.</li>
 </ul>
-<hr>
-<h2>3. TRUST-REBUILDING NARRATIVE</h2>
-<h3>What Ticketmaster Is Acknowledging</h3>
-<p>Retained from Iteration 10: acknowledgment of hidden fees, queue crashes, and chatbot failures.</p>
-<p><strong>Extended for Iteration 11:</strong></p>
-<p>We also know that buying tickets has been a lonely experience. You go to a concert with friends — but you buy tickets alone. You have an incredible night — and the app has nothing to say about it the next morning. No "how was the show?" No "your friend is going to something similar." No memory of the experience at all.</p>
-<p>We built the app for transactions. We forgot it should be for experiences.</p>
-<h3>What Specifically Has Changed</h3>
-<p><strong>Retained from Iteration 10 (3 changes):</strong></p>
-<ol>
-<li>Every price includes all fees. Tap the badge to see why it's "Great Value" or "Premium."</li>
-<li>ARIA helps instantly. One tap to a real human.</li>
-<li>Queue prices are locked. No dynamic pricing while you wait.</li>
+<h3 id="what-not-to-say-binding">What not to say (binding)</h3>
+<ul>
+<li>Anything containing the words <em>streak, lose, expire, miss out,
+FOMO, your status is at risk, last chance, almost gone, hurry, only X
+left</em> (in any loyalty-related copy)</li>
+<li>"Points programme," "rewards programme," "loyalty points," "earn
+rewards"</li>
+<li>"Members get exclusive access" (frame as fan recognition, not
+membership privilege)</li>
+<li>"Personalised by AI" without an immediate explanation of what data
+is used and what is not</li>
+<li>Any claim about engagement uplift or revenue impact in
+customer-facing copy (those are board-room metrics; do not pitch them at
+customers)</li>
+<li>Any commitment to features that Gimli flagged DEFERRED (live
+referral attribution, image-based share-card generation, multi-year
+archive UI, lapsed-fan dynamic recommendations)</li>
+</ul>
+<hr />
+<h2 id="3-trust-rebuilding-narrative">3. TRUST-REBUILDING NARRATIVE</h2>
+<p>This is the most important section in the package because Iteration
+12 introduces gamification, and gamification on top of a damaged trust
+position is the single most dangerous move Ticketmaster could make if
+framed wrongly.</p>
+<h3 id="what-ticketmaster-is-acknowledging">What Ticketmaster is
+acknowledging</h3>
+<p>Customers have a right to be sceptical. The reasons are
+well-documented and unresolved: an FTC deceptive-pricing case filed in
+September 2025 that has not been settled. A DOJ antitrust action that
+has not produced a structural remedy. A 560-million-record data breach
+in May 2024. Queue failures at major on-sales as recently as last
+quarter. Years of fees revealed only at checkout. A Trustpilot rating of
+1.4–1.6 stars across 24,000+ reviews on PissedConsumer alone, while the
+App Store shows 4.8 — a gap that suggests internal customer-satisfaction
+metrics may not be measuring what customers actually feel.</p>
+<p>Ticketmaster cannot retroactively undo any of this. What it can do is
+make the next thing it builds reflect a different set of priorities.</p>
+<h3 id="what-specifically-has-changed">What specifically has
+changed</h3>
+<p>The Iteration 11 baseline already addressed the four trust-critical
+surfaces: all-in pricing (the price you see is the price you pay), queue
+transparency (a price guarantee at queue entry), ARIA support with a
+one-tap path to a human, and the first post-event recognition feature
+any major ticketing platform has shipped.</p>
+<p>Iteration 12 adds the structural change. The Fan Loyalty Engine is
+the visible product surface for a deeper commitment: the platform now
+remembers you. Your shows, your tier, your artefacts, your private
+memories — they live in your Fan Profile, they are yours, and you can
+export or delete them at any time.</p>
+<p>The Fan Loyalty Engine is bound by three commitments that the build
+proves are real, not promises:</p>
+<ol type="1">
+<li><strong>Status is gained, never lost.</strong> Tap "How do tiers
+work?" — the rule is stated plainly. There is no downgrade UI anywhere
+in the app. The lapsed-fan welcome-back card opens with "We've missed
+you," never "your status is at risk."</li>
+<li><strong>The Fan Presale is recognition, not commerce.</strong>
+Eligibility is determined by your verified attendance with the artist.
+There is no paid priority queue. The countdown is real and the
+eligibility is real.</li>
+<li><strong>The personalisation is honest about what it does and does
+not use.</strong> Tap any "Why am I seeing this?" link. The explanation
+states what data is used (your attendance, your stated preferences)
+<em>and</em> what data is not (vulnerability signals, financial state,
+location-at-a-moment). EU AI Act Article 50 is implemented as a feature,
+not as a legal footnote.</li>
 </ol>
-<p><strong>New for Iteration 11 (3 additional changes):</strong></p>
-<ol>
-<li><strong>See who's going.</strong> If your friends use Ticketmaster and you both opt in, you'll see events they're attending. Tap "Go Together" to coordinate. No one books alone unless they want to.</li>
-<li><strong>After the show, we're still here.</strong> The morning after a concert, you'll see a recap in your tickets: what you saw, events like it coming up, a chance to rate and share. The experience doesn't end at the door.</li>
-<li><strong>Your Year in Live.</strong> At the end of the year, see your live music story: events attended, top artist, favourite venue. Share it. Celebrate it. It's yours.</li>
+<h3 id="how-customers-can-verify-it-for-themselves">How customers can
+verify it for themselves</h3>
+<ul>
+<li><strong>Open the Fan Profile.</strong> The four sections (My Status
+/ My Shows / My Artefacts / Privacy &amp; Data) are all present, all
+interactive. The Privacy &amp; Data section is the single source of
+truth for everything the loyalty engine knows about you.</li>
+<li><strong>Look for any downgrade language.</strong> There is none.
+Look for any "you're about to lose" copy. There is none.</li>
+<li><strong>Tap "Why am I seeing this?"</strong> on any personalised
+section. Read the explanation. The plain-language statement of what data
+is <em>not</em> used is the most honest disclosure of AI personalisation
+any major ticketing platform has shipped.</li>
+<li><strong>Look at the Show Memory mood input.</strong> Tap a star. The
+confirmation says "Saved privately to your fan profile." It is not
+telemetry. It is not public.</li>
+<li><strong>Check the lapsed-fan welcome-back card.</strong> It
+welcomes; it does not threaten.</li>
+</ul>
+<p>These are testable claims. A customer who cannot find evidence of one
+of them in the app is being lied to. A customer who finds all of them is
+looking at a product that is at least trying to be different.</p>
+<hr />
+<h2 id="4-campaign-concepts">4. CAMPAIGN CONCEPTS</h2>
+<h3 id="campaign-1--ticketmaster-remembers-lead-campaign">Campaign 1 —
+"Ticketmaster Remembers" (lead campaign)</h3>
+<p><strong>Core concept:</strong> Tell the structural story. The
+platform that handled millions of fans as one-time buyers now recognises
+them as the fans they are.</p>
+<p><strong>Target audience:</strong> Lapsed and active Ticketmaster
+customers; sceptical fan press; live-music-engaged Gen Z and Millennial
+audiences.</p>
+<p><strong>Key message:</strong> The Fan Profile is the single visible
+product surface for a different relationship between Ticketmaster and
+the people who use it.</p>
+<p><strong>Sample creative — long-form social post:</strong></p>
+<blockquote>
+<p>We have been a transaction. We are trying to be a relationship.</p>
+<p>Ticketmaster has earned its scepticism. We are not asking you to
+forget that. We are asking you to look at what just shipped.</p>
+<p>Open the app. Tap the Profile tab. Your shows are there — every one
+we have a record of. Your tier is there — Newcomer, Regular, Devoted,
+Lifer. The rules are plain. Tap "How do tiers work?" and you can read
+them.</p>
+<p>Status is gained, never lost. If you go to fewer shows next year,
+your tier does not get downgraded. We do not threaten you. We welcome
+you back when you come back.</p>
+<p>The Fan Presale qualifies you on real history. Not on a paid priority
+queue. If you have followed an artist, you are eligible — and you can
+see exactly why.</p>
+<p>The Show Memory is private by default. We do not see what you do not
+choose to share.</p>
+<p>We are not asking you to trust us. We are asking you to look.</p>
+</blockquote>
+<p><strong>Channels:</strong> owned (in-app banner, email), TikTok
+(60-second creator-led explainer), Instagram (carousel breaking down the
+four proof points), trade press (Music Week, Hypebot —
+fan-loyalty-economics framing).</p>
+<p><strong>Confirmation that the build supports the promise:</strong>
+every claim above is testable in the prototype. Verified against Gimli's
+Build Manifest §4 — all elements are BUILT or SIMPLIFIED (within
+Galadriel's flexibility notes), not DEFERRED.</p>
+<hr />
+<h3 id="campaign-2--why-am-i-seeing-this-transparency-campaign">Campaign
+2 — "Why Am I Seeing This?" (transparency campaign)</h3>
+<p><strong>Core concept:</strong> Make AI personalisation honest by
+making the explanation a feature.</p>
+<p><strong>Target audience:</strong> Privacy-conscious fans; fan-tech
+press; regulatory observers (EU AI Act compliance press).</p>
+<p><strong>Key message:</strong> AI is not a black box. Tap a link. We
+tell you what data we use and, just as importantly, what data we do
+not.</p>
+<p><strong>Sample creative — short social post:</strong></p>
+<blockquote>
+<p>Personalisation honestly. Tap "Why am I seeing this?" on any section.
+We tell you what we use (your shows, your stated preferences). We tell
+you what we do not (vulnerability signals, financial state, momentary
+location). EU AI Act Article 50 — implemented as a feature.</p>
+</blockquote>
+<p><strong>Channels:</strong> LinkedIn (regulatory-and-trust audience),
+trade press (specifically privacy and AI-policy outlets), in-app
+micro-copy reinforcement.</p>
+<p><strong>Confirmation that the build supports the promise:</strong>
+the four "Why am I seeing this?" modals are built and tap-accessible
+from each Home section. The Fan Profile Privacy &amp; Data section
+explicitly states the vulnerability-targeting prohibition. Verified.</p>
+<hr />
+<h3
+id="campaign-3--your-year-in-live-annual-moment-retained-from-iteration-11--extended">Campaign
+3 — "Your Year in Live" (annual moment, retained from Iteration 11 +
+extended)</h3>
+<p><strong>Core concept:</strong> Extend the Iteration 11 Year-in-Live
+moment with the Fan Profile context. The annual recap now lives in your
+fan history permanently.</p>
+<p><strong>Target audience:</strong> Active Ticketmaster users
+approaching the annual moment; social-share-engaged audiences;
+Spotify-Wrapped-aware Gen Z and Millennials.</p>
+<p><strong>Key message:</strong> The shows you went to are part of your
+story. They live in your Fan Profile. You can revisit them, share them,
+or delete them.</p>
+<p><strong>Sample creative — Instagram Story sequence (3
+panels):</strong></p>
+<ol type="1">
+<li><em>"Sarah went to 8 shows this year."</em> (large attendance
+number; venue/artist mosaic)</li>
+<li><em>"Her top artist was Hozier. She saw him 3 times."</em> (artist
+tile; show count)</li>
+<li><em>"Open your app to see your year. Your shows live in your Fan
+Profile."</em> (CTA; share-to-Stories button)</li>
 </ol>
-<h3>How Customers Can Verify It</h3>
+<p><strong>Channels:</strong> organic social (the Iteration 11
+Year-in-Live precedent for Spotify Wrapped-style organic share economics
+applies), in-app push, email.</p>
+<p><strong>Confirmation that the build supports the promise:</strong>
+Year in Live overlay is built; Fan Profile artefacts include "Year in
+Live 2025" and "Year in Live 2026" tiles; both open the existing
+overlay. Multi-year UI is SIMPLIFIED (two tiles rather than a multi-year
+archive carousel) — Pippin holds back from claiming "browse all your
+years" until that ships.</p>
+<hr />
+<h2 id="5-ux-copy">5. UX COPY</h2>
+<h3
+id="fan-profile--header-subtitle-when-opening-the-screen-for-the-first-time">Fan
+Profile — header subtitle (when opening the screen for the first
+time)</h3>
+<blockquote>
+<p>Your shows. Your tier. Your story. Yours to keep.</p>
+</blockquote>
+<h3 id="fan-status--how-do-tiers-work-introduction">Fan Status — "How do
+tiers work?" introduction</h3>
+<blockquote>
+<p><strong>Four tiers, recognition-based.</strong></p>
+<p>Newcomer (0–1 shows) · Regular (2–5 shows / year) · Devoted (6–14
+shows) · Lifer (15+ shows / year or 50+ lifetime).</p>
+<p>Status is gained, never lost. If you attend less in a given year,
+your tier display changes to a welcome-back annotation visible only to
+you. We never use loss-aversion threats. Your lifetime status is
+preserved.</p>
+</blockquote>
+<h3 id="fan-presale--eligibility-headline-returning-user">Fan Presale —
+eligibility headline (returning user)</h3>
+<blockquote>
+<p>You've seen Hozier 3 times. You qualify for the Fan Presale.</p>
+</blockquote>
+<h3 id="fan-presale--how-does-fan-presale-work-explanation">Fan Presale
+— "How does Fan Presale work?" explanation</h3>
+<blockquote>
+<p><strong>Eligibility based on real history.</strong> You qualify
+because you have a verified attendance history with this artist. There
+is no priority queue you can buy your way into.</p>
+<p><strong>The presale window is real.</strong> The countdown reflects
+an actual presale window. When it expires, the presale opens. There is
+no manufactured urgency.</p>
+<p><strong>What this is not.</strong> This is not a paid loyalty
+programme. There is no fee to be eligible. It is recognition for being a
+fan.</p>
+</blockquote>
+<h3 id="pre-event-hub--section-introductions">Pre-Event Hub — section
+introductions</h3>
 <ul>
-<li><strong>Pricing:</strong> Open any event. The price is the total. Tap the badge — see the context. Tap "Price Breakdown" — see the maths.</li>
-<li><strong>Support:</strong> Open ARIA. Ask about a refund. Then tap "Talk to a Human." See the handoff.</li>
-<li><strong>Social:</strong> Turn on social features in Settings. See friends' activity. Tap "Go Together." It works.</li>
-<li><strong>Post-event:</strong> Check My Tickets → Past. See your recaps. Tap "Your Year in Live."</li>
+<li><strong>Setlist wishlist:</strong> "Tap tracks you'd love to hear.
+Visible only to you."</li>
+<li><strong>Friends going:</strong> (no copy needed beyond friend names
+— keep it ambient)</li>
+<li><strong>From the artist:</strong> "New rehearsal photos, live
+recordings, and the mystery support act — revealed on the night."</li>
+<li><strong>Invite a friend:</strong> "Bring a fellow fan. If they get a
+ticket, you both get a small thank-you on your Fan Profile —
+recognition, not pressure."</li>
 </ul>
-<p>We're not asking you to trust us. We're asking you to check.</p>
-<hr>
-<h2>4. CAMPAIGN CONCEPTS</h2>
-<h3>Campaign 1: "No Surprises" (RETAINED from Iteration 10 — ENHANCED)</h3>
-<p><strong>Enhancement:</strong> Updated creative to include the Fair Price tooltip.</p>
-<p><strong>Updated sample creative (Instagram Reel / TikTok):</strong></p>
+<h3 id="show-memory--mood-input">Show Memory — mood input</h3>
 <blockquote>
-<strong>Visual:</strong> Screen recording of the app. User taps an event → sees €89.50 all-in → taps the "Great Value" badge → tooltip appears: "Below average for similar events. Similar concerts here average €100–€130." User taps "Price Breakdown" → modal shows Face Value + Fees = Total.<br>
-<strong>Copy:</strong> "We don't just show you the real price. We tell you if it's a good one. Every price on Ticketmaster now includes all fees. Tap the badge to see how it compares."<br>
-<strong>CTA:</strong> "See for yourself"<br>
+<p><strong>How was it?</strong> Private by default. Shared only if you
+choose.</p>
 </blockquote>
-<p><strong>Build verification:</strong> All-in pricing and Fair Price tooltip are BUILT TO SPEC. ✅</p>
-<hr>
-<h3>Campaign 2: "Your Year in Live" (NEW)</h3>
-<p><strong>Core concept:</strong> Launch the "Your Year in Live" feature as a cultural moment — the way Spotify Wrapped became a December tradition. Position Ticketmaster as the platform that celebrates your live music life.</p>
-<p><strong>Target audience:</strong> Active event-goers aged 18–35 who attend 3+ events per year. Secondary: social media-active fans who share experiences on Instagram Stories and TikTok.</p>
-<p><strong>Key message:</strong> "Your year in live music. Every show. Every artist. Every memory. See it. Share it."</p>
-<p><strong>Sample creative:</strong></p>
-<p><em>Social media (Instagram Stories / TikTok — vertical format):</em></p>
+<h3 id="show-memory--saved-confirmation">Show Memory — saved
+confirmation</h3>
 <blockquote>
-<strong>Visual:</strong> Animated mockup of the "Your Year in Live" experience: swipe through cards showing "8 events attended," "Top artist: Hozier," "Favourite venue: 3Arena" → final card with shareable summary.<br>
-<strong>Copy:</strong> "How many shows did you go to this year? Who was your top artist? Ticketmaster now shows you your year in live music — and lets you share it. 🎶 Your Year in Live. Coming December."<br>
-<strong>CTA:</strong> "Get the Ticketmaster app"<br>
+<p>Saved privately to your fan profile.</p>
 </blockquote>
-<p><em>Email to existing customers:</em></p>
+<h3 id="lapsed-fan-welcome-back-card">Lapsed-fan welcome-back card</h3>
 <blockquote>
-Subject: Your year in live music is waiting.<br>
-Preview: See your top artist, favourite venue, and every show you went to.<br>
+<p><strong>We've missed you.</strong> Three artists you've followed are
+touring near you in the next eight weeks. Welcome back when you're ready
+— your fan history and tier are exactly where you left them.</p>
 </blockquote>
-<p><strong>Channel strategy:</strong> Instagram Stories and TikTok (vertical shareable cards are native format), email to existing customers (personalised with event count), in-app notification in December.</p>
-<p><strong>Build verification:</strong> "Your Year in Live" with 4 cards and shareable summary is BUILT TO SPEC. Note: actual Stories sharing requires production image export — campaign copy says "share it" which is the intent; the prototype demonstrates the visual. ✅</p>
-<hr>
-<h3>Campaign 3: "Go Together" (NEW)</h3>
-<p><strong>Core concept:</strong> Position Ticketmaster as the app that understands live events are social. The "Go Together" feature makes the booking process collaborative, not solitary.</p>
-<p><strong>Target audience:</strong> Groups of friends aged 20–40 who attend events together but currently coordinate via WhatsApp/text. Secondary: parents booking family events.</p>
-<p><strong>Key message:</strong> "See who's going. Go together. It's better that way."</p>
-<p><strong>Sample creative:</strong></p>
-<p><em>Social media (Instagram / Facebook):</em></p>
+<h3 id="confirmation-screen--tier-micro-feedback">Confirmation screen —
+tier micro-feedback</h3>
 <blockquote>
-<strong>Visual:</strong> Split screen. Left: old way (WhatsApp group chat: "did anyone get tickets?" "I'm in the queue" "it crashed" 😩). Right: new way (Ticketmaster app showing "Emma, James, and Sarah are going to Oasis. Tap Go Together").<br>
-<strong>Copy:</strong> "Stop coordinating in group chats. See which friends are going. Tap 'Go Together.' Everyone books, everyone's in. Live events are better together."<br>
-<strong>CTA:</strong> "Try Go Together"<br>
+<p>Show #9 this year · Devoted · Keep going to Lifer at 15 shows.</p>
 </blockquote>
-<p><strong>Channel strategy:</strong> Instagram and Facebook (social platforms where group coordination happens), in-app feature introduction, WhatsApp/message share links from the "Invite Friends" button.</p>
-<p><strong>Build verification:</strong> Friend activity, "Go Together" button, and "Invite Friends" on confirmation are BUILT TO SPEC. Note: friend data is simulated in prototype; production requires contacts API integration. Campaign messaging appropriately focuses on the concept. ✅</p>
-<hr>
-<h3>Campaign 4: "One Tap Away" (RETAINED from Iteration 10)</h3>
-<p>Unchanged. ARIA with human escalation — targeting churned customers who experienced support failures.</p>
-<p><strong>Build verification:</strong> ARIA with 6 query types and human escalation is BUILT TO SPEC. ✅</p>
-<hr>
-<h2>5. UX COPY</h2>
-<h3>Retained from Iteration 10</h3>
-<p>All queue messages, error messages, AI disclosures, and onboarding copy retained.</p>
-<h3>New UX Copy</h3>
-<table><thead><tr>
-<th>Feature</th>
-<th>Copy</th>
-</tr></thead><tbody>
-<tr>
-<td><strong>Fair Price tooltip — Great Value</strong></td>
-<td>"This is below average for similar events. Similar seated events at this venue average €100–€130."</td>
-</tr>
-<tr>
-<td><strong>Fair Price tooltip — Fair Price</strong></td>
-<td>"This is a typical price for this type of event. Similar events range €80–€120."</td>
-</tr>
-<tr>
-<td><strong>Fair Price tooltip — Premium</strong></td>
-<td>"This is above average — high demand or premium seating. Standard tickets for this event start at €X."</td>
-</tr>
-<tr>
-<td><strong>Confirmation headline</strong></td>
-<td>"You're going! 🎶"</td>
-</tr>
-<tr>
-<td><strong>Confirmation — Invite Friends</strong></td>
-<td>"Going with friends? Share the link and they can book their own tickets."</td>
-</tr>
-<tr>
-<td><strong>Friend activity card</strong></td>
-<td>"[Name] is going to [Event]"</td>
-</tr>
-<tr>
-<td><strong>Social AI disclosure</strong></td>
-<td>"Friend activity shown with their consent. Manage privacy"</td>
-</tr>
-<tr>
-<td><strong>Social onboarding</strong></td>
-<td>"Connect with friends. See events friends are going to, coordinate group bookings, and share your experiences. All social features are opt-in — you control what's shared."</td>
-</tr>
-<tr>
-<td><strong>Social toggle labels</strong></td>
-<td>"Share my attendance with friends" / "Show me friends' events" / "Allow group invitations"</td>
-</tr>
-<tr>
-<td><strong>Post-event recap</strong></td>
-<td>"How was [Event]? Rate your experience"</td>
-</tr>
-<tr>
-<td><strong>Your Year in Live — title</strong></td>
-<td>"Your Year in Live 2026"</td>
-</tr>
-<tr>
-<td><strong>Your Year in Live — events</strong></td>
-<td>"[X] events. [X] artists. [X] venues. What a year."</td>
-</tr>
-<tr>
-<td><strong>Your Year in Live — share</strong></td>
-<td>"Share your year in live music"</td>
-</tr>
-<tr>
-<td><strong>ARIA — Refund query</strong></td>
-<td>"I can help with refunds. Which event would you like to request a refund for? I'll check the policy and walk you through the process."</td>
-</tr>
-<tr>
-<td><strong>ARIA — Accessibility query</strong></td>
-<td>"I can check accessibility information for any venue. Which venue are you asking about? I'll find details on wheelchair access, hearing loops, and accessible seating."</td>
-</tr>
-</tbody></table>
-<hr>
-<h2>6. SAMPLE CONTENT</h2>
-<h3>Social Post 1 — "Your Year in Live" Launch (Instagram Stories / TikTok)</h3>
+<p>(Appears below the celebration; never above. Recognition, not
+pressure. Visible only to the user themselves.)</p>
+<h3 id="why-am-i-seeing-this-modal--closing-line-on-every-variant">"Why
+am I seeing this?" modal — closing line on every variant</h3>
 <blockquote>
-8 events. 6 artists. 1 unforgettable year.<br>
+<p>You can turn personalisation off in Profile → Privacy &amp; Data.</p>
 </blockquote>
-<p>&gt;</p>
+<h3
+id="eu-ai-act-art-50-disclosure--standard-line-for-any-personalised-surface">EU
+AI Act Art. 50 disclosure — standard line for any personalised
+surface</h3>
 <blockquote>
-Your Year in Live is here. See every show, your top artist, your favourite venue — and share your year with friends.<br>
+<p>Personalised based on your attendance and stated preferences. We do
+not use vulnerability signals. [Why am I seeing this?]</p>
 </blockquote>
-<p>&gt;</p>
+<h3 id="iteration-11-ux-copy--preserved-unchanged">Iteration 11 UX copy
+— preserved unchanged</h3>
+<p>All Iteration 11 queue messages, error messages, ARIA disclosure
+copy, onboarding flow, and confirmation language are preserved. See
+<code>Output/Iteration 11/04_Pippin_GoToMarket_Package.md</code>
+(Section 5) for the full set.</p>
+<hr />
+<h2 id="6-sample-content">6. SAMPLE CONTENT</h2>
+<h3 id="social-post-1--announcement-linkedin--x">Social post 1 —
+announcement (LinkedIn / X)</h3>
 <blockquote>
-Open the Ticketmaster app → My Tickets → Your Year in Live.<br>
+<p>Ticketmaster has shipped a Fan Profile. Your show history, your tier,
+your artefacts — all in one place, all yours, all exportable, all
+deletable.</p>
+<p>Status is gained, never lost. The Fan Presale qualifies you on real
+history. AI personalisation comes with a "Why am I seeing this?" link on
+every section.</p>
+<p>We have not earned trust back. We have shipped the surface that lets
+you decide.</p>
 </blockquote>
-<p>&gt;</p>
+<h3 id="social-post-2--human-story-instagram-caption">Social post 2 —
+human story (Instagram caption)</h3>
 <blockquote>
-What was your top artist this year? 🎶<br>
+<p>Sarah went to her 23rd show last week. Hozier at the 3Arena. The
+third time she's seen him.</p>
+<p>Before this update, the app would not have known any of that.</p>
+<p>Now her Fan Profile shows the count, the venue she returns to most,
+the artists she goes back to. She tapped a star to mark how the night
+felt — privately, just to herself.</p>
+<p>The shows she goes to are part of her story. They are not
+Ticketmaster's marketing data. They are hers.</p>
+<p>Open your Profile. See your shows.</p>
 </blockquote>
-<p>&gt;</p>
+<h3 id="email-to-existing-customers--subject-and-body">Email to existing
+customers — subject and body</h3>
+<p><strong>Subject:</strong> Your shows are in your Fan Profile now.</p>
 <blockquote>
-#YourYearInLive #Ticketmaster #LiveMusic #Wrapped<br>
-</blockquote>
-<hr>
-<h3>Social Post 2 — "Go Together" (Instagram / Facebook)</h3>
-<blockquote>
-Remember when buying concert tickets meant 15 messages in the group chat, three people in separate queues, and someone getting locked out?<br>
-</blockquote>
-<p>&gt;</p>
-<blockquote>
-Now you can see which friends are going to events, tap "Go Together," and everyone books in one place.<br>
-</blockquote>
-<p>&gt;</p>
-<blockquote>
-Live events are better together. The booking should be too.<br>
-</blockquote>
-<p>&gt;</p>
-<blockquote>
-#GoTogether #Ticketmaster<br>
-</blockquote>
-<hr>
-<h3>Email to Existing Customers</h3>
-<p><strong>Subject:</strong> Three new things in the Ticketmaster app. Here's what changed.</p>
-<p>Hi Sarah,</p>
-<p>Quick update — three things are new:</p>
-<p><strong>1. Tap the price badge.</strong></p>
-<p>Every price already includes all fees. Now, tap the "Great Value" or "Fair Price" badge on any event to see how it compares to similar events. Plain English, no jargon.</p>
-<p><strong>2. Your Year in Live.</strong></p>
-<p>At the end of the year, see your live music story: events attended, top artist, favourite venue. Share it with friends. It's in My Tickets when it's ready.</p>
-<p><strong>3. Go Together.</strong></p>
-<p>Turn on social features in Settings. See which friends are going to events. Tap "Go Together" to coordinate. No more WhatsApp logistics.</p>
-<p>All social features are opt-in. You control what's shared.</p>
-<p>— The Ticketmaster Team</p>
-<hr>
-<h3>Push Notification</h3>
-<blockquote>
-🎶 Your Year in Live is ready. See your top artist, favourite venue, and every event from 2026. Open the app to explore and share.<br>
-</blockquote>
-<hr>
-<h3>App Store Description Update</h3>
-<blockquote>
-Ticketmaster: All-in pricing, personalised discovery, and real support. Every ticket price includes all fees — tap the Fair Price badge to see how it compares. Go Together: see which friends are attending and coordinate group bookings. Your Year in Live: see your annual music story and share it. ARIA, our AI assistant, helps instantly — and a human is always one tap away.<br>
-</blockquote>
-<hr>
-<h2>7. MEASUREMENT PLAN</h2>
-<h3>Retained from Iteration 10</h3>
-<ol>
-<li><strong>App Store Rating</strong> — Baseline 4.8 (iOS) / 1.4 (ComplaintsBoard). Target: 3.0+ on review platforms within 12 months. (VERIFIED baseline)</li>
-<li><strong>Checkout Completion Rate</strong> — ESTIMATED 55–65%. Target: 75%+. (ESTIMATED baseline)</li>
-<li><strong>Support Resolution Time</strong> — Baseline 3–5 business days. Target: under 5 minutes via ARIA. (VERIFIED baseline)</li>
-<li><strong>Trust Score / NPS</strong> — ESTIMATED -15 to -25. Target: neutral (0) within 12 months. (ESTIMATED)</li>
-<li><strong>AI Feature Adoption</strong> — N/A (new). Target: 40% at 3 months. (N/A)</li>
+<p>Hi [Name],</p>
+<p>We have shipped something we should have shipped years ago.</p>
+<p>Open the Ticketmaster app and tap the Profile tab. You will find your
+show history — every event we have a record of you attending. You will
+find your Fan Status — Newcomer, Regular, Devoted, or Lifer. You will
+find a "How do tiers work?" link that explains the rules plainly.</p>
+<p>Three things we want you to know:</p>
+<ol type="1">
+<li><strong>Status is gained, never lost.</strong> If you attend fewer
+shows next year, your tier does not get downgraded. Your lifetime status
+is preserved.</li>
+<li><strong>The Fan Presale qualifies you on real history.</strong> If
+you have followed an artist, you are eligible. There is no paid priority
+queue.</li>
+<li><strong>You are in control.</strong> Your fan profile, your
+attendance history, your social graph — all exportable. All deletable.
+All in Profile → Privacy &amp; Data.</li>
 </ol>
-<h3>New for Iteration 11</h3>
-<p><strong>6. Social Feature Opt-In Rate</strong></p>
-<p><strong>Definition:</strong> Percentage of active users who enable at least one social feature (share attendance, show friends, group invitations)</p>
-<p><strong>Current baseline:</strong> N/A (features do not currently exist)</p>
-<p><strong>Target:</strong> 25% opt-in within 3 months; 40% within 6 months</p>
-<p><strong>Status:</strong> ESTIMATED — targets based on opt-in rates for social features in comparable apps (Spotify social features see ~30–40% adoption)</p>
-<p><strong>Review timeline:</strong> Monthly, first meaningful review at 8 weeks</p>
-<p><strong>7. "Your Year in Live" Engagement</strong></p>
-<p><strong>Definition:</strong> Percentage of eligible users (3+ events attended) who view their retrospective; percentage who share to social media</p>
-<p><strong>Current baseline:</strong> N/A</p>
-<p><strong>Target:</strong> 60% view rate among eligible users; 25% share rate (benchmark: Spotify Wrapped 2025 — 200M of ~640M users = ~31% view rate, 500M shares)</p>
-<p><strong>Status:</strong> ESTIMATED — targets extrapolated from Spotify Wrapped benchmarks, adjusted for Ticketmaster's smaller engaged user base</p>
-<p><strong>Review timeline:</strong> December/January annually</p>
-<p><strong>8. Post-Event Recommendation Click-Through</strong></p>
-<p><strong>Definition:</strong> Percentage of users who tap "See similar events" from a post-event recap card</p>
-<p><strong>Current baseline:</strong> N/A</p>
-<p><strong>Target:</strong> 15% click-through rate within 48 hours of event attendance</p>
-<p><strong>Status:</strong> ESTIMATED — based on email recommendation CTR benchmarks in entertainment (10–20%)</p>
-<p><strong>Review timeline:</strong> Weekly, first meaningful review at 4 weeks</p>
-<hr>
-<p>Agent: Pippin (Communicator)</p>
-<p>Passing to: Aragorn (Managing Consultant) for quality review</p>
-<p>Summary: I have produced an enhanced Go-to-Market Package that extends Iteration 10's trust narrative with three new stories: "Your Year in Live" (engagement innovation), "Go Together" (social layer), and Fair Price tooltip (trust through context). The trust-rebuilding narrative now acknowledges both the pricing/support failures AND the loneliness of the current app experience. Four campaigns target distinct audiences with verified build status.</p>
-<p>Key messaging themes:</p>
+<p>We have not earned your trust back. We have shipped the surface that
+lets you decide whether we are starting to.</p>
+<p>Thanks for reading, The Ticketmaster team</p>
+</blockquote>
+<h3 id="push-notification-post-event-t4-hours">Push notification
+(post-event, T+4 hours)</h3>
+<blockquote>
+<p>Last night's show is in your Show Memory. Open it when you are ready
+— yours to keep, share, or delete.</p>
+</blockquote>
+<h3 id="app-store-description-update-2-sentences">App Store description
+update (2 sentences)</h3>
+<blockquote>
+<p>Iteration 12 introduces the Fan Profile — your show history, your fan
+status, and your private show memories, all in one place. Status is
+gained, never lost; the Fan Presale qualifies you on real attendance
+history; every personalised section comes with a "Why am I seeing this?"
+explanation.</p>
+</blockquote>
+<hr />
+<h2 id="7-measurement-plan">7. MEASUREMENT PLAN</h2>
+<h3 id="kpi-1--fan-profile-activation-rate">KPI 1 — Fan Profile
+activation rate</h3>
 <ul>
-<li>"The price you see is the price you pay" — retained, enhanced with Fair Price tooltip context</li>
-<li>"Your Year in Live" — engagement innovation, shareable, Spotify Wrapped-inspired</li>
-<li>"Go Together" — social coordination replacing WhatsApp logistics</li>
-<li>"One Tap Away" — ARIA with human escalation (retained)</li>
-<li>"We're not asking you to trust us. We're asking you to check." — retained</li>
+<li><strong>Definition:</strong> Percentage of MAUs who open the Fan
+Profile at least once in the first 30 days post-launch</li>
+<li><strong>Baseline:</strong> N/A (new feature)</li>
+<li><strong>Target:</strong> <strong>35%</strong> in first 30 days
+[ESTIMATED — Mithril composite from comparable consumer-loyalty
+launches; Sephora Beauty Insider, Starbucks Rewards initial activation
+ranges]</li>
+<li><strong>Why it matters:</strong> This is the single most direct
+measure of whether the consolidating surface is being discovered. Below
+20% would suggest navigation discoverability is broken.</li>
 </ul>
-<p>What was not communicated and why:</p>
+<h3 id="kpi-2--why-am-i-seeing-this-tap-through-rate">KPI 2 — "Why am I
+seeing this?" tap-through rate</h3>
 <ul>
-<li>Monthly summaries — deferred from build</li>
-<li>Real-time social graph — prototype uses simulated friend data</li>
-<li>Actual Stories image export — visual-only in prototype</li>
-<li>Real-time group booking updates — simulated with pre-set states</li>
+<li><strong>Definition:</strong> Percentage of users who tap any "Why am
+I seeing this?" affordance on the Home screen at least once in the first
+60 days</li>
+<li><strong>Baseline:</strong> N/A (new feature)</li>
+<li><strong>Target:</strong> <strong>8–12%</strong> [ESTIMATED — Mithril
+estimate; explainability surfaces typically see single-digit-percent
+engagement, but a higher rate would signal trust deficit and that more
+proactive transparency is needed]</li>
+<li><strong>Why it matters:</strong> Low engagement here is acceptable
+(most users will accept the personalisation without questioning it);
+high engagement signals trust deficit and would inform proactive
+transparency redesign.</li>
 </ul>
-<p>KPIs recommended (new):</p>
+<h3 id="kpi-3--fan-presale-conversion-uplift">KPI 3 — Fan Presale
+conversion uplift</h3>
 <ul>
-<li>Social feature opt-in rate (target: 25% at 3 months)</li>
-<li>"Your Year in Live" engagement (target: 60% view, 25% share)</li>
-<li>Post-event recommendation CTR (target: 15%)</li>
+<li><strong>Definition:</strong> Percentage point increase in
+ticket-purchase conversion from the Fan Presale surface vs. the
+equivalent general-sale conversion for the same artist's tour</li>
+<li><strong>Baseline:</strong> General-sale conversion benchmark from
+Ticketmaster internal data (not available to Mithril; Ticketmaster
+commercial to populate)</li>
+<li><strong>Target:</strong> <strong>+15–25 percentage points</strong>
+[ESTIMATED — Mithril estimate based on industry-typical
+verified-fan-presale uplift figures; Manchester United, Ultra Passport
+precedents]</li>
+<li><strong>Why it matters:</strong> This is the commercial KPI that
+justifies the Fan Loyalty Engine investment. If the Fan Presale does not
+measurably outperform general sale on the same tour, the engine is not
+delivering its hypothesis.</li>
 </ul>
+<h3 id="kpi-4--show-memory-engagement-rate">KPI 4 — Show Memory
+engagement rate</h3>
+<ul>
+<li><strong>Definition:</strong> Percentage of attended shows that have
+a mood rating recorded within 7 days of the event</li>
+<li><strong>Baseline:</strong> N/A</li>
+<li><strong>Target:</strong> <strong>20–30%</strong> [ESTIMATED —
+Mithril estimate; Letterboxd-style private rating engagement on adjacent
+platforms typically lands in this range]</li>
+<li><strong>Why it matters:</strong> The post-event surface is the
+lifecycle moment of highest emotional engagement. Below 15% would
+suggest the prompt is mistimed or the value proposition is unclear.</li>
+</ul>
+<h3 id="kpi-5--lapsed-fan-reactivation-rate">KPI 5 — Lapsed-fan
+reactivation rate</h3>
+<ul>
+<li><strong>Definition:</strong> Percentage of users who had not
+purchased in 90+ days who make a purchase within 30 days of receiving a
+welcome-back card</li>
+<li><strong>Baseline:</strong> Current lapsed-fan reactivation rate from
+Ticketmaster CRM (not available to Mithril; Ticketmaster commercial to
+populate)</li>
+<li><strong>Target:</strong> <strong>+30–50% relative uplift</strong>
+vs. equivalent generic-marketing reactivation [ESTIMATED — Mithril
+estimate; recognition-led re-engagement typically outperforms
+discount-led at the rate-relative level]</li>
+<li><strong>Why it matters:</strong> This is the test of whether the
+"status is gained, never lost" promise actually re-engages lapsed fans
+without using loss-avoidance mechanics. If the welcome-back card
+underperforms a discount-led control, the ethical commitment costs
+revenue and the trade-off needs to be made consciously.</li>
+</ul>
+<h3 id="timeline-for-first-meaningful-review">Timeline for first
+meaningful review</h3>
+<ul>
+<li><strong>30 days post-launch:</strong> KPI 1 (Fan Profile
+activation), KPI 2 (Why?-tap-through) read</li>
+<li><strong>60 days post-launch:</strong> KPI 4 (Show Memory engagement)
+— needs a cohort of customers who have attended a show post-launch</li>
+<li><strong>90 days post-launch:</strong> KPI 3 (Fan Presale conversion)
+and KPI 5 (lapsed-fan reactivation) — both require time-windowed cohorts
+to build</li>
+</ul>
+<hr />
+<p>─── HANDOFF TO ARAGORN FOR REVIEW ─── <strong>Agent:</strong> Pippin
+(Communicator) <strong>Passing to:</strong> Aragorn (Managing
+Consultant) for Review 4 / quality gate</p>
+<p><strong>Summary:</strong> I have produced the Iteration 12
+Go-to-Market Package built around a single core message — "Ticketmaster
+remembers." The package frames the Fan Loyalty Engine as recognition
+architecture, never as a points programme; reinforces "status is gained,
+never lost" in every customer-facing line; and treats EU AI Act Art. 50
+transparency as a feature in its own right (Campaign 2). All copy passes
+the disclosability test in Saruman §8.1.</p>
+<p><strong>Key messaging themes:</strong></p>
+<ul>
+<li>"Ticketmaster remembers" — the structural shift from transactional
+to relational</li>
+<li>"Status is gained, never lost" — the binding ethical promise made
+visible in every line</li>
+<li>"Real history, real countdown, real eligibility" — Fan Presale
+framed as recognition, not commerce</li>
+<li>"Yours to keep, share, or delete" — Show Memory and Fan Profile
+framed as the customer's, not Ticketmaster's</li>
+<li>"We have not earned trust back; we have shipped the surface that
+lets you decide" — the trust-rebuilding posture across every
+campaign</li>
+</ul>
+<p><strong>What was not communicated and why:</strong></p>
+<ul>
+<li>Live referral attribution and rewards (DEFERRED in Gimli's manifest)
+— the invite-a-friend mechanic is described as "recognition" without
+specifying the reward currency</li>
+<li>Image-based share-card generation (DEFERRED) — the "Share your
+night" copy describes the experience without claiming the technical
+fidelity of the share asset</li>
+<li>Multi-year Year in Live archive (SIMPLIFIED to two tiles) — Campaign
+3 frames the Year in Live as part of the Fan Profile collection but
+stops short of "browse every year you've ever attended"</li>
+<li>Lapsed-fan dynamic recommendations (SIMPLIFIED to generic copy) —
+the welcome-back email and card use illustrative artist counts but do
+not promise live personalisation in this iteration's copy</li>
+</ul>
+<p><strong>KPIs recommended:</strong> Fan Profile activation (35% / 30
+days), Why?-tap-through (8–12% / 60 days), Fan Presale conversion uplift
+(+15–25 pp / 90 days), Show Memory engagement (20–30% / 60 days),
+Lapsed-fan reactivation (+30–50% relative vs. discount-led / 90 days).
+All targets clearly marked ESTIMATED.</p>
+<p><strong>Ready for review:</strong> YES</p>
+<p style="text-align:center;font-size:0.8rem;color:#585f72;margin-top:2rem;padding-bottom:1rem;">Last edited: 29 April 2026</p>
 </div>
-<p style="text-align:center;font-size:0.8rem;color:#585f72;margin-top:2rem;padding-bottom:1rem;">Last edited: 18 March 2026</p>
 </body>
 </html>
