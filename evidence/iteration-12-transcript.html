@@ -8,104 +8,27 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #0A0A14;
-      color: #e2e8f0;
-      font-family: Inter, sans-serif;
-      line-height: 1.6;
-      padding: 40px 20px 80px;
-    }
+    body { background: #0A0A14; color: #e2e8f0; font-family: Inter, sans-serif; line-height: 1.6; padding: 40px 20px 80px; }
     .container { max-width: 1200px; margin: 0 auto; }
-    .header {
-      border-bottom: 1px solid #1E2038;
-      padding-bottom: 32px;
-      margin-bottom: 40px;
-    }
-    .badge {
-      display: inline-block;
-      background: #1E2038;
-      color: #7B8CC8;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 4px;
-      margin-bottom: 16px;
-    }
-    h1 {
-      font-size: 28px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 8px;
-    }
-    .subtitle {
-      color: #7B8CC8;
-      font-size: 15px;
-    }
-    .meta-row {
-      display: flex;
-      gap: 24px;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
-    .meta-item {
-      background: #161628;
-      border: 1px solid #1E2038;
-      border-radius: 8px;
-      padding: 12px 18px;
-      font-size: 13px;
-    }
+    .header { border-bottom: 1px solid #1E2038; padding-bottom: 32px; margin-bottom: 40px; }
+    .badge { display: inline-block; background: #1E2038; color: #7B8CC8; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; }
+    h1 { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .subtitle { color: #7B8CC8; font-size: 15px; }
+    .meta-row { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+    .meta-item { background: #161628; border: 1px solid #1E2038; border-radius: 8px; padding: 12px 18px; font-size: 13px; }
     .meta-item strong { color: #a0aec0; display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
     .meta-item span { color: #e2e8f0; font-weight: 600; }
-    .explainer {
-      background: #161628;
-      border: 1px solid #1E2038;
-      border-left: 3px solid #4A5FBB;
-      border-radius: 8px;
-      padding: 20px 24px;
-      margin-bottom: 36px;
-      font-size: 14px;
-      color: #a0aec0;
-      line-height: 1.7;
-    }
+    .explainer { background: #161628; border: 1px solid #1E2038; border-left: 3px solid #4A5FBB; border-radius: 8px; padding: 20px 24px; margin-bottom: 36px; font-size: 14px; color: #a0aec0; line-height: 1.7; }
     .explainer strong { color: #e2e8f0; }
-    .transcript-wrapper {
-      background: #0D0D1A;
-      border: 1px solid #1E2038;
-      border-radius: 12px;
-      overflow-x: auto;
-    }
-    .transcript-header {
-      background: #161628;
-      border-bottom: 1px solid #1E2038;
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .transcript-wrapper { background: #0D0D1A; border: 1px solid #1E2038; border-radius: 12px; overflow-x: auto; }
+    .transcript-header { background: #161628; border-bottom: 1px solid #1E2038; padding: 14px 24px; display: flex; align-items: center; gap: 8px; }
     .dot { width: 12px; height: 12px; border-radius: 50%; }
     .dot-red { background: #ff5f57; }
     .dot-amber { background: #febc2e; }
     .dot-green { background: #28c840; }
     .transcript-title { margin-left: 8px; font-size: 13px; color: #7B8CC8; font-family: "JetBrains Mono", monospace; }
-    pre {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 12px;
-      line-height: 1.7;
-      color: #c8d0e7;
-      padding: 28px 28px;
-      overflow-x: auto;
-      white-space: pre;
-    }
-    .footer {
-      margin-top: 60px;
-      padding-top: 24px;
-      border-top: 1px solid #1E2038;
-      text-align: center;
-      font-size: 13px;
-      color: #4a5568;
-    }
+    pre { font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.7; color: #c8d0e7; padding: 28px 28px; overflow-x: auto; white-space: pre; }
+    .footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid #1E2038; text-align: center; font-size: 13px; color: #4a5568; }
     .footer a { color: #7B8CC8; text-decoration: none; }
     .footer a:hover { color: #a0aec0; }
   </style>
@@ -351,27 +274,27 @@
   +-----+--------------------------------------------------------------------------------------------------------+----------------+
   |  #  |                                                Document                                                |    Verdict     |
   +-----+--------------------------------------------------------------------------------------------------------+----------------+
-  | 01  | Saruman&#x27;s Research Brief - introduces Octalysis Framework, identifies Problem 10 (transactional       | APPROVED       |
-  |     | architecture), flags 8 gamification opportunities (G1-G8), Black Hat ethical risk register            |                |
+  | 01  | Saruman&#x27;s Research Brief - introduces Octalysis Framework, identifies Problem 10 (transactional        | APPROVED       |
+  |     | architecture), flags 8 gamification opportunities (G1-G8), Black Hat ethical risk register             |                |
   +-----+--------------------------------------------------------------------------------------------------------+----------------+
   | 01a | Aragorn Review 1                                                                                       | Approved       |
   +-----+--------------------------------------------------------------------------------------------------------+----------------+
-  | 02  | Galadriel&#x27;s Design Specification - Fan Loyalty Engine consolidating architecture, 4-tier Fan Status,  | APPROVED       |
+  | 02  | Galadriel&#x27;s Design Specification - Fan Loyalty Engine consolidating architecture, 4-tier Fan Status,   | APPROVED       |
   |     | Octalysis Design Rationale table (13 concepts, 0 use CD8)                                              |                |
   +-----+--------------------------------------------------------------------------------------------------------+----------------+
   | 02a | Aragorn Review 2                                                                                       | Approved       |
   +-----+--------------------------------------------------------------------------------------------------------+----------------+
-  | 03  | Gimli&#x27;s Working Prototype - 4 new screens (Fan Profile, Fan Presale, Pre-Event Hub, Show Memory),     | APPROVED       |
+  | 03  | Gimli&#x27;s Working Prototype - 4 new screens (Fan Profile, Fan Presale, Pre-Event Hub, Show Memory),      | APPROVED       |
   |     | tier badge component, real ticking presale countdown, private-by-default mood input                    |                |
   +-----+--------------------------------------------------------------------------------------------------------+----------------+
   | 03a | Aragorn Review 3                                                                                       | Approved       |
   +-----+--------------------------------------------------------------------------------------------------------+----------------+
-  | 04  | Pippin&#x27;s Go-to-Market Package - core message &quot;Ticketmaster remembers&quot;, trust-rebuilding narrative,    | APPROVED       |
+  | 04  | Pippin&#x27;s Go-to-Market Package - core message &quot;Ticketmaster remembers&quot;, trust-rebuilding narrative,     | APPROVED       |
   |     | 3 campaigns, finished UX copy, 5 KPIs                                                                  |                |
   +-----+--------------------------------------------------------------------------------------------------------+----------------+
   | 04a | Aragorn Review 4                                                                                       | Approved       |
   +-----+--------------------------------------------------------------------------------------------------------+----------------+
-  | 05  | Aragorn&#x27;s Executive Summary - strategic rationale, agent contributions, regulatory review (4xGREEN),  | Final          |
+  | 05  | Aragorn&#x27;s Executive Summary - strategic rationale, agent contributions, regulatory review (4xGREEN),   | Final          |
   |     | recommendation to ship                                                                                 | deliverable    |
   +-----+--------------------------------------------------------------------------------------------------------+----------------+
 
