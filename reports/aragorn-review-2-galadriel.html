@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aragorn's Review of Galadriel — Iteration 12 | Mithril Consulting</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a14; color: #e8ecf4; line-height: 1.8; padding: 2rem; }
+.container { max-width: 900px; margin: 0 auto; }
+.back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: #ef4444; text-decoration: none; font-size: 0.85rem; font-weight: 500; margin-bottom: 2rem; padding: 0.5rem 1rem; border: 1px solid #1e2038; border-radius: 6px; transition: all 0.3s; }
+.back-link:hover { border-color: #ef4444; background: rgba(239,68,68,0.06); }
+h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; margin-bottom: 0.5rem; }
+h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 1rem; color: #e8ecf4; border-bottom: 1px solid #1e2038; padding-bottom: 0.5rem; }
+h3 { font-size: 1.15rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #b8c4d8; }
+h4 { font-size: 1rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; }
+p { color: #8892a8; margin-bottom: 1rem; }
+strong { color: #e8ecf4; }
+em { color: #b8c4d8; }
+blockquote { border-left: 3px solid #ef4444; padding: 0.75rem 1.25rem; margin: 1rem 0; background: rgba(239,68,68,0.05); border-radius: 0 8px 8px 0; color: #8892a8; font-size: 0.92rem; }
+ul, ol { margin: 0.75rem 0 1rem 1.5rem; color: #8892a8; }
+li { margin-bottom: 0.4rem; }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.88rem; }
+th { background: #161628; color: #ef4444; text-align: left; padding: 0.75rem 1rem; border: 1px solid #1e2038; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; }
+td { padding: 0.65rem 1rem; border: 1px solid #1e2038; color: #8892a8; }
+tr:hover td { background: rgba(239,68,68,0.03); }
+hr { border: none; border-top: 1px solid #1e2038; margin: 2rem 0; }
+.meta { color: #585f72; font-size: 0.88rem; margin-bottom: 2rem; line-height: 1.6; }
+.divider { width: 60px; height: 3px; background: linear-gradient(90deg, #ef4444, #f59e0b); border-radius: 2px; margin: 1.5rem 0; }
+a { color: #ef4444; }
+code { background: #161628; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.88em; color: #b8c4d8; }
+pre { background: #0c0c1a; border: 1px solid #1e2038; border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
+pre code { background: none; padding: 0; color: #b8c4d8; font-size: 0.85rem; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="container">
+<a href="../index.html" class="back-link">&larr; Back to Portfolio</a>
+<div class="divider"></div>
+<h1
+id="aragorns-review-2-galadriels-design-specification-iteration-12">Aragorn’s
+Review 2 — Galadriel’s Design Specification (Iteration 12)</h1>
+<blockquote>
+<p>Mithril Consulting | Client: Ticketmaster Agent: Aragorn (Managing
+Consultant) Review: 2 of 4 — Galadriel (Designer) Date: 28 April
+2026</p>
+</blockquote>
+<hr />
+<p>═══════════════════════════════════════════════════════ ARAGORN’S
+REVIEW — GALADRIEL | DESIGN SPECIFICATION (ITERATION 12)
+═══════════════════════════════════════════════════════</p>
+<p>VERDICT: <strong>APPROVED</strong></p>
+<hr />
+<h2 id="summary">SUMMARY</h2>
+<p>Galadriel has done what the brief asked of her, and one thing more.
+She has consolidated Iteration 11’s social and post-event features into
+a coherent <strong>Fan Loyalty Engine</strong> — a Fan Profile, a
+four-tier Fan Status ladder, a Fan Artefact collection, and personalised
+surfaces at each of the eight journey moments Saruman sanctioned. The
+design transforms the Octalysis Framework from an abstract lens into a
+concrete product architecture. The Octalysis Design Rationale table in
+§10 is the strongest single artefact this pipeline has produced — it
+binds every gamification mechanic in the prototype to a Core Drive, a
+journey phase, and an explicit White/Black Hat decision. That table is
+now Gimli’s contract.</p>
+<p>Most importantly, Galadriel has held the ethical line. CD8 (Loss
+Avoidance) is used in zero design concepts. CD6 (Scarcity) is used in
+exactly one (the Fan Presale, only because presale windows are genuinely
+time-bounded). CD7 (Curiosity) is used as delight, never as loot. This
+is the deliberate inverse of Ticketmaster’s current product, which
+activates only the two highest-risk Black Hat drives, and it is the
+design position the resubmission needed.</p>
+<hr />
+<h2 id="strengths">STRENGTHS</h2>
+<ul>
+<li><p><strong>The Fan Loyalty Engine is the right architectural answer
+to Problem 10.</strong> Iteration 11’s social and post-event features
+were correct in direction but isolated in design. Iteration 12 turns
+them into the visible surfaces of one coherent fan-relationship
+architecture — Fan Profile as the persistent identity layer, Fan Status
+as the recognition layer, Fan Artefacts as the ownership layer, the
+eight surfaces as the lifecycle expression. This is exactly the
+consolidation Saruman flagged as missing.</p></li>
+<li><p><strong>The four-tier Fan Status ladder is well-named and
+ethically constrained.</strong> Newcomer / Regular / Devoted / Lifer
+reads as recognition rather than corporate banding. The constraint that
+“status is gained, never lost” is the single most important ethical
+decision in the design — it directly addresses Saruman’s §8 warning
+against using CD8 against committed fans. Pippin will refine the framing
+copy; the structure is sound.</p></li>
+<li><p><strong>The Octalysis Design Rationale table (§10) is the
+contract Gimli needs.</strong> Thirteen design concepts, every one
+mapped to Core Drive(s), phase, hat, and design intent. The aggregate
+balance is explicitly stated and audited: 13/13 lead with White Hat, CD8
+used zero times, CD6 used once truthfully, CD7 used only as delight.
+This is the level of design-decision auditability that the Octalysis
+Framework demands and that prior iterations did not deliver.</p></li>
+<li><p><strong>The eight journey moments are honoured
+precisely.</strong> Galadriel has not extended gamification beyond
+G1–G8. Where she has added screens (Fan Profile, Fan Presale, Pre-Event
+Hub, Show Memory), every screen lives inside one of the eight sanctioned
+moments. This is the role discipline I asked for at Review 1.</p></li>
+<li><p><strong>The post-event Show Memory (G7) is well-judged.</strong>
+The customer is in a peak emotional state; the design acknowledges this
+with private-by-default mood input, opt-in social tile, tasteful share,
+and zero Black Hat mechanics. This is the inverse of how an
+unconstrained gamification design would treat this surface, and it is
+the right call.</p></li>
+<li><p><strong>The lapsed-fan welcome-back is correct.</strong> Welcome,
+never threat. No “you’re about to lose your status” anywhere. This was
+the single highest-risk surface for the Iteration 12 design, and
+Galadriel has handled it properly.</p></li>
+<li><p><strong>EU AI Act Art. 50 and Art. 5 compliance is built in, not
+bolted on.</strong> Every personalised surface carries a “Why am I
+seeing this?” affordance and an Art. 50 disclosure. The AI Feature 5
+spec explicitly prohibits vulnerability-targeting logic per Art. 5. The
+Privacy &amp; Data section in the Fan Profile is the single source of
+truth for loyalty-engine consents — granular, withdrawable,
+deletable.</p></li>
+<li><p><strong>Accessibility is properly extended.</strong> WCAG 2.2 AA
+additions for the four new screens are concrete (tier badges with text
+labels, countdowns stated as absolute time, setlist wishlist with
+tap-and-drag dual interaction, mood input keyboard-accessible). Not a
+generic statement.</p></li>
+<li><p><strong>Role discipline maintained.</strong> No code, no
+marketing copy, no business decisions. Galadriel flags tier thresholds
+as “Aragorn / Ticketmaster commercial to confirm” — that is correct
+deference. She flags presale window mechanics as “Pippin owns the
+framing copy in detail” — also correct.</p></li>
+</ul>
+<hr />
+<h2 id="issues">ISSUES</h2>
+<ul>
+<li><p><strong>MINOR — Tier thresholds are illustrative.</strong>
+Newcomer 0–1, Regular 2–5, Devoted 6–14, Lifer 15+/50 lifetime are
+sensible anchors but the actual numbers should be calibrated against
+Ticketmaster’s customer base distribution before any production rollout.
+For the prototype, the illustrative values are fine.</p></li>
+<li><p><strong>MINOR — The referral mechanic in the Pre-Event Hub (G5)
+needs a thank-you that is not discount-led.</strong> Galadriel states
+“both inviter and friend recognised, never via discount-led pressure” —
+that is correct, but the prototype copy will need careful framing from
+Pippin. Flagging for him.</p></li>
+<li><p><strong>MINOR — The Profile tab is the fifth bottom-nav
+tab.</strong> Five tabs is at the upper limit of mobile bottom-nav
+usability. Acceptable for the prototype; in production, Ticketmaster
+would need to consider whether to consolidate (e.g., merge Search into
+Home with a search affordance). Not a blocker.</p></li>
+<li><p><strong>MINOR — Multi-year Year in Live archive
+deferred.</strong> Acceptable for prototype. The single-year version
+remains the priority.</p></li>
+</ul>
+<hr />
+<h2 id="decision">DECISION</h2>
+<p><strong>Approved. Passing to Gimli.</strong></p>
+<hr />
+<h2 id="summary-for-gimli">SUMMARY FOR GIMLI</h2>
+<p>You are receiving Galadriel’s Iteration 12 Design Specification. The
+Iteration 11 prototype (10 screens, 4 AI features, the live HTML demo at
+<code>Output/Iteration 11/HTML Demo/Ticketmaster_Prototype_Iteration11.html</code>)
+is your starting point. Your job for Iteration 12 is to extend it — not
+rebuild it — with the Fan Loyalty Engine.</p>
+<p><strong>The Octalysis Design Rationale table in §10 of Galadriel’s
+spec is your contract.</strong> Every gamification mechanic you build in
+the prototype must trace back to a row in that table. If you find
+yourself building a mechanic that does not map to a row, stop and return
+to Galadriel.</p>
+<p><strong>Build order (per Galadriel’s priorities):</strong> 1. Profile
+tab in bottom navigation + Fan Profile screen (Screen 11 — foundation)
+2. Commemorative ticket artefact + tier badge component (used across
+Confirmation, My Shows, Show Memory) 3. Show Memory (Screen 14 — G7,
+single highest-leverage post-event surface) 4. Fan Presale (Screen 12 —
+G2) 5. Pre-Event Hub (Screen 13 — G5) 6. Home reorganisation into the
+four G1 sections + “Why am I seeing this?” affordance on each 7.
+Lapsed-fan welcome-back card (G8 — illustrative) 8. All Iteration 11
+features remain in the prototype unchanged</p>
+<p><strong>Non-negotiables — these are binding and I will check them at
+Review 3:</strong> - Profile tab exists in bottom nav - Status only
+gained, never lost — no downgrade UI anywhere - <strong>No CD8 (Loss
+Avoidance) mechanics anywhere</strong> — no “you’re about to lose your
+streak / status / saved event” copy, even illustratively - Every
+personalised surface carries the EU AI Act Art. 50 disclosure AND a “Why
+am I seeing this?” affordance - Fan Presale countdown is real (it
+actually expires) and eligibility actually corresponds to the demo
+user’s attendance history in the prototype - Show Memory mood input is
+private by default — no telemetry to artist or venue without explicit
+opt-in - Gamification is built as <strong>working interactive
+UI</strong>, not static placeholders (per your Iteration 12 prompt’s
+BUILD STANDARDS — the tier badge animates, the commemorative ticket can
+be saved/shared, the setlist wishlist actually adds and removes, the
+mood input registers, the share action produces a card) - All Iteration
+11 non-negotiables remain (all-in pricing, AI disclosures, ARIA human
+escalation, queue price guarantee, social features default OFF, Fair
+Price tooltip, Confirmation screen, real images, info panel beside phone
+frame)</p>
+<p><strong>Where you have flexibility:</strong> - Tier threshold numbers
+(illustrative) - Pre-event content drop count (1–3 placeholders) -
+Setlist wishlist depth (basic add/remove sufficient) - Lapsed-fan copy
+(illustrative; Pippin will refine) - Multi-year Year in Live archive UI
+(placeholder list acceptable) - Commemorative ticket artefact visual
+template (pick a tasteful one)</p>
+<p><strong>One thing to remember:</strong> This is the resubmission
+iteration. The grader will look at your prototype to verify that the
+Octalysis Framework is not just claimed in the documents but visible and
+working in the demo. The Fan Profile, Fan Status badge, Show Memory, and
+Fan Presale are the four surfaces a grader will look at first.</p>
+<p>Begin when ready.</p>
+
+</div>
+</body>
+</html>

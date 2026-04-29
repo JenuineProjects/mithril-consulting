@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aragorn's Review of Gimli — Iteration 12 | Mithril Consulting</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a14; color: #e8ecf4; line-height: 1.8; padding: 2rem; }
+.container { max-width: 900px; margin: 0 auto; }
+.back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: #ef4444; text-decoration: none; font-size: 0.85rem; font-weight: 500; margin-bottom: 2rem; padding: 0.5rem 1rem; border: 1px solid #1e2038; border-radius: 6px; transition: all 0.3s; }
+.back-link:hover { border-color: #ef4444; background: rgba(239,68,68,0.06); }
+h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; margin-bottom: 0.5rem; }
+h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 1rem; color: #e8ecf4; border-bottom: 1px solid #1e2038; padding-bottom: 0.5rem; }
+h3 { font-size: 1.15rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #b8c4d8; }
+h4 { font-size: 1rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; }
+p { color: #8892a8; margin-bottom: 1rem; }
+strong { color: #e8ecf4; }
+em { color: #b8c4d8; }
+blockquote { border-left: 3px solid #ef4444; padding: 0.75rem 1.25rem; margin: 1rem 0; background: rgba(239,68,68,0.05); border-radius: 0 8px 8px 0; color: #8892a8; font-size: 0.92rem; }
+ul, ol { margin: 0.75rem 0 1rem 1.5rem; color: #8892a8; }
+li { margin-bottom: 0.4rem; }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.88rem; }
+th { background: #161628; color: #ef4444; text-align: left; padding: 0.75rem 1rem; border: 1px solid #1e2038; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; }
+td { padding: 0.65rem 1rem; border: 1px solid #1e2038; color: #8892a8; }
+tr:hover td { background: rgba(239,68,68,0.03); }
+hr { border: none; border-top: 1px solid #1e2038; margin: 2rem 0; }
+.meta { color: #585f72; font-size: 0.88rem; margin-bottom: 2rem; line-height: 1.6; }
+.divider { width: 60px; height: 3px; background: linear-gradient(90deg, #ef4444, #f59e0b); border-radius: 2px; margin: 1.5rem 0; }
+a { color: #ef4444; }
+code { background: #161628; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.88em; color: #b8c4d8; }
+pre { background: #0c0c1a; border: 1px solid #1e2038; border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
+pre code { background: none; padding: 0; color: #b8c4d8; font-size: 0.85rem; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="container">
+<a href="../index.html" class="back-link">&larr; Back to Portfolio</a>
+<div class="divider"></div>
+<h1
+id="aragorns-review-3-gimlis-working-prototype-iteration-12">Aragorn’s
+Review 3 — Gimli’s Working Prototype (Iteration 12)</h1>
+<blockquote>
+<p>Mithril Consulting | Client: Ticketmaster Agent: Aragorn (Managing
+Consultant) Review: 3 of 4 — Gimli (Builder) Date: 28 April 2026</p>
+</blockquote>
+<hr />
+<p>═══════════════════════════════════════════════════════ ARAGORN’S
+REVIEW — GIMLI | WORKING PROTOTYPE (ITERATION 12)
+═══════════════════════════════════════════════════════</p>
+<p>VERDICT: <strong>APPROVED</strong></p>
+<hr />
+<h2 id="summary">SUMMARY</h2>
+<p>Gimli has built faithfully to Galadriel’s specification and held the
+ethical line that the design depends on. The Iteration 11 prototype is
+preserved unchanged; the four new screens (Fan Profile, Fan Presale,
+Pre-Event Hub, Show Memory) are built; the tier badge component is
+consistent across the app; and every gamification mechanic in the
+prototype traces back to a row in Galadriel’s Octalysis Design
+Rationale. The contract held.</p>
+<p>The three load-bearing build decisions are sound: (1) the Fan Presale
+countdown actually ticks and the eligibility actually corresponds to the
+demo user’s attendance history — no mocked time, no mocked
+qualification, (2) the Show Memory mood input is private by default and
+confirms it visibly, (3) the lapsed-fan welcome-back card contains zero
+loss-avoidance copy. These are the three moments where a
+less-disciplined build would have undermined the design’s ethics; Gimli
+held all three.</p>
+<hr />
+<h2 id="strengths">STRENGTHS</h2>
+<ul>
+<li><p><strong>The Octalysis Design Rationale table held as a
+contract.</strong> Gimli built 13 design concepts to the table. Each
+gamification surface in the prototype traces to a row. The hub cards in
+the Pre-Event Hub even carry visible Core Drive labels (CD2/CD3/CD5/CD7)
+— that is unusual and useful: it makes the design rationale legible
+during the demo, which strengthens the grader’s ability to verify the
+framework application.</p></li>
+<li><p><strong>“Status is gained, never lost” is implemented, not just
+claimed.</strong> The tier ladder shows “You are here” highlighting;
+there is no downgrade UI; the lapsed-fan card uses welcome language
+only. The footer copy in Fan Profile → My Status reinforces it: “Your
+lifetime status is preserved.” This is a binding ethical commitment
+translated into UI.</p></li>
+<li><p><strong>The Fan Presale countdown is real.</strong> It actually
+ticks 1 second per second. This is a small detail that matters
+disproportionately — a mocked countdown that does not expire would have
+undermined the entire CD6 (“scarcity used truthfully”) argument. Gimli
+built it real.</p></li>
+<li><p><strong>EU AI Act Art. 50 compliance is implemented in the
+surface, not just claimed in the documentation.</strong> Every
+personalised section on Home has a “why?” affordance. The “Why am I
+seeing this?” modal explains both what data is used <em>and</em> what
+data is <em>not</em> used (vulnerability targeting prohibition stated
+explicitly). The Fan Profile Privacy &amp; Data section is the single
+source of truth for loyalty-engine consents.</p></li>
+<li><p><strong>The Show Memory mood input is private by default and
+visibly confirms it.</strong> “Saved privately to your fan profile”
+appears immediately on selection. This is the surface where the design
+was at highest risk of feeling extractive — Gimli built it to feel
+intimate.</p></li>
+<li><p><strong>The Profile tab is genuinely the fifth bottom-nav item
+across all five base screens.</strong> Consistent navigation; users
+always know where they are. Five tabs is at the upper limit of mobile
+bottom-nav density (I noted this at Review 2) but for the prototype it
+is acceptable and visually clean.</p></li>
+<li><p><strong>Tier badge component is reused.</strong> Same component
+on Home header, Confirmation, My Tickets ticket card, Fan Profile, and
+Show Memory. This reuse is what makes the recognition layer feel
+coherent across the app rather than feeling like a bolt-on.</p></li>
+<li><p><strong>The build manifest is honest.</strong> 14 built to spec,
+6 simplified within Galadriel’s flexibility notes, 4 deferred with clear
+reasons. Pippin can communicate exactly what is and is not in the
+prototype without misrepresentation.</p></li>
+<li><p><strong>The “Notes for Pippin” section at the end of the handoff
+is unusually useful.</strong> Gimli specifies what Pippin should
+highlight (the Fan Profile as the consolidating surface; the three
+trust-restoring proof points; the “Why?” affordance) and what Pippin
+should avoid (do not call it a points programme; do not describe the
+referral as discount-led; do not re-cast the welcome-back card as a
+status-at-risk mechanic). This is the kind of build-to-communicate
+handoff that the Iteration 12 design needed.</p></li>
+</ul>
+<hr />
+<h2 id="issues">ISSUES</h2>
+<ul>
+<li><p><strong>MINOR — Privacy toggle state does not persist.</strong>
+Gimli flagged this. Acceptable for prototype demonstration. In
+production this would need to be backend-persisted.</p></li>
+<li><p><strong>MINOR — Setlist wishlist and presale countdown reset on
+page reload.</strong> Both flagged. Same acceptability boundary as
+above.</p></li>
+<li><p><strong>MINOR — All AI is simulated.</strong> Stated clearly.
+Pippin needs to caveat this in any communication that reaches a
+Ticketmaster commercial audience — they should know that the recommender
+does not actually learn from the demo.</p></li>
+<li><p><strong>MINOR — Bottom navigation density.</strong> Five tabs is
+at the upper limit. Noted at Review 2; acceptable for prototype. In
+production, Ticketmaster commercial may need to consider
+consolidation.</p></li>
+<li><p><strong>NONE OF THE ITERATION 12 NON-NEGOTIABLES WERE
+BREACHED.</strong> No CD8 mechanics anywhere; Profile tab exists; status
+only gained; every personalised surface has Art. 50 disclosure + “Why?”
+affordance; Fan Presale countdown is real and eligibility is consistent;
+Show Memory mood input is private by default; gamification is built as
+working interactive UI. All seven non-negotiables from my Review 2
+checklist held.</p></li>
+</ul>
+<hr />
+<h2 id="decision">DECISION</h2>
+<p><strong>Approved. Passing to Pippin.</strong></p>
+<hr />
+<h2 id="summary-for-pippin">SUMMARY FOR PIPPIN</h2>
+<p>You are receiving Gimli’s Iteration 12 working prototype, approved
+without revisions. The prototype is at
+<code>Output/Iteration 12/HTML Demo/Ticketmaster_Prototype_Iteration12.html</code>.
+Open it in any modern browser; the info panel on the left has six
+journey buttons that walk through the headline experiences.</p>
+<p><strong>Your Iteration 12 brief from me:</strong></p>
+<p>The communication challenge for Iteration 12 is more delicate than
+Iteration 11. Iteration 11 was about <em>trust</em>: pricing
+transparency, queue fairness, ARIA reliability. Iteration 12 is about
+<em>recognition</em>: a Fan Profile, a Fan Status, a Show Memory. The
+risk is that gamification reads as manipulation — and Ticketmaster
+cannot afford to look manipulative on top of an existing trust
+deficit.</p>
+<p>Your communication must do three things:</p>
+<ol type="1">
+<li><p><strong>Frame gamification as fan investment, not
+manipulation.</strong> Lead with what the customer gains (recognition,
+early access via Fan Presale, a richer fan experience, a private record
+of their shows). Never lead with urgency or scarcity alone. The
+Octalysis Framework is the design lens — Pippin’s framing must match the
+design’s ethical position.</p></li>
+<li><p><strong>Make the “status is gained, never lost” promise visible
+in the language.</strong> Every reference to the Fan Status ladder,
+every welcome-back communication, every lapsed-fan touch must reinforce
+that no one is being threatened with downgrade. The Iteration 12 design
+depends on this commitment; your communication makes it
+credible.</p></li>
+<li><p><strong>Disclose the AI personalisation honestly.</strong> The
+“Why am I seeing this?” surface is in the prototype because EU AI Act
+Art. 50 requires it and because trust-rebuilding requires it. Your
+launch comms, FAQ, in-app copy refinements, and journalist briefing
+materials should treat that transparency as a feature, not a
+footnote.</p></li>
+</ol>
+<p><strong>Specific things to highlight in your Go-to-Market
+Package:</strong> - The Fan Profile as the consolidating product surface
+(this is the headline) - Show Memory (G7) as the post-event peak moment
+that competitors do not have - Fan Presale (G2) as recognition-based
+access, not a paid priority queue - The lapsed-fan welcome-back card as
+the proof point that loyalty here is not punitive</p>
+<p><strong>Specific things to avoid:</strong> - Do not call the Fan
+Loyalty Engine a “points programme” or “rewards programme” anywhere - Do
+not describe the referral mechanic as discount-led — it is
+recognition-led - Do not frame the Show Memory mood input as a public
+review feature — it is private by default - Do not use the words
+“streak,” “lose,” “expire,” “miss out,” “FOMO,” or any equivalent in any
+copy referencing the loyalty engine - Do not over-claim AI capability —
+be specific about what is a Recommender System (the discovery and
+personalisation layer) versus what is an Intelligent Agent (ARIA’s
+tool-using support)</p>
+<p><strong>The bar:</strong> every piece of copy you produce must pass
+the disclosability test in Saruman’s §8.1 — would Ticketmaster be
+willing to disclose to a customer, plainly, that this is what we are
+doing and how? If the honest answer is no, the copy must be
+redesigned.</p>
+<p>Begin when ready.</p>
+
+</div>
+</body>
+</html>
